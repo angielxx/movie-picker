@@ -1,7 +1,7 @@
 <template>
   <div id="app" class="app">
     <nav class="navbar">
-      <div class="navbar__logo">moviepicker</div>
+      <div class="navbar__logo">무비피커</div>
       <router-link to="/" class="navbar__user">
         <div class="navbar__user-profile">
 

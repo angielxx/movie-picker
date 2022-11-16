@@ -33,11 +33,12 @@ class GenreSerializer(DynamicFieldsModelSerializer):
 
 class MovieSerializer(DynamicFieldsModelSerializer):
 
-    genre = GenreSerializer(many=True, read_only=True)
+    genres = GenreSerializer(many=True, read_only=True)
 
     class Meta:
         model = Movie
         fields = '__all__'
+        # read_only_fields = ('genres',)
 
 class BestMovieSerializer(DynamicFieldsModelSerializer):
 

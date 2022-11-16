@@ -47,7 +47,7 @@ INSTALLED_APPS = [
     'dj_rest_auth',
 
     # registration
-    'django.contrib.sites',
+    # 'django.contrib.sites',
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
@@ -59,6 +59,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    # other third party apps
+    'django_extensions'
 ]
 
 MIDDLEWARE = [

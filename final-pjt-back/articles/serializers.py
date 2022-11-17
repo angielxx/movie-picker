@@ -22,7 +22,11 @@ class DynamicFieldsModelSerializer(serializers.ModelSerializer):
                 self.fields.pop(field_name)
 
 
+
+
+
 class ReviewSerializer(DynamicFieldsModelSerializer):
+    username = serializers.CharField(source='author.username', read_only=True)
 
     class Meta:
         model = Review

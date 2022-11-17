@@ -1,6 +1,5 @@
 <template>
-  <div id="app" class="app">
-    <nav class="navbar" v-if="!['login', 'signup'].includes($route.name)">
+    <nav class="navbar">
       <div class="navbar__logo">무비피커</div>
       <router-link to="/" class="navbar__user">
         <div class="navbar__user-profile">
@@ -23,13 +22,28 @@
         </router-link>
       </div>
     </nav>
-    <router-view/>
-  </div>
 </template>
 
-<style lang="scss">
-@import '@/assets/scss/reset.scss';
-@import '@/assets/scss/common.scss';
-@import '@/assets/scss/main.scss';
+<script>
+export default {
+  name: 'NavBar',
+
+  data() {
+    return {
+      
+    };
+  },
+
+  mounted() {
+    
+  },
+
+  methods: {
+    
+  },
+};
+</script>
+
+<style lang="scss" scoped>
 @import '@/assets/scss/navbar.scss';
 </style>

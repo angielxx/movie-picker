@@ -1,6 +1,5 @@
 @import './common.scss';
 
-// .page-wrapper {}
 .home {
   color: $bg-color;
   width: calc(1440px - 245px);
@@ -13,6 +12,9 @@
     font-size: 2rem;
     margin-bottom: 16px;
     font-weight: bold;
+    color: transparent;
+    background: $gradiant01;
+    -webkit-background-clip: text;
   }
   &__search-container {
     height: 10%;
@@ -48,10 +50,11 @@
 }
 
 .container {
-  background-color: white;
+  background-color: $container;
   border-radius: 20px;
   height: calc(100% - 48px);
   overflow: hidden;
+  color: white;;
 }
 
 // 내 인생영화

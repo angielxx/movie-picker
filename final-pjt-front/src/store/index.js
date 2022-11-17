@@ -1,9 +1,16 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import axios from 'axios'
+import createPersistedState from 'vuex-persistedstate'
 
 Vue.use(Vuex)
 
+const API_URL = '';
+
 export default new Vuex.Store({
+  plugins: [
+    createPersistedState()
+  ],
   state: {
     // auth
     token: null,
@@ -167,13 +174,59 @@ export default new Vuex.Store({
     ],
   },
   getters: {
+    // 로그인 여부 확인
+    isLogin(state) {
+      return state.token ? true : false
+    }
   },
   mutations: {
+    // auth
+    SAVE_TOKEN(state, token) {
+      state.token = token
+    },
+
     // 2. state에 best_movie(인생영화), best_movie_record(명에의 전당) 저장
+
   },
   actions: {
     // 1. user 정보로 비동기 요청 보내기
     // 2. mutations commit하여 state저장
+
+    // 회원가입
+    signUp(context, payload) {
+      const email = payload.email
+      const password1 = payload.password1
+      const password2 = payload.password2
+
+      axios({
+        method: 'post',
+        url: `${API_URL}/accounts/signup/`,
+        data: {
+          email, password1, password2
+        }
+      })
+      .then(res => {
+        context.commit('SAVE_TOKEN', res.data.key)
+      })
+      .catch(err => console.log(err))
+    },
+    // 로그인
+    login(context, payload) {
+      const email = payload.email
+      const password = payload.password
+
+      axios({
+        method: 'post',
+        url: `${API_URL}/accounts/login/`,
+        data: {
+          email, password
+        }
+      })
+      .then(res => {
+        context.commit('SAVE_TOKEN', res.data.key)
+      })
+      .catch(err => console.log(err))
+    },
   },
   modules: {
   }

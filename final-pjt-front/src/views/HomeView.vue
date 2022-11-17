@@ -73,6 +73,9 @@ export default {
     return {
     }
   },
+  methods: {
+    
+  },
   computed: {
     // 인생영화
     best_movie() {

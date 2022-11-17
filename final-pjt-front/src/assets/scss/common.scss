@@ -1,9 +1,18 @@
 // color
-$bg-color: #0f0f0f;
+$bg-color: #1A1821;
+$container: #2D263B;
 $bg-color2: #F2F2F2;
 $point-color: rgb(96, 247, 134);
 $grey1: rgb(192, 192, 192);
 $grey2: rgb(145, 145, 145);
+$grad-pink: #FFB2F3;
+$grad-purple: #BA63FF;
+$gradiant01: linear-gradient(45deg, $grad-pink, $grad-purple);
+// $font-grad: {
+//   color: transparent;
+//   background: $gradiant01;
+//   -webkit-background-clip: text;
+// };
 
 // font
 @font-face {
@@ -31,6 +40,11 @@ $content-font: 'nanumsquare';
 
 body {
   font-family: $content-font;
+  background-color: $bg-color;
+}
+
+.app {
+  background-color: $bg-color;
 }
 
 h1 {

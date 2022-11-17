@@ -13,7 +13,9 @@
     font-weight: 700;
     font-size: 1.5rem;
     height: 72px;
-    color: $point-color;
+    color: transparent;
+    background: $gradiant01;
+    -webkit-background-clip: text;
   }
   &__user {
     height: 52px;

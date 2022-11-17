@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from .models import User
 from movies.models import *
-
+from movies.serializers import MovieSerializer
 
 # 원하는 필드만 출력할 수 있도록 하는 시리얼라이저 클래스입니다.
 class DynamicFieldsModelSerializer(serializers.ModelSerializer):
@@ -24,11 +24,13 @@ class DynamicFieldsModelSerializer(serializers.ModelSerializer):
             for field_name in existing - allowed:
                 self.fields.pop(field_name)
 
-class MovieSerializer(DynamicFieldsModelSerializer):
+
+
+# class MovieSerializer(DynamicFieldsModelSerializer):
     
-    class Meta:
-        model = Movie
-        fields = '__all__'
+#     class Meta:
+#         model = Movie
+#         fields = '__all__'
 
 class BestMovieSerializer(DynamicFieldsModelSerializer):
     movie = MovieSerializer()

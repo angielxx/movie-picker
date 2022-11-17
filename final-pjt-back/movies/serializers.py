@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Genre, Movie, BestMovie
+from .models import Movie, BestMovie, Genre, Country
 
 
 # 원하는 필드만 출력할 수 있도록 하는 시리얼라이저 클래스입니다.
@@ -31,9 +31,17 @@ class GenreSerializer(DynamicFieldsModelSerializer):
         fields = '__all__'
 
 
+class CountrySerializer(DynamicFieldsModelSerializer):
+
+    class Meta:
+        model = Country
+        fields = '__all__'
+
+
 class MovieSerializer(DynamicFieldsModelSerializer):
 
     genres = GenreSerializer(many=True, read_only=True)
+    countries = CountrySerializer(many=True, read_only=True)
 
     class Meta:
         model = Movie

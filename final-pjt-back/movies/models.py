@@ -1,8 +1,15 @@
 from django.db import models
 from django.conf import settings
 
+
 class Genre(models.Model):
     name = models.CharField(max_length=50)
+
+
+class Country(models.Model):
+    name = models.CharField(max_length=50)
+
+
 
 class Movie(models.Model):
     title = models.CharField(max_length=100)
@@ -12,8 +19,10 @@ class Movie(models.Model):
     vote_avg = models.FloatField()
     overview = models.TextField()
     poster_path = models.CharField(max_length=200)
-    # tmdb에서 genre를 id로 제공해주기 때문에 별도의 중개 필드 작성
+    
+    # tmdb에서 genre를 id로 제공해주기 때문에 별도의 중개 필드 작성\
     genres = models.ManyToManyField(Genre, related_name='movies')
+    countries = models.ManyToManyField(Country, related_name='movies')
 
 # 월드컵의 결과로 bestmovie라는 article이 생성되는 느낌으로 이해하면 됩니다.
 class BestMovie(models.Model):

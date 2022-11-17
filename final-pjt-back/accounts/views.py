@@ -3,7 +3,7 @@ from django.contrib.auth import get_user_model
 # drf
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
-# from rest_framework import status
+from rest_framework import status
 
 # 숏컷
 from django.shortcuts import get_object_or_404, get_list_or_404
@@ -25,19 +25,27 @@ def user_profile(request, user_pk):
 def add_to_watch(request, user_pk, movie_pk):
     user = get_object_or_404(get_user_model(), pk=user_pk)
     movie = get_object_or_404(Movie, pk=movie_pk)
+    user.to_watch_movies.add(movie)
     # 프론트에서 새로 추가한 영화를 프로필 데이터에 추가하고 프로필 데이터를 보내줌
-    serializer = ProfileSerializer(user, data=request.data)
-    if serializer.is_valed(raise_exception=True):
-        serializer.save
+    serializer = ProfileSerializer(user)
 
-    pass
+    return Response(serializer.data, status=status.HTTP_201_CREATED)
+
 
 
 @api_view(['POST'])
 def add_watched(request, user_pk, movie_pk):
-    pass
+    user = get_object_or_404(get_user_model(), pk=user_pk)
+    movie = get_object_or_404(Movie, pk=movie_pk)
+    user.to_watch_movies.add(movie)
+    # 프론트에서 새로 추가한 영화를 프로필 데이터에 추가하고 프로필 데이터를 보내줌
+    serializer = ProfileSerializer(user)
+
+    return Response(serializer.data, status=status.HTTP_201_CREATED)
+
 
 
 @api_view(['POST'])
 def add_best(request, user_pk, movie_pk):
+    
     pass

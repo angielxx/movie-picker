@@ -22,7 +22,7 @@ def user_profile(request, user_pk):
 
 
 @api_view(['GET'])
-def to_watch(request, user_pk):
+def to_watch_list(request, user_pk):
     user = get_object_or_404(get_user_model(), pk=user_pk)
     serializer = ProfileSerializer(user, fields=['to_watch_movies'])
     return Response(serializer.data)
@@ -30,36 +30,44 @@ def to_watch(request, user_pk):
 
 
 @api_view(['GET'])
-def watched(request, user_pk):
+def watched_list(request, user_pk):
     user = get_object_or_404(get_user_model(), pk=user_pk)
     serializer = ProfileSerializer(user, fields=['watched_movies'])
     return Response(serializer.data)
 
 
 
-
-
-@api_view(['PUT'])
-def add_to_watch(request, user_pk, movie_pk):
+@api_view(['POST', 'DELETE'])
+def to_watch(request, user_pk, movie_pk):
     user = get_object_or_404(get_user_model(), pk=user_pk)
     movie = get_object_or_404(Movie, pk=movie_pk)
-    user.to_watch_movies.add(movie)
-    # 프론트에서 새로 추가한 영화를 프로필 데이터에 추가하고 프로필 데이터를 보내줌
-    serializer = ProfileSerializer(user)
 
+    if request.method == 'POST':
+        user.to_watch_movies.add(movie)
+    
+    elif request.method == 'DELETE':
+        user.to_watch_movies.remove(movie)
+
+    serializer = ProfileSerializer(user, fields=['to_watch_movies'])
+    return Response(serializer.data)
+
+
+@api_view(['POST', 'DELETE'])
+def watched(request, user_pk, movie_pk):
+    user = get_object_or_404(get_user_model(), pk=user_pk)
+    movie = get_object_or_404(Movie, pk=movie_pk)
+
+    if request.method == 'POST':
+        user.watched_movies.add(movie)
+    
+    elif request.method == 'DELETE':
+        user.watched_movies.remove(movie)
+
+    serializer = ProfileSerializer(user, fields=['watched_movies'])
     return Response(serializer.data)
 
 
 
-@api_view(['PUT'])
-def add_watched(request, user_pk, movie_pk):
-    user = get_object_or_404(get_user_model(), pk=user_pk)
-    movie = get_object_or_404(Movie, pk=movie_pk)
-    user.to_watch_movies.add(movie)
-    # 프론트에서 새로 추가한 영화를 프로필 데이터에 추가하고 프로필 데이터를 보내줌
-    serializer = ProfileSerializer(user)
-
-    return Response(serializer.data)
 
 
 
@@ -72,7 +80,13 @@ def add_best(request, user_pk, movie_pk):
         serializer.save(user=user, movie=movie)
         # print(serializer.data)
         return Response(serializer.data, status=status.HTTP_201_CREATED)
-        
+
+
+@api_view(['DELETE'])
+def delete_best(request, best_movie_pk):
+    best_movie = get_object_or_404(BestMovie, pk=best_movie_pk)
+    best_movie.delete()
+    return Response(status=status.HTTP_204_NO_CONTENT)
 
 
 @api_view(['GET'])

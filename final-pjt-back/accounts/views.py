@@ -21,6 +21,24 @@ def user_profile(request, user_pk):
     return Response(serializer.data)
 
 
+@api_view(['GET'])
+def to_watch(request, user_pk):
+    user = get_object_or_404(get_user_model(), pk=user_pk)
+    serializer = ProfileSerializer(user, fields=['to_watch_movies'])
+    return Response(serializer.data)
+
+
+
+@api_view(['GET'])
+def watched(request, user_pk):
+    user = get_object_or_404(get_user_model(), pk=user_pk)
+    serializer = ProfileSerializer(user, fields=['watched_movies'])
+    return Response(serializer.data)
+
+
+
+
+
 @api_view(['PUT'])
 def add_to_watch(request, user_pk, movie_pk):
     user = get_object_or_404(get_user_model(), pk=user_pk)

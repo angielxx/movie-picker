@@ -27,7 +27,7 @@ class Movie(models.Model):
 # 월드컵의 결과로 bestmovie라는 article이 생성되는 느낌으로 이해하면 됩니다.
 class BestMovie(models.Model):
     # 월드컵 진행한 유저
-    user = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='best_movies')
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='best_movies')
     # 월드컵 우승한 영화(모든 월드컵)
     movie = models.ForeignKey(Movie, on_delete=models.CASCADE)
     # 해당 월드컵 진행 날짜

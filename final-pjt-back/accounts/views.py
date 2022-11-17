@@ -51,7 +51,7 @@ def add_best(request, user_pk, movie_pk):
     movie = get_object_or_404(Movie, pk=movie_pk)
     serializer = BestMovieSerializer(data=request.data)
     if serializer.is_valid(raise_exception=True):
-        serializer.save(user=request.user, movie=movie)
+        serializer.save(user=user, movie=movie)
         # print(serializer.data)
         return Response(serializer.data, status=status.HTTP_201_CREATED)
         

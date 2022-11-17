@@ -1,4 +1,6 @@
 from rest_framework import serializers
+from django.contrib.auth import get_user_model
+
 from .models import User
 from movies.models import *
 from movies.serializers import MovieSerializer
@@ -32,16 +34,26 @@ class DynamicFieldsModelSerializer(serializers.ModelSerializer):
 #         model = Movie
 #         fields = '__all__'
 
-class BestMovieSerializer(DynamicFieldsModelSerializer):
-    movie = MovieSerializer()
-    
+
+class UserSerializer(DynamicFieldsModelSerializer):
     class Meta:
-        model = BestMovie
+        model = User
         fields = '__all__'
 
 
+
+class BestMovieSerializer(DynamicFieldsModelSerializer):
+    movie = MovieSerializer(read_only=True)
+    user = UserSerializer(read_only=True)
+
+    class Meta:
+        model = BestMovie
+        fields = '__all__'
+        read_only_fields = ('user', 'movie',)
+
+
 class ProfileSerializer(DynamicFieldsModelSerializer):
-    best_movies = BestMovieSerializer(many=True)
+    best_movies = BestMovieSerializer(many=True, fields=['movie', 'created_at', 'best_of_best'])
     watched_movies = MovieSerializer(many=True)
     to_watch_movies = MovieSerializer(many=True)
 

@@ -3,9 +3,9 @@
 
   </div> -->
   <div class="home">
-    <div class="home__search-container">
+    <!-- <div class="home__search-container">
       <SearchBar/>
-    </div>
+    </div> -->
     <div class="home__main-container">
       <div class="home__main-container__left">
         <div class="best-movie">
@@ -22,7 +22,9 @@
               <h3 class="best-movie__info__movie-title">
                 {{ best_movie.movie.title }}
               </h3>
-              <span>{{ best_movie.movie.released_date }}</span>・<span>{{ best_movie.movie.genres[0] }}</span>・<span></span>
+              <div class="best-movie__info__movie-info">
+                <span>{{ best_movie.movie.released_date | formatYear }}・</span><span>{{ best_movie.movie.genres[0] }}・</span><span></span>
+              </div>
               <div class="best-movie__info__comment">
                 <h4>내 코멘트</h4>
                 <div class="best-movie__info__comment__content">
@@ -62,19 +64,33 @@
 </template>
 
 <script>
-import SearchBar from '@/components/SearchBar'
+// import SearchBar from '@/components/SearchBar'
 
 export default {
   name: 'HomeView',
   components: {
-    SearchBar,
+    // SearchBar,
   },
   data() {
     return {
     }
   },
+  created() {
+    this.getUser()
+    this.clearSearchBar()
+  },
   methods: {
-    
+    getUser() {
+      if (this.isLogin) {
+        this.$store.dispatch('getUser');
+      } else {
+        // this.$router.push({ name: 'login'})
+      }
+    },
+    clearSearchBar() {
+      const searchInput = document.querySelector('.search-bar__form input[type="text"]')
+      searchInput.value = '';
+    }
   },
   computed: {
     // 인생영화
@@ -100,6 +116,10 @@ export default {
       const d = date.slice(8, 10)
       const result = `${y}.${m}.${d}`
       return result
+    },
+    formatYear(date) {
+      const y = date.slice(0, 4)
+      return y
     }
   }
 }

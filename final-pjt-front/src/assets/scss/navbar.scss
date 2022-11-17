@@ -39,3 +39,9 @@
     }
   }
 }
+
+.active {
+  color: transparent;
+  background: $gradiant01;
+  -webkit-background-clip: text;
+}

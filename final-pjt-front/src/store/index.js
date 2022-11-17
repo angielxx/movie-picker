@@ -1,11 +1,12 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import router from '../router'
 import axios from 'axios'
 import createPersistedState from 'vuex-persistedstate'
 
 Vue.use(Vuex)
 
-const API_URL = '';
+const API_URL = 'http://127.0.0.1:8000';
 
 export default new Vuex.Store({
   plugins: [
@@ -14,6 +15,7 @@ export default new Vuex.Store({
   state: {
     // auth
     token: null,
+    user_pk: 1, // 임시 유저 번호
 
     // 인생영화
     best_movie: {
@@ -28,7 +30,7 @@ export default new Vuex.Store({
           "overview": "광대어 말린은 아내 코랄과 2세들의 부화를 기다리던 중 상어의 습격을 받는다. 알을 보호하려던 아내는 행방불명되고, 유일하게 살아남은 아기에게 말린은 니모라는 이름을 붙인다. 사건 이후 큰 바다를 무조건 겁내게 된 말린은 니모를 과보호한다. 하지만 니모는 등교 첫날 잠수부에게 납치돼 시드니에 있는 치과의사의 수족관에 끌려가고, 슬픔으로 혼비백산한 아빠 말린은 평소의 심약함을 잊고니모를 찾아나선다. 단기기억상실증을 지닌 명랑한 물고기 도리의 도움으로 상어, 심해어, 해파리의 위협을 뚫고 동호주 해류로 향하는 동안, 니모는 수족관의 새 친구들과 탈출을 모의한다.",
           "poster_path": "/9ViCYfZ0whpwtKbM2WJP5PfsG2x.jpg",
           "genres": [
-              12
+              "애니메이션"
           ]
       },
       "created_at": "2022-11-16T14:52:44.511746",
@@ -38,7 +40,7 @@ export default new Vuex.Store({
       ]
     },
     // 모든 인생영화 기록들
-    best_movie_records: [
+    all_best_movies: [
       {
         "id": 1,
         "movie": {
@@ -176,22 +178,26 @@ export default new Vuex.Store({
   getters: {
     // 로그인 여부 확인
     isLogin(state) {
-      return state.token ? true : false
+      // return state.token ? true : false
+      state
+      return true
     }
   },
   mutations: {
     // auth
     SAVE_TOKEN(state, token) {
       state.token = token
+      router.push({ name: 'home'})
     },
 
-    // 2. state에 best_movie(인생영화), best_movie_record(명에의 전당) 저장
-
+    // best_movie(인생영화), all_best_movies(명에의 전당) 저장
+    GET_USER(state, data) {
+      state.all_best_movies = data['best_movies']
+      const idx = state.all_best_movies.findLastIndex((record) => {record.best_of_best === true})
+      state.best_movie = state.all_best_movies[idx]
+    }
   },
   actions: {
-    // 1. user 정보로 비동기 요청 보내기
-    // 2. mutations commit하여 state저장
-
     // 회원가입
     signUp(context, payload) {
       const email = payload.email
@@ -215,17 +221,36 @@ export default new Vuex.Store({
       const email = payload.email
       const password = payload.password
 
+      // axios({
+      //   method: 'post',
+      //   url: `${API_URL}/accounts/login/`,
+      //   data: {
+      //     email, password
+      //   }
+      // })
+      // .then(res => {
+      //   context.commit('SAVE_TOKEN', res.data.key)
+      // })
+      // .catch(err => console.log(err))
+      
+      this.state.email = email
+      this.state.password = password
+      
+    },
+    // 유저 정보
+    getUser(context) {
+      console.log('here')
       axios({
-        method: 'post',
-        url: `${API_URL}/accounts/login/`,
-        data: {
-          email, password
+        method: 'get',
+        url: `${API_URL}/api/accounts/${context.state.user_pk}`,
+        headers: {
+          Authorization: `Token ${ context.state.token }`
         }
       })
       .then(res => {
-        context.commit('SAVE_TOKEN', res.data.key)
+        console.log(res)
+        context.commit('GET_USER', res.data)
       })
-      .catch(err => console.log(err))
     },
   },
   modules: {

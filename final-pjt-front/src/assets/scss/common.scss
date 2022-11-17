@@ -1,5 +1,5 @@
 // color
-$bg-color: #1A1821;
+$bg-color: #141217;
 $container: #2D263B;
 $bg-color2: #F2F2F2;
 $point-color: rgb(96, 247, 134);
@@ -33,8 +33,14 @@ $gradiant01: linear-gradient(45deg, $grad-pink, $grad-purple);
   font-weight: normal;
   font-style: normal;
 }
+@font-face {
+  font-family: 'GmarketSansMedium';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
 @import url('https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css');
-$title-font: 'Cafe24SsurroundAir';
+$title-font: 'Noto Sans KR', sans-serif;
 $content-font: 'nanumsquare';
 
 

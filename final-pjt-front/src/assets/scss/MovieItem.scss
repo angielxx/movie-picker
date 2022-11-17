@@ -1,0 +1,10 @@
+@import './common.scss';
+
+.movie-item {
+  display: flex;
+  flex-direction: column;
+  &__info {
+    display: flex;
+    flex-direction: column;
+  }
+}

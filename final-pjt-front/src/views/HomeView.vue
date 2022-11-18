@@ -106,7 +106,7 @@ export default {
     },
     // 명예의 전당 리스트
     best_Movie_records() {
-      return this.$store.state.best_movie_records
+      return this.$store.state.all_best_movies
     },
   },
   filters: {

@@ -30,7 +30,7 @@ def review_movie(request, movie_pk):
     return Response(serializer.data)
 
 
-
+@permission_classes([IsAuthenticated])
 @api_view(['GET'])
 def review_user(request, user_pk):
     reviews = get_list_or_404(Review, author_id=user_pk)
@@ -38,6 +38,7 @@ def review_user(request, user_pk):
     return Response(serializer.data)
 
 
+@permission_classes([IsAuthenticated])
 @api_view(['POST'])
 def review_create(request, movie_pk):
     movie = get_object_or_404(Movie, pk=movie_pk)
@@ -49,6 +50,7 @@ def review_create(request, movie_pk):
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 
+@permission_classes([IsAuthenticated])
 @api_view(['DELETE', 'PUT'])
 def review_detail(request, review_pk):
     review = get_object_or_404(Review, pk=review_pk)

@@ -25,15 +25,3 @@ def movie_detail(request, movie_pk):
     serializer = MovieSerializer(movie)
     return Response(serializer.data)
 
-
-# @api_view(['GET', 'POST'])
-# def best_movies(request):
-#     user = request.user
-#     if request.method == 'GET':
-#         best_movies = get_list_or_404(Movie, user=user)
-#         serializers = BestMovieSerializer(best_movies)
-
-
-
-    
-#     pass

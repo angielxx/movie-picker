@@ -1,5 +1,5 @@
 <template>
-  <div class="movie-item" @click="movieDetail">
+  <div class="movie-item" @click="clickMovie($event), $emit('addMovie')" :data-moviePK="movie.pk">
     <div class="movie-item__poster" :style="`background-image: url(https://image.tmdb.org/t/p/w400/${movie.fields.poster_path})`">
       <!-- <img :src="`https://image.tmdb.org/t/p/w400/${movie.fields.poster_path}`" alt=""> -->
     </div>
@@ -21,7 +21,6 @@ export default {
 
   data() {
     return {
-      
     };
   },
 
@@ -30,7 +29,11 @@ export default {
   },
 
   methods: {
-    movieDetail() {
+    // 한 영화 클릭 > clicked 클래스 추가
+    clickMovie(event) {
+      // console.log('clicked!')
+      const target = event.currentTarget.children[0];
+      target.classList.toggle('clicked');
       return
     },
   },

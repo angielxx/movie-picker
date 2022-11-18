@@ -16,7 +16,11 @@ from .models import *
 def movie_list(request):
     movies = get_list_or_404(Movie)
     serializer = MovieSerializer(movies, many=True)
-    return Response(serializer.data)
+    return Response(
+        data=serializer.data,
+        headers={
+            'Access-Control-Allow-Origin': '*'}
+        )
 
 
 @api_view(['GET'])

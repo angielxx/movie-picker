@@ -8,11 +8,13 @@ Vue.use(Vuex)
 
 const API_URL = 'http://127.0.0.1:8000';
 
-export default new Vuex.Store({
+const store = new Vuex.Store({
   plugins: [
     createPersistedState()
   ],
   state: {
+    // API_URL
+    API_URL: 'http://127.0.0.1:8000',
     // auth
     token: null,
     username: null,
@@ -179,9 +181,7 @@ export default new Vuex.Store({
   getters: {
     // 로그인 여부 확인
     isLogin(state) {
-      // return state.token ? true : false
-      state
-      return true
+      return state.token ? true : false
     }
   },
   mutations: {
@@ -208,7 +208,7 @@ export default new Vuex.Store({
   actions: {
     // 회원가입
     signUp(context, payload) {
-      const email = payload.email
+      const username = payload.username
       const password1 = payload.password1
       const password2 = payload.password2
 
@@ -216,7 +216,7 @@ export default new Vuex.Store({
         method: 'post',
         url: `${API_URL}/accounts/signup/`,
         data: {
-          email, password1, password2
+          username, password1, password2
         }
       })
       .then(res => {
@@ -226,7 +226,7 @@ export default new Vuex.Store({
     },
     // 로그인
     login(context, payload) {
-      const email = payload.email
+      const username = payload.username
       const password = payload.password
 
       // axios({
@@ -241,7 +241,7 @@ export default new Vuex.Store({
       // })
       // .catch(err => console.log(err))
       
-      this.state.email = email
+      this.state.username = username
       this.state.password = password
       
     },
@@ -264,3 +264,5 @@ export default new Vuex.Store({
   modules: {
   }
 })
+
+export default store

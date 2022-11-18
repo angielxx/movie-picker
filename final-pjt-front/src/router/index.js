@@ -1,16 +1,28 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+// import store from '../store'
 // import HomeView from '../views/HomeView.vue'
 // import LoginView from '../views/LoginView.vue'
 // import SignupView from '../views/SignupView.vue'
 
 Vue.use(VueRouter)
 
+// const isLoggedIn = store.getters.isLogin
+
 const routes = [
   {
     path: '/',
     name: 'home',
-    component: () => import('../views/HomeView.vue')
+    component: () => import('../views/HomeView.vue'),
+    // beforeEnter(to, from, next) {
+    //   console.log(to, from, next)
+    //   console.log(store)
+    //   if (isLoggedIn) {
+    //     next({ name: 'home' })
+    //   } else {
+    //     next({ name: 'login'})
+    //   }
+    // }
   },
   {
     path: '/login',

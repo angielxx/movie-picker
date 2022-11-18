@@ -68,6 +68,7 @@ MIDDLEWARE = [
     # cors headers
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+        "corsheaders.middleware.CorsMiddleware",
 
 
     'django.middleware.common.CommonMiddleware',
@@ -82,6 +83,7 @@ MIDDLEWARE = [
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:8080',
 ]
+# CORS_ALLOW_ALL_ORIGINS = True
 
 # 사이트 아이디 등록
 SITE_ID = 1

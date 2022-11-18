@@ -14,7 +14,7 @@
           <label for="password">비밀번호 확인</label>
           <input type="password" id="password" placeholder="비밀번호 확인" v-model="password2">
         </div>
-        <input type="button" value="회원가입" class="form-container__form__submit">
+        <input type="submit" value="회원가입" class="form-container__form__submit">
       </form>
       <div>
         <span class="form-container__comment">이미 회원이 아니신가요?</span>

@@ -31,3 +31,4 @@ class ReviewSerializer(DynamicFieldsModelSerializer):
     class Meta:
         model = Review
         fields = '__all__'
+        read_only_fields = ('movie', 'author',)

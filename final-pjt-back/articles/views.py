@@ -36,3 +36,27 @@ def review_user(request, user_pk):
     reviews = get_list_or_404(Review, author_id=user_pk)
     serializer = ReviewSerializer(reviews, many=True)
     return Response(serializer.data)
+
+
+@api_view(['POST'])
+def review_create(request, movie_pk):
+    movie = get_object_or_404(Movie, pk=movie_pk)
+    # 테스트용
+    # user = get_object_or_404(get_user_model(), pk=1) 
+    serializer = ReviewSerializer(data=request.data)
+    if serializer.is_valid(raise_exception=True):
+        serializer.save(movie=movie, author=request.user)
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+
+@api_view(['DELETE', 'PUT'])
+def review_detail(request, review_pk):
+    review = get_object_or_404(Review, pk=review_pk)
+    if request.method == 'DELETE':
+        review.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+    elif request.method == 'PUT':
+        serializer = ReviewSerializer(review, data=request.data)
+        if serializer.is_valid(raise_exception=True):
+            serializer.save()
+            return Response(serializer.data)

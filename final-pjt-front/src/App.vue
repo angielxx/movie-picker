@@ -1,6 +1,6 @@
 <template>
   <div id="app" class="app">
-    <nav class="navbar" v-if="!['login', 'signup'].includes($route.name)">
+    <nav class="navbar" v-if="!['login', 'signup', 'first-addMovie'].includes($route.name)">
       <div class="navbar__logo">무비피커</div>
       <router-link to="/" class="navbar__user">
         <div class="navbar__user-profile">
@@ -24,7 +24,7 @@
       </div>
     </nav>
     <div class="app__container">
-      <div class="app__container__search-container">
+      <div class="app__container__search-container"  v-if="!['login', 'signup', 'first-addMovie'].includes($route.name)">
         <SearchBar/>
       </div>
       <router-view/>

@@ -8,6 +8,8 @@
   padding: 32px;
   display: flex;
   flex-direction: column;
+  border-right: 1px solid transparent;
+  // background: linear-gradient($bg-color, $bg-color) padding-box, $gradiant01 border-box;
   &__logo {
     font-family: $title-font;
     font-weight: 700;

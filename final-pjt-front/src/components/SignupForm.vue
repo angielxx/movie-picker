@@ -3,8 +3,8 @@
       <h2 class="form-container__title">로그인</h2>
       <form action="" class="form-container__form" @submit.prevent="signUp">
         <div class="form-container__form__input">
-          <label for="email">이메일</label>
-          <input type="text" id="email" placeholder="이메일" v-model="email">
+          <label for="username">아이디</label>
+          <input type="text" id="username" placeholder="아이디" v-model="username">
         </div>
         <div class="form-container__form__input">
           <label for="password">비밀번호</label>
@@ -29,7 +29,7 @@ export default {
 
   data() {
     return {
-      email: null,
+      username: null,
       password1: null,
       password2: null,
     };

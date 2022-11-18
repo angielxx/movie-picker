@@ -23,6 +23,11 @@ const routes = [
     component: () => import('../views/SignupView.vue')
   },
   {
+    path: '/first-addMovie',
+    name: 'first-addMovie',
+    component: () => import('../views/FirstAddMovieView.vue')
+  },
+  {
     path: '/search',
     name: 'search',
     component: () => import('../views/SearchView.vue')

@@ -15,6 +15,7 @@ export default new Vuex.Store({
   state: {
     // auth
     token: null,
+    username: null,
     user_pk: 1, // 임시 유저 번호
 
     // 인생영화
@@ -187,7 +188,14 @@ export default new Vuex.Store({
     // auth
     SAVE_TOKEN(state, token) {
       state.token = token
-      router.push({ name: 'home'})
+      // 유저정보 불러오기
+      this.$store.actions.getUser()
+      // 저장한 영화가 없는 경우
+      if (!state.best_movie) {
+        router.push({ name: 'first-addMovie'})
+      } else {
+        router.push({ name: 'home'})
+      }
     },
 
     // best_movie(인생영화), all_best_movies(명에의 전당) 저장

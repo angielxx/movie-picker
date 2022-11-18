@@ -1,12 +1,12 @@
 <template>
   <div class="movie-item" @click="movieDetail">
-    <div class="movie-item__poster">
-      <img src="" alt="">
+    <div class="movie-item__poster" :style="`background-image: url(https://image.tmdb.org/t/p/w400/${movie.fields.poster_path})`">
+      <!-- <img :src="`https://image.tmdb.org/t/p/w400/${movie.fields.poster_path}`" alt=""> -->
     </div>
-    <div class="motie-item__info">
-      <h3>movie title</h3>
+    <div class="movie-item__info">
+      <h3 class="movie-item__info__title">{{ movie.fields.title }}</h3>
       <div class="movie-item__info__subinfo">
-        <span>year・</span><span>country</span>
+        <span>{{ movie.fields.released_date | getYear }}・</span><span>country</span>
       </div>
     </div>
   </div>
@@ -16,7 +16,7 @@
 export default {
   name: 'MovieItem',
   props: {
-
+    movie: Object,
   },
 
   data() {
@@ -30,8 +30,16 @@ export default {
   },
 
   methods: {
-    
+    movieDetail() {
+      return
+    },
   },
+  filters: {
+    getYear(date) {
+      const y = date.slice(0, 4)
+      return y
+    }
+  }
 };
 </script>
 

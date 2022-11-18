@@ -10,6 +10,8 @@ from django.shortcuts import get_object_or_404, get_list_or_404
 from .serializers import *
 from .models import *
 
+from django.db.models import Q
+
 # Create your views here.
 
 @api_view(['GET'])
@@ -21,6 +23,20 @@ def movie_list(request):
         headers={
             'Access-Control-Allow-Origin': '*'}
         )
+
+@api_view(['GET'])
+def movie_list_small(request):
+    user = request.user
+    movies = get_list_or_404(Movie.objects.order_by('?').exclude(watched_user = user)[:20])
+    serializer = MovieSerializer(movies, many=True)
+    return Response(serializer.data)
+
+
+@api_view(['GET'])
+def search_movie(request, q):
+    movies = get_object_or_404(Movie.objects.filter(Q(title__icontains=q)))
+    serializer = MovieSerializer(movies, many=True)
+    return Response(serializer.data)
 
 
 @api_view(['GET'])

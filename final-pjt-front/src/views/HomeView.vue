@@ -69,7 +69,7 @@
 
 <script>
 // import SearchBar from '@/components/SearchBar'
-import axios from 'axios';
+// import axios from 'axios';
 
 export default {
   name: 'HomeView',

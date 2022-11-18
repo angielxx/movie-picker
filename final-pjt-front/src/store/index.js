@@ -109,7 +109,8 @@ const store = new Vuex.Store({
         // url: `${API_URL}/api/accounts/${context.state.user_pk}`,
         url: `${API_URL}/api/accounts/profile/`,
         headers: {
-          Authorization: `Token ${ context.state.token }`
+          Authorization: `Token 6023611848bfca271b0de4cb5db50064289b791d`
+          // Authorization: `Token ${ context.state.token }`
         }
       })
       .then(res => {

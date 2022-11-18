@@ -44,6 +44,11 @@ const routes = [
     name: 'search',
     component: () => import('../views/SearchView.vue')
   },
+  {
+    path: '/movie/:id',
+    name: 'movieDetail',
+    component: () => import('../views/MovieDetail.vue')
+  },
   // {
   //   path: '/browse',
   //   name: 'browse',

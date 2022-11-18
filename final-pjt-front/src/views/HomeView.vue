@@ -10,7 +10,7 @@
       <div class="home__main-container__left">
         <div class="best-movie">
           <h1 class="home-title">내 인생영화</h1>
-          <div class="container">
+          <div class="container" @click="goMovieDetail(best_movie.movie.id)">
             <div class="best-movie__poster">
               <!-- add poster here -->
               <img :src="bestMovie_imgSrc" alt="">
@@ -23,7 +23,7 @@
                 {{ best_movie.movie.title }}
               </h3>
               <div class="best-movie__info__movie-info">
-                <span>{{ best_movie.movie.released_date | formatYear }}・</span><span>{{ best_movie.movie.genres[0] }}・</span><span></span>
+                <span>{{ best_movie.movie.released_date | formatYear }}・</span><span>{{ best_movie.movie.genres[0]["name"] }}・</span><span>{{ best_movie.movie.countries[0]["name"] }}</span>
               </div>
               <div class="best-movie__info__comment">
                 <h4>내 코멘트</h4>
@@ -54,7 +54,11 @@
               <img :src="`https://image.tmdb.org/t/p/w200/${record.movie.poster_path}`" alt="">
             </div>
             <div class="record__info">
-
+              <h3 class="record__info__date">{{ record.created_at | formatDate }}</h3>
+              <h2 class="record__info__title">{{ record.movie.title}}</h2>
+              <div class="record__info__movie-info">
+                <span>{{ best_movie.movie.released_date | formatYear }}・</span><span>{{ best_movie.movie.genres[0]["name"] }}・</span><span>{{ best_movie.movie.countries[0]["name"] }}</span>
+              </div>
             </div>
           </div>
         </div>
@@ -65,6 +69,7 @@
 
 <script>
 // import SearchBar from '@/components/SearchBar'
+import axios from 'axios';
 
 export default {
   name: 'HomeView',
@@ -76,26 +81,35 @@ export default {
     }
   },
   created() {
-    this.getUser()
-    this.clearSearchBar()
+    this.clearSearchBar();
+    
   },
   methods: {
-    getUser() {
-      if (this.isLogin) {
-        this.$store.dispatch('getUser');
-      } else {
-        // this.$router.push({ name: 'login'})
-      }
-    },
+    // getUser() {
+    //   if (this.isLogin) {
+    //     this.$store.dispatch('getUser');
+    //   } else {
+    //     // this.$router.push({ name: 'login'})
+    //   }
+    // },
     clearSearchBar() {
       const searchInput = document.querySelector('.search-bar__form input[type="text"]')
       searchInput.value = '';
+    },
+    // 영화 디테일 페이지로 이동
+    goMovieDetail(movie_id) {
+      console.log(movie_id)
+      this.$router.push({ name: 'movieDetail', params: { id: movie_id }})
     }
   },
   computed: {
     // 인생영화
     best_movie() {
       return this.$store.state.best_movie
+    },
+    // 명예의 전당 리스트
+    best_movies() {
+      return this.$store.state.all_best_movies
     },
     // 인생영화 포스터 이미지 url
     bestMovie_imgSrc() {

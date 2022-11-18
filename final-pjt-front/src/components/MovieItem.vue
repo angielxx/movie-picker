@@ -1,12 +1,12 @@
 <template>
-  <div class="movie-item" @click="clickMovie($event), $emit('addMovie')" :data-moviePK="movie.pk">
-    <div class="movie-item__poster" :style="`background-image: url(https://image.tmdb.org/t/p/w400/${movie.fields.poster_path})`">
+  <div class="movie-item" @click="clickMovie($event), $emit('addMovie')" :data-moviePK="movie.id">
+    <div class="movie-item__poster" :style="`background-image: url(https://image.tmdb.org/t/p/w400/${movie.poster_path})`">
       <!-- <img :src="`https://image.tmdb.org/t/p/w400/${movie.fields.poster_path}`" alt=""> -->
     </div>
     <div class="movie-item__info">
-      <h3 class="movie-item__info__title">{{ movie.fields.title }}</h3>
+      <h3 class="movie-item__info__title">{{ movie.title }}</h3>
       <div class="movie-item__info__subinfo">
-        <span>{{ movie.fields.released_date | getYear }}・</span><span>country</span>
+        <span>{{ movie.released_date | getYear }}・</span><span>{{ movie.genres[0]["name"] }}・</span><span>{{ movie.countries[0]["name"] }}</span>
       </div>
     </div>
   </div>

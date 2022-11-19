@@ -24,6 +24,12 @@ const store = new Vuex.Store({
     best_movie: {},
     // 모든 인생영화 기록들
     all_best_movies: [],
+
+    watched_movies: [],
+
+    to_watch_movies: [],
+
+
     // 영화 검색 기록
     search_result: [],
   },
@@ -48,16 +54,24 @@ const store = new Vuex.Store({
 
     // best_movie(인생영화), all_best_movies(명에의 전당) 저장
     GET_USER(state, data) {
-      state.all_best_movies = data['best_movies']
-      // console.log(state.all_best_movies)
+      console.log(data)
 
-      // bestmovie가 없으면 추가하는 걸로 보냄
-      if (!state.all_best_movies.length) {
+      // 유저 정보 받아오기
+      state.username = data['username']
+      state.user_pk = data['id']
+
+      // 본 영화랑 볼 영화 받아오기
+      state.to_watch_movies = data['to_watch_movies'],
+      state.watched_movies = data['watched_movies']
+      
+      // watched_movies 없으면 first_adddMovie로 보냄
+      if (!state.watched_movies.length) {
         router.push({ name: 'first-addMovie'})
       } else {
+        // watched_movies가 있으면 best_movie를 저장하고 홈으로 보낸다.
+        state.all_best_movies = data['best_movies']
 
         const idx = state.all_best_movies.map((best_movie) => best_movie.best_of_best === true).lastIndexOf(true)
-        // const idx = state.all_best_movies.findLastIndex((record) => {record.best_of_best === true})
         state.best_movie = state.all_best_movies[idx]
         
         router.push({name: 'home'})
@@ -100,14 +114,14 @@ const store = new Vuex.Store({
         }
       })
       .then(res => {
-        console.log(res.data)
+        // console.log(res.data)
         context.commit('SAVE_TOKEN', res.data.key)
         this.dispatch('getUser')
       })
       .catch(err => console.log(err))
       
-      this.state.username = username
-      this.state.password = password
+      // this.state.username = username
+      // this.state.password = password
       
     },
 
@@ -119,8 +133,8 @@ const store = new Vuex.Store({
 
     // 유저 정보
     getUser(context) {
-      console.log('here')
-      console.log(context.state)
+      // console.log('here')
+      // console.log(context.state)
       axios({
         method: 'get',
         // url: `${API_URL}/api/accounts/${context.state.user_pk}`,
@@ -131,7 +145,7 @@ const store = new Vuex.Store({
         }
       })
       .then(res => {
-        console.log(res)
+        // console.log(res)
         context.commit('GET_USER', res.data)
       })
     },

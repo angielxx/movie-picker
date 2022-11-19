@@ -15,15 +15,21 @@
         </div>
       </div>
     </div>
+    <div>
+      <MovieReview :movie_pk="this.movie_pk"/>
+    </div>
   </div>
 </template>
 
 <script>
 import axios from "axios";
+import MovieReview from "@/components/MovieReview.vue";
 
 export default {
-  name: "FinalPjtMovieDetail",
-
+  name: "MovieDetail",
+  components: {
+    MovieReview
+  },
   data() {
     return {
       movie_pk: this.$route.params.id,

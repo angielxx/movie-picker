@@ -27,11 +27,6 @@ const store = new Vuex.Store({
     // 모든 인생영화 기록들
     all_best_movies: [],
 
-    watched_movies: [],
-
-    to_watch_movies: [],
-
-
     // 영화 검색 기록
     search_result: [],
     // 봤어요

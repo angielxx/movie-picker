@@ -34,7 +34,7 @@ def movie_list_small(request):
 
 @api_view(['GET'])
 def search_movie(request, q):
-    movies = get_object_or_404(Movie.objects.filter(Q(title__icontains=q)))
+    movies = get_list_or_404(Movie.objects.filter(Q(title__icontains=q)).order_by('-popularity'))[:5]
     serializer = MovieSerializer(movies, many=True)
     return Response(serializer.data)
 

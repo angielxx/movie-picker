@@ -24,6 +24,8 @@ const store = new Vuex.Store({
     best_movie: {},
     // 모든 인생영화 기록들
     all_best_movies: [],
+    // 영화 검색 기록
+    search_result: [],
   },
   getters: {
     // 로그인 여부 확인
@@ -52,6 +54,9 @@ const store = new Vuex.Store({
       // console.log(idx)
       state.best_movie = state.all_best_movies[idx]
       // console.log(state.all_best_movies[idx])
+    },
+    SAVE_SEARCH_RESULT(state, data) {
+      state.search_result = data
     }
   },
   actions: {

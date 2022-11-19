@@ -3,9 +3,9 @@
 
   </div> -->
   <div class="home">
-    <!-- <div class="home__search-container">
+    <div class="home__search-container">
       <SearchBar/>
-    </div> -->
+    </div>
     <div class="home__main-container">
       <div class="home__main-container__left">
         <div class="best-movie">
@@ -68,13 +68,13 @@
 </template>
 
 <script>
-// import SearchBar from '@/components/SearchBar'
+import SearchBar from '@/components/SearchBar'
 // import axios from 'axios';
 
 export default {
   name: 'HomeView',
   components: {
-    // SearchBar,
+    SearchBar,
   },
   data() {
     return {

@@ -25,27 +25,37 @@ export default {
   },
 
   methods: {
+    // search로 이동
     goSearch() {
-      console.log('go search')
+      // console.log('go search')
       this.$router.push({ name: 'search'})
     },
+    // index로 돌아가기
     goBackHome() {
-      console.log('go back')
+      // console.log('go back')
       this.$router.push({ name: 'home'})
     },
+    // input 이벤트 핸들러 : 영화 검색 api 요청
     searchMovie(event) {
-      // const API_KEY = 'c581f1610e43286d30878166da7fe85e'
       const query = event.target.value
-      // const TMDB_URL = `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&language=ko-KO&query=${query}&page=1&include_adult=false`
-      const SEARCH_URL = `http://127.0.0.1:8000/api/movies/search_movie/${query}/`
+      const API_URL = this.$store.state.API_URL
+      const SEARCH_URL = `${API_URL}/api/movies/search_movie/${query}/`
       axios({
         method: 'get',
-        url: SEARCH_URL
+        url: SEARCH_URL,
+        headers: {
+            Authorization: `Token 6023611848bfca271b0de4cb5db50064289b791d` //임시 토큰
+            // Authorization: `Token ${ this.$store.state.token }`
+        }
       })
       .then(res => {
         // console.log(res)
         const movies = res.data
-        console.log(movies)
+        this.results = movies
+        console.log(this.results)
+      })
+      .then(() => {
+        this.$emit('getResults', this.results)
       })
     }
   },

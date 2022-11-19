@@ -10,7 +10,7 @@
                 <button @click="postUserMovies">선택 완료</button>
             </div>
             <div class="movie-container__list">
-                <MovieItem v-on:addMovie="addMovie" v-for="(movie, key) in all_movies.slice(0, 20)" :key="key" :movie="movie"/>
+                <MovieItem v-on:addMovie="addMovie" v-for="(movie, key) in movies" :key="key" :movie="movie"/>
             </div>
         </div>
     </div>
@@ -36,13 +36,12 @@ export default {
             all_movies: [],
             movies: [],
             clickedMoviesPk: [],
-            page: 1,
+            // page: 1,
         };
     },
     watch: {
-        page: function() {
-            this.movies = this.all_movies.slice(20 * this.page - 20, 20 * this.page)
-        }
+        movies: {
+        },
         // movies: {
         //     // computed 속성 v-model로 쓰려면 setters가 필요
         //     get: function() {
@@ -57,28 +56,26 @@ export default {
         // // }
     },
 
-    // greeting 나오는 동안 로딩되게 할 수 있을까?
     created() {
         this.getMovies();
         this.clickedMoviesPk = [];
     },
 
     methods: {
-        // 모든 영화 데이터 가져오기
+        // 영화 데이터 20개씩 가져오기
         getMovies() {
             const API_URL = this.$store.state.API_URL;
             axios({
                 method: 'get',
-                url: `${API_URL}/api/movies/`,
+                url: `${API_URL}/api/movies/movie_list_small/`,
                 headers: {
-                    Authorization: `Token 6023611848bfca271b0de4cb5db50064289b791d` //임시 토큰
-                    // Authorization: `Token ${ this.$store.state.token }`
+                    // Authorization: `Token 6023611848bfca271b0de4cb5db50064289b791d` //임시 토큰
+                    Authorization: `Token ${ this.$store.state.token }`
                 }
             })
             .then(res => {
-                console.log(res)
-                const all_movies = res.data;
-                this.all_movies = all_movies;
+                console.log(res.data)
+                this.movies = res.data;
             })
             // .catch(err => console.log('err', err))
 
@@ -98,9 +95,7 @@ export default {
 
         // 영화 목록 새로고침
         refreshMovieList() {
-            this.page++;
-            // const movieList = document.querySelector('.movie-container__list');
-            // movieList.innerHTML = `<MovieItem v-on:addMovie="addMovie" v-for="(movie, key) in movies.slice(20 * ${this.page} - 20, 20 * ${this.page})" :key="key" :movie="movie"/>`
+            this.getMovies();
         },
         
         // 유저의 watched_movie POST 요청 보내기

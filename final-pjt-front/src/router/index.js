@@ -52,6 +52,11 @@ const routes = [
     name: 'movieDetail',
     component: () => import('../views/MovieDetail.vue')
   },
+  {
+    path: '/game/:gameName',
+    name: 'game',
+    component: () => import('../views/GameView.vue')
+  },
   // {
   //   path: '/browse',
   //   name: 'browse',

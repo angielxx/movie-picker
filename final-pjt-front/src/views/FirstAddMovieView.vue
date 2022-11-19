@@ -96,6 +96,8 @@ export default {
         // 영화 목록 새로고침
         refreshMovieList() {
             this.getMovies();
+            const clickedMovies = document.querySelectorAll('.clicked');
+            clickedMovies.forEach((movie) => movie.classList.remove('clicked'));
         },
         
         // 유저의 watched_movie POST 요청 보내기

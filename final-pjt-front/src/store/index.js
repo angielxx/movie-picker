@@ -34,6 +34,10 @@ const store = new Vuex.Store({
 
     // 영화 검색 기록
     search_result: [],
+    // 봤어요
+    watched_movies: [],
+    // 보고 싶어요
+    to_watch_movies: [],
   },
   getters: {
     // 로그인 여부 확인

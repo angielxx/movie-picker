@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>moviereiview</h1>
+    <h1>movie review</h1>
     <hr>
     <MovieReviewItem v-for="(review, key) in reviews" :key="key" :review="review"/>
   </div>

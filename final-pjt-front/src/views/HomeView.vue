@@ -37,7 +37,7 @@
         <div class="world-cup">
           <h1 class="home-title">내 인생영화 찾기</h1>
           <div class="container">
-            <div class="world-cup__game">모든 영화</div>
+            <div class="world-cup__game" @click="goGame($event)" data-gameName="all-movie">모든 영화</div>
             <div class="world-cup__game">코미디 영화</div>
             <div class="world-cup__game">액션 영화</div>
             <div class="world-cup__game">미국 영화</div>
@@ -78,6 +78,7 @@ export default {
   },
   data() {
     return {
+      watched_movies: this.$store.state.watched_movies
     }
   },
   created() {
@@ -100,6 +101,11 @@ export default {
     goMovieDetail(movie_id) {
       console.log(movie_id)
       this.$router.push({ name: 'movieDetail', params: { id: movie_id }})
+    },
+    // 인생영화 월드컵 페이지로 이동
+    goGame(event) {
+      const gameName = event.target.dataset.gamename
+      this.$router.push({ name: 'game', params: { gameName: gameName } })
     }
   },
   computed: {

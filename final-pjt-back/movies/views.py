@@ -27,7 +27,7 @@ def movie_list(request):
 @api_view(['GET'])
 def movie_list_small(request):
     user = request.user
-    movies = get_list_or_404(Movie.objects.order_by('?').exclude(watched_user = user)[:20])
+    movies = get_list_or_404(Movie.objects.order_by('?').filter(Q(vote_count__gt=5000) & Q(vote_avg__gt=7.0)).exclude(watched_user = user)[:20])
     serializer = MovieSerializer(movies, many=True)
     return Response(serializer.data)
 

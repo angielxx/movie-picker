@@ -37,7 +37,7 @@ const store = new Vuex.Store({
   },
   getters: {
     // 로그인 여부 확인
-    isLogin(state) {
+    isLoggedIn(state) {
       return state.token ? true : false
     }
   },

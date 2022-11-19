@@ -6,7 +6,9 @@ import createPersistedState from 'vuex-persistedstate'
 
 Vue.use(Vuex)
 
-const API_URL = 'http://127.0.0.1:8000';
+// const API_URL = 'http://127.0.0.1:8000';
+
+
 
 const store = new Vuex.Store({
   plugins: [
@@ -18,7 +20,7 @@ const store = new Vuex.Store({
     // auth
     token: null,
     username: null,
-    // user_pk: 1, // 임시 유저 번호
+    user_pk: null,
 
     // 인생영화
     best_movie: {},
@@ -43,13 +45,6 @@ const store = new Vuex.Store({
     // auth
     SAVE_TOKEN(state, token) {
       state.token = token
-
-      // 저장한 영화가 없는 경우 (여기서 하는 게 아니라 actions에서 해야됨)
-      // if (!state.best_movie) {
-      //   router.push({ name: 'first-addMovie'})
-      // } else {
-      //   router.push({ name: 'home'})
-      // }
     },
 
     // best_movie(인생영화), all_best_movies(명에의 전당) 저장
@@ -79,6 +74,19 @@ const store = new Vuex.Store({
     },
     SAVE_SEARCH_RESULT(state, data) {
       state.search_result = data
+    },
+    LOGOUT(state) {
+      state.token = null
+      state.username = null
+      state.user_pk = null
+      state.best_movie = {}
+      state.all_best_movies = [],
+      state.watched_movies = [],
+      state.to_watch_movies = [],
+
+      localStorage.clear();
+
+      router.push({name: 'login'})
     }
   },
   actions: {
@@ -90,7 +98,7 @@ const store = new Vuex.Store({
 
       axios({
         method: 'post',
-        url: `${API_URL}/dj-rest-auth/registration/`,
+        url: `${context.state.API_URL}/dj-rest-auth/registration/`,
         data: {
           username, password1, password2
         }
@@ -108,7 +116,7 @@ const store = new Vuex.Store({
 
       axios({
         method: 'post',
-        url: `${API_URL}/dj-rest-auth/login/`,
+        url: `${context.state.API_URL}/dj-rest-auth/login/`,
         data: {
           username, password
         }
@@ -125,6 +133,20 @@ const store = new Vuex.Store({
       
     },
 
+    // 로그아웃
+    logout(context) {
+      axios({
+        method: 'POST',
+        url: `${context.state.API_URL}/dj-rest-auth/logout/`,
+        headers: {
+          Authorization: `Token ${ context.state.token }`
+        }
+      })
+        .then(() => {
+          context.commit('LOGOUT')
+        })
+        .catch(err => console.log(err))
+    },
 
     test() {
       console.log('hi')
@@ -138,7 +160,7 @@ const store = new Vuex.Store({
       axios({
         method: 'get',
         // url: `${API_URL}/api/accounts/${context.state.user_pk}`,
-        url: `${API_URL}/api/accounts/profile/`,
+        url: `${context.state.API_URL}/api/accounts/profile/`,
         headers: {
           // Authorization: `Token 6023611848bfca271b0de4cb5db50064289b791d`
           Authorization: `Token ${ context.state.token }`

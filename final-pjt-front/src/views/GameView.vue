@@ -175,7 +175,7 @@ export default {
                 this.winners = []
                 this.final_winner = null
                 
-                this.$router.push({ name: 'movieDetail', params: { id : movieId} }) 
+                this.$router.push({ name: 'movieDetail', params: { movieId : movieId} }) 
             }, 3000)
         },
 

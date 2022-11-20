@@ -15,9 +15,9 @@
         </div>
       </div>
     </div>
-    <!-- 임시로 삽입한 트레일러 영상입니다. -->
+    <!-- 임시로 삽입한 트레일러 영상입니다.(코드를 추가해주세요) -->
     <!-- 임시로 삽입한 배경 이미지입니다.` -->
-    <div :style="`background-image: url(https://image.tmdb.org/t/p/w400/${this.backdrop_path})`"></div>
+    <!-- <div :style="`background-image: url(https://image.tmdb.org/t/p/w400/${this.backdrop_path})`"></div> -->
     <!-- 리뷰 생성창으로 이동 -->
     <div class="create-movie-review">
       <button @click="toCreateReview">review create</button>
@@ -26,17 +26,25 @@
     <div class="movie-review">
       <MovieReview :movieId="this.movieId"/>
     </div>
+    <!-- 하위컴포넌트인 추천 영화를 보여줍니다. -->
+    <div class="recommended-movies">
+      <!-- 이후 db 추가 시 아래 코드로 대체해주세요 -->
+      <RecommendedMovies :movie_detail="this.movie_detail"/>
+      <!-- <RecommendedMovies :recommended-movies="this.movie_detail.recommended"/>  -->
+    </div>
   </div>
 </template>
 
 <script>
 import axios from "axios";
 import MovieReview from "@/components/MovieReview.vue";
+import RecommendedMovies from "@/components/RecommendedMovies.vue";
 
 export default {
   name: "MovieDetail",
   components: {
-    MovieReview
+    MovieReview,
+    RecommendedMovies
   },
   data() {
     return {

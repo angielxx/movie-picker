@@ -19,7 +19,7 @@ export default {
     };
   },
 	props: {
-		movieId : Number
+		movieId : String
 	},
   components: {
     MovieReviewItem

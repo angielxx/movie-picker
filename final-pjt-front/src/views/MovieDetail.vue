@@ -24,7 +24,7 @@
     </div>
     <!-- 하위컴포넌트인 리뷰를 보여줍니다. -->
     <div class="movie-review">
-      <MovieReview :movie_pk="this.movie_pk"/>
+      <MovieReview :movieId="this.movieId"/>
     </div>
   </div>
 </template>
@@ -40,7 +40,7 @@ export default {
   },
   data() {
     return {
-      movie_pk: this.$route.params.id,
+      movieId: this.$route.params.movieId,
       movie_detail: {},
       trailer: 'NHA69lCd1ZM', //임시 트레일러 영상 주소
       backdrop_path: '/sPPsR9f4K0movWVQ99u4uMqFzEL.jpg' // 임시 배경
@@ -51,7 +51,7 @@ export default {
     const API_URL = this.$store.state.API_URL;
     axios({
       method: "get",
-      url: `${API_URL}/api/movies/${this.movie_pk}/`,
+      url: `${API_URL}/api/movies/${this.movieId}/`,
       headers: {
         Authorization: `Token ${this.$store.state.token}`,
       },
@@ -66,7 +66,8 @@ export default {
 
   methods: {
     toCreateReview() {
-      this.$router.push({name: 'reviewCreate', params: {id: this.movie_pk}})
+      // console.log(this.movieId)
+      this.$router.push({name: 'reviewCreate', params: {movieId: this.movieId}})
     }
   },
 };

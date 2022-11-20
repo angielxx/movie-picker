@@ -1,9 +1,33 @@
 @import './common.scss';
 
+.app__container__search-container {
+    display: none;
+}
 .GameView {
     position: absolute;
     width: 100vw;
     height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal {
+    z-index: 2;
+    position: absolute;
+    border: 1px solid transparent;
+    border-radius: 20px;
+    background: linear-gradient($container, $container) padding-box, $gradiant01 border-box;
+    width: 30vw;
+    height: 30vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    h2 {
+        font-size: 2rem;
+        margin-bottom: 32px;
+    }
 }
 
 .round {
@@ -11,14 +35,49 @@
     display: flex;
     width: 100vw;
     height: 100vh;
+    // background-color: red;
     &__left, &__right {
         display: flex;
         justify-content: center;
+        align-items: center;
         width: 50vw;
+        background-color: $gradiant01;
         &__poster {
-            width: 50%;
-            height: 50%;
-            object-fit: cover;
+            width: 40%;
+            height: 0;
+            padding-bottom: 60%;
+            border-radius: 20px;
+            background-size: cover;
+            &:hover {
+                border: 1px solid white;
+                width: calc(40% * 1.1);
+                padding-bottom: calc(60% * 1.1);
+
+            }
+            transition-property: width, padding-bottom;
+            transition-duration: 0.3s;
         }
+    }
+}
+
+.result {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    h2 {
+        font-size: 2rem;
+        color: transparent;
+        background: $gradiant01;
+        -webkit-background-clip: text;
+    }
+    &__poster {
+        width: 40%;
+        height: 0;
+        padding-bottom: 60%;
+        border-radius: 5%;
+        background-size: cover;
     }
 }

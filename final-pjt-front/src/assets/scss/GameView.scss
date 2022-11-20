@@ -17,9 +17,7 @@
         width: 50vw;
         &__poster {
             width: 50%;
-            height: 0;
-            padding-bottom: 140%;
-            background-position: center;
+            height: 50%;
             object-fit: cover;
         }
     }

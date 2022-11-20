@@ -1,8 +1,5 @@
 import _ from 'lodash';
 
-// 월드컵의 종류들
-// 1. 모든 영화
-
 export const showRounds = (rounds_arr) => {
     // console.log('hi worldcup', rounds_arr)
     const selectBox = document.querySelector('.modal__form__select')

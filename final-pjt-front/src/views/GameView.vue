@@ -14,12 +14,12 @@
             </form>
         </div>
         <div class="round hidden">
-            <div class="round__left">
+            <div id="left" class="round__left" @click.prevent="clickMovie($event)">
                 <div class="round__left__poster">
 
                 </div>
             </div>
-            <div class="round__right">
+            <div id="right" class="round__right" @click.prevent="clickMovie($event)">
                 <div class="round__right__poster">
 
                 </div>
@@ -41,6 +41,7 @@ export default {
             candidates: [],
             round: null,
             candidates_for_round: [],
+            winner: null,
         };
     },
 
@@ -91,25 +92,50 @@ export default {
             // 라운드에 맞는 후보군 저장
             this.candidates = getCandidates(this.watched_movies, this.round);
             
+            // 초기 후보군
             let candidates = this.candidates;
-            let i = 0;
+            let rounds = candidates.length
             while (candidates.length > 1) {
                 // 라운드 시작
-                while (candidates.length > candidates.length / 2) {
+
+                console.log('round!!!!', candidates.length)
+                // 각 게임의 우승자들을 다음 라운드의 후보군으로 저장
+                const candidates_for_nextRound = [];
+                // 8강 > 4강으로 될때까지 우승자 받기
+                while (candidates_for_nextRound.length !== rounds / 2) {
                     const candidates_for_round = _.sampleSize(candidates, 2)
+                    this.candidates_for_round = candidates_for_round
                     candidates = candidates.filter((movie) => !candidates_for_round.includes(movie))
-                    this.startRound(candidates_for_round);
-                    console.log(i, candidates)
-                    i++
+                    candidates_for_round.forEach((movie) => console.log(movie.title))
+                    candidates_for_nextRound.push(this.startRound(candidates_for_round));
                 }
+                candidates = candidates_for_nextRound
+                rounds = candidates.length
             }
+            return
         },
+        // 각 라운드를 화면에 쏴서 유저가 고른 우승자를 리턴
         startRound(movies) {
             const left = document.querySelector('.round__left__poster')
             const right = document.querySelector('.round__right__poster')
-            console.log('left', movies[0], left)
-            console.log('right', movies[1], right)
+
+            left.style.backgroundImage = `url(https://image.tmdb.org/t/p/w400/${movies[0].poster_path})`
+            right.style.backgroundImage = `url(https://image.tmdb.org/t/p/w400/${movies[1].poster_path})`
+            return this.winner
         },
+
+        // 사용자가 클릭한 영화 감지하여 클래스 추가
+        clickMovie(event) {
+            if(event.currentTarget.id === 'left') {
+                console.log(this.candidates_for_round[0])
+                this.winner = this.candidates_for_round[0]
+                return 
+            } else {
+                console.log(this.candidates_for_round[1])
+                this.winner = this.candidates_for_round[1]
+                return 
+            }
+        }
     },
 };
 </script>

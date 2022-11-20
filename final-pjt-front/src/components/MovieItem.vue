@@ -37,7 +37,10 @@ export default {
       return
     },
     toDetail() {
-      this.$router.push({name: 'movieDetail', params: {movieId: this.movie.id}})
+      // 영화 디테일 페이지로 이동하면 안되는 라우터
+      if (!['first-addMovie'].includes(this.$route.name)) {
+        this.$router.push({name: 'movieDetail', params: {movieId: this.movie.id}})
+      }
     }
   },
   filters: {

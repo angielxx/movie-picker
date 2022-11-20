@@ -27,8 +27,9 @@ export default {
   methods: {
     // search로 이동
     goSearch() {
-      // console.log('go search')
-      this.$router.push({ name: 'search'})
+      if (this.$route.name !== 'search') {
+        this.$router.push({ name: 'search'})
+      }
     },
     // index로 돌아가기
     goBackHome() {

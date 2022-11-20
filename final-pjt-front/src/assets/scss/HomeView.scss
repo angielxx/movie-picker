@@ -8,6 +8,7 @@
   // justify-content: center;
   align-items: center;
   height: 85%;
+
   .home-title {
     font-family: $title-font;
     font-size: 2rem;
@@ -27,6 +28,7 @@
   //   justify-content: center;
   //   align-items: center;
   // }
+
   &__main-container {
     display: flex;
     justify-content: space-between;
@@ -34,6 +36,7 @@
     height: 100%;
     padding: 0px 32px 32px 32px;
     box-sizing: border-box;
+
     &__left {
       width: calc(65% - 16px);
       display: flex;
@@ -43,6 +46,7 @@
         height: 48%;
       }
     }
+
     &__right {
       width: calc(35% - 16px);
       .container {
@@ -59,8 +63,9 @@
   height: calc(100% - 48px);
   overflow: hidden;
   color: white;;
-  border: 1px solid transparent;
+  border: 1px solid rgba(0, 0, 0, 0.4);
   background: linear-gradient($container, $container) padding-box, $gradiant01 border-box;
+  background-blend-mode: multiply;
 }
 
 // 내 인생영화
@@ -71,6 +76,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    cursor: pointer;
   }
   
   &__poster {
@@ -83,6 +89,7 @@
     // background-size: cover;
     // background-position: center;
     // background-repeat: no-repeat;
+    
     img {
       height: 100%;
       width: 100%;
@@ -96,15 +103,18 @@
       font-size: 1.2rem;
       margin-bottom: 8px;
     }
+    
     &__movie-title {
       font-size: 2.5rem;
       font-weight: bold;
       margin-bottom: 8px;
     }
+    
     &__movie-info {
       color: rgba($color: #ffffff, $alpha: 0.5);
       margin-bottom: 32px;
     }
+    
     &__comment {
       font-size: 1.2rem;
       h4 {
@@ -125,12 +135,23 @@
     flex-wrap: wrap;
     gap: 2%;
     height: calc((94% - 48px) / 2);
+    color: white;
+    font-weight: bold;
   }
   &__game {
     width: calc(94% / 4);
     margin-bottom: 2%;
     height: 100%;
-    background-color: $grey2;
+    cursor: pointer;
+    box-sizing: border-box;
+    background-color: rgb(98, 98, 98);
+    // background-color: rgba(0, 0, 0, 0.7);
+    // border: 1px solid rgba(0, 0, 0, 0.4);
+    // background: linear-gradient($container, $container) padding-box, $gradiant01 border-box;
+    // background-blend-mode: multiply;
+    background-size: 150%;
+    background-position: center;
+    background-blend-mode: multiply;
     border-radius: 10px;
     display: flex;
     justify-content: center;
@@ -139,10 +160,14 @@
 }
 
 // 명에의 전당
+.home__main-container__right .container {
+  overflow: scroll;
+}
 .record {
   height: 155px;
   display: flex;
   margin-bottom: 16px;
+  cursor: pointer;
   &__poster {
     width: 105px;
     height: 100%;

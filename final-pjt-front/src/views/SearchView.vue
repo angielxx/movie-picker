@@ -1,8 +1,6 @@
 <template>
   <div class="searchView">
-    <div class="home__search-container">
-        <SearchBar autofocus v-on:getResults="showResult"/>
-      </div>
+    <SearchBar v-on:getResults="showResult"/>
     <div class="search-result">
       <MovieItem v-for="(movie, key) in movies" :key="key" :movie="movie"/>
     </div>
@@ -26,8 +24,8 @@ export default {
     };
   },
 
-  created() {
-    
+  mounted() {
+    document.querySelector('input[type="text"]').focus()
   },
 
   methods: {

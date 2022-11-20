@@ -3,19 +3,19 @@
 
   </div> -->
   <div class="home">
-    <div class="home__search-container">
+    <!-- <div class="home__search-container"> -->
       <SearchBar/>
-    </div>
+    <!-- </div> -->
     <div class="home__main-container">
       <div class="home__main-container__left">
         <div class="best-movie">
           <h1 class="home-title">내 인생영화</h1>
           <div class="container" @click="goMovieDetail(best_movie.movie.id)">
-            <div class="best-movie__poster">
+            <div class="best-movie__poster" v-if="best_movie">
               <!-- add poster here -->
               <img :src="bestMovie_imgSrc" alt="">
             </div>
-            <div class="best-movie__info">
+            <div class="best-movie__info" v-if="best_movie">
               <h4 class="best-movie__info__date">
                 {{ best_movie.created_at | formatDate }}
               </h4>
@@ -32,12 +32,18 @@
                 </div>
               </div>
             </div>
+            <div class="best-movie__none" v-else>
+              <h2>{{ this.$store.state.username }}의 인생영화가 아직 없습니다.</h2>
+              <h2> '내 인생영화 찾기'를 진행해주세요.</h2>
+            </div>
           </div>
         </div>
         <div class="world-cup">
-          <h1 class="home-title">내 인생영화 찾기</h1>
+          <h1 class="home-title">인생영화 월드컵</h1>
           <div class="container">
-            <div class="world-cup__game" @click="goGame($event)" data-gameName="all-movie">모든 영화</div>
+            <div class="world-cup__game" @click="goGame($event)" data-gameName="all-movie"
+            :style="`background-image: url(${allMoviePosterPath})`"
+            >모든 영화</div>
             <div class="world-cup__game">코미디 영화</div>
             <div class="world-cup__game">액션 영화</div>
             <div class="world-cup__game">미국 영화</div>
@@ -47,8 +53,12 @@
         </div>
       </div>
       <div class="home__main-container__right">
-        <h1 class="home-title">명예의 전당</h1>
+        <h1 class="home-title">인생영화 기록</h1>
         <div class="container">
+          <div v-if="!best_movie">
+            <h2>{{ this.$store.state.username }}의 인생영화가 아직 없습니다.</h2>
+              <h2> '내 인생영화 찾기'를 진행해주세요.</h2>
+          </div>
           <div class="record" v-for="record in best_Movie_records" :key="record.id">
             <div class="record__poster">
               <img :src="`https://image.tmdb.org/t/p/w200/${record.movie.poster_path}`" alt="">
@@ -68,7 +78,8 @@
 </template>
 
 <script>
-import SearchBar from '@/components/SearchBar'
+import SearchBar from '@/components/SearchBar';
+import _ from 'lodash';
 // import axios from 'axios';
 
 export default {
@@ -131,6 +142,10 @@ export default {
     best_Movie_records() {
       return this.$store.state.all_best_movies
     },
+    // 인생영화 월드컵 배경 사진 고르기
+    allMoviePosterPath() {
+      return `https://image.tmdb.org/t/p/w400/${_.sample(this.$store.state.watched_movies).poster_path}`
+    }
   },
   filters: {
     formatDate(date) {

@@ -32,11 +32,11 @@
       </div>
       <div class="link">
         <div id="tab_button" class="link__button active" data-tab="comments">
-          <h3 @click.prevent="showComponent($event)" data-tab="comments">사용자 코멘트</h3>
+          <h3 @click.prevent="switchTab($event)" data-tab="comments">사용자 코멘트</h3>
           <div id="link-active" class="link__button__line active-line"></div>
         </div>
         <div id="tab_button" class="link__button" data-tab="recommends">
-          <h3 @click.prevent="showComponent($event)" data-tab="recommends">관련 추천 영화</h3>
+          <h3 @click.prevent="switchTab($event)" data-tab="recommends">관련 추천 영화</h3>
           <div id="link-active" class="link__button__line"></div>
         </div>
       </div>
@@ -240,7 +240,7 @@ export default {
     },
 
     // 사용자 코멘트, 추천 영화 보이기
-    showComponent(event) {
+    switchTab(event) {
       const tabId = event.currentTarget.dataset.tab
       const tab_contents = document.querySelectorAll('#tab_content')
       const tab_buttons = document.querySelectorAll('#tab_button')

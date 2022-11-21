@@ -28,18 +28,16 @@
       background-color: transparent;
       width: 100%;
       color: white;
-      // color: transparent;
-      // background: $gradiant01;
-      // -webkit-background-clip: text;
+      
       &::placeholder {
         color: white;
-        // color: transparent;
-        // background: $gradiant01;
-        // -webkit-background-clip: text;
       }
       &:focus::placeholder {
         color: transparent;
       }
+    }
+    input[type="text"]:focus {
+      outline: none;
     }
     input[type="submit"] {
       display: none;

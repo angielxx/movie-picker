@@ -33,7 +33,6 @@ export default {
     },
     // index로 돌아가기
     goBackHome() {
-      // console.log('go back')
       this.$router.push({ name: 'home'})
     },
     // input 이벤트 핸들러 : 영화 검색 api 요청

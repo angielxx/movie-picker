@@ -65,7 +65,7 @@
             <h2>{{ this.$store.state.username }}의 인생영화가 아직 없습니다.</h2>
               <h2> '내 인생영화 찾기'를 진행해주세요.</h2>
           </div>
-          <div class="record" v-for="record in best_Movie_records" :key="record.id">
+          <div class="record" v-for="record in best_Movie_records" :key="record.movie.id" @click="goMovieDetail(record.movie.id)">
             <div class="record__poster">
               <img :src="`https://image.tmdb.org/t/p/w200/${record.movie.poster_path}`" alt="">
             </div>
@@ -133,10 +133,7 @@ export default {
     best_movie() {
       return this.$store.state.best_movie
     },
-    // 명예의 전당 리스트
-    // best_movies() {
-    //   return this.$store.state.all_best_movies
-    // },
+
     // 인생영화 포스터 이미지 url
     bestMovie_imgSrc() {
       const IMG_SIZE = 'w200';

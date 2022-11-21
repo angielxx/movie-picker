@@ -113,13 +113,17 @@ def delete_best(request, best_movie_pk):
     return Response(status=status.HTTP_204_NO_CONTENT)
 
 
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def follow(request, user_pk):
+    me = request.user
+    pass
+    
+
+
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def testtest(request):
-    bestmovies = get_list_or_404(BestMovie)
-    bestmovie = get_object_or_404(BestMovie, pk=1)
-    print(bestmovie)
-    serializer = BestMovieSerializer(bestmovie)
-    return Response(serializer.data)
+    pass
 
 

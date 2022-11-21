@@ -153,8 +153,8 @@
 .area {
   width: 70%;
   margin: 0px auto;
-  height: fit-content;
-  min-height: 100%;
+  // height: auto;
+  // min-height: 100%;
   display: flex;
   justify-content: center;
   padding-top: 24px;
@@ -201,7 +201,14 @@
         }
       }
     }
+    
+    &__recommends {
+      width: 100%;
+      display: flex;
+      flex-wrap: wrap;
+    }
   }
+
 }
 
 .heading {

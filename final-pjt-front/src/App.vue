@@ -1,6 +1,6 @@
 <template>
   <div id="app" class="app">
-    <nav class="navbar" v-if="!['login', 'signup', 'first-addMovie', 'game'].includes($route.name)">
+    <nav class="navbar" v-if="!['login', 'signup', 'first-addMovie', 'game', 'NotFound404'].includes($route.name)">
       <router-link to="/">
         <div class="navbar__logo">무비피커</div>
       </router-link>  

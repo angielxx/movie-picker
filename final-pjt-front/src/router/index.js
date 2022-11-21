@@ -67,6 +67,15 @@ const routes = [
     name: 'feed',
     component: () => import('../views/FeedView.vue')
   },
+  {
+    path: '/404',
+    name: 'NotFound404',
+    component: () => import('../views/NotFound404.vue')
+  },
+  {
+    path: '*',
+    redirect: '/404'
+  },
   // {
   //   path: '/browse',
   //   name: 'browse',
@@ -84,7 +93,7 @@ const router = new VueRouter({
 router.beforeEach((to, from, next) => {
   const isLoggedIn = store.getters.isLoggedIn
 
-  const allowAllPages = ['login']
+  const allowAllPages = ['login', 'signup', 'NotFound404']
 
   //이동할 페이지(to)가 로그인이 필요한 사이트인지 확인
   const isAuthRequired = !allowAllPages.includes(to.name)

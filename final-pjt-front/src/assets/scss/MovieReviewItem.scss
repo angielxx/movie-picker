@@ -1,0 +1,27 @@
+@import './common.scss';
+
+.movieReviewItem {
+  width: 100%;
+  padding-bottom: 20px;
+  height: fit-content;
+  display: flex;
+}
+
+.profile {
+  width: 60px;
+  height: 60px;
+  border-radius: 30px;
+  background-color: grey;
+  margin-right: 24px;
+}
+
+.content {
+  padding: 4px 0px;
+  &__username {
+    font-weight: 700;
+    color: transparent;
+    background: $gradiant01;
+    -webkit-background-clip: text;
+    margin-bottom: 12px;
+  }
+}

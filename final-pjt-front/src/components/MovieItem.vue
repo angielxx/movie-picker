@@ -1,7 +1,6 @@
 <template>
   <div class="movie-item" @click="clickMovie($event), toDetail(), $emit('addMovie')" :data-moviePK="movie.id">
     <div class="movie-item__poster" :style="`background-image: url(https://image.tmdb.org/t/p/w400/${movie.poster_path})`">
-      <!-- <img :src="`https://image.tmdb.org/t/p/w400/${movie.fields.poster_path}`" alt=""> -->
     </div>
     <div class="movie-item__info">
       <h3 class="movie-item__info__title">{{ movie.title }}</h3>
@@ -38,7 +37,7 @@ export default {
     },
     toDetail() {
       // 영화 디테일 페이지로 이동하면 안되는 라우터
-      if (!['first-addMovie'].includes(this.$route.name)) {
+      if (!['first-addMovie', 'addMovie'].includes(this.$route.name)) {
         this.$router.push({name: 'movieDetail', params: {movieId: this.movie.id}})
       }
     }

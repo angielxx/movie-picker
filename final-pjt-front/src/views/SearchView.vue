@@ -25,7 +25,8 @@ export default {
   },
 
   mounted() {
-    document.querySelector('input[type="text"]').focus()
+    // search로 올때 input에 autofocus
+    document.querySelector('#app > div > div.searchView > div.search-bar > form > input[type=text]:nth-child(1)').focus()
   },
 
   methods: {

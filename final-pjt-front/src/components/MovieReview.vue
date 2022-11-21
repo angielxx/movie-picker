@@ -1,7 +1,5 @@
 <template>
   <div>
-    <h1>movie review</h1>
-    <hr>
     <MovieReviewItem v-for="(review, key) in reviews" :key="key" :review="review"/>
   </div>
 </template>

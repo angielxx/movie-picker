@@ -2,11 +2,10 @@
   <div class="movie-detail">
     <!-- <SearchBar/> -->
     <div class="movie-detail__container">
-      <div class="wrapper" :style="`background-image: linear-gradient(to bottom, rgba(20, 18, 23, 1), rgba(20, 18, 23, 0.8)), url(https://image.tmdb.org/t/p/original/${this.backdrop_path}`">
+      <div class="wrapper" :style="`background-image: linear-gradient(to bottom, rgba(20, 18, 23, 1), rgba(20, 18, 23, 0.8)), url(https://image.tmdb.org/t/p/original/${this.movie_detail.backdrop_path}`">
         <div class="main-info">
           <div class="main-info__poster"
             :style="`background-image: url(https://image.tmdb.org/t/p/w400/${movie_detail.poster_path})`">
-            <!-- <img :src="`https://image.tmdb.org/t/p/w400/${movie.fields.poster_path}`" alt=""> -->
           </div>
           <div class="main-info__info">
             <h3 class="main-info__info__title">{{ movie_detail.title }}</h3>
@@ -32,34 +31,35 @@
         </div>
       </div>
       <div class="link">
-        <div class="link__button active">
-          <h3>사용자 코멘트</h3>
+        <div id="tab_button" class="link__button active" data-tab="comments">
+          <h3 @click.prevent="showComponent($event)" data-tab="comments">사용자 코멘트</h3>
           <div id="link-active" class="link__button__line active-line"></div>
         </div>
-        <div class="link__button">
-          <h3>관련 추천 영화</h3>
+        <div id="tab_button" class="link__button" data-tab="recommends">
+          <h3 @click.prevent="showComponent($event)" data-tab="recommends">관련 추천 영화</h3>
           <div id="link-active" class="link__button__line"></div>
         </div>
       </div>
       <div class="area">
         <div class="area__reviews">
           <!-- 하위컴포넌트인 리뷰를 보여줍니다. -->
-          <div class="area__reviews__my-review">
-            <h3>내 코멘트</h3>
+          <div id="tab_content" class="area__reviews__my-review" data-tab="comments">
+            <h3 class="heading">내 코멘트</h3>
             <form @submit.prevent="reviewCreate" class="review-form">
-              <!-- <label for="content">내용 : </label> -->
-              <textarea id="content" cols="30" rows="10" v-model="content"></textarea
-              ><br />
-              <input type="submit" id="submit" />
-            </form>
-          </div>
-          <div class="area__reviews__all-reviews">
+              <label for="content" class="hidden">내용 : </label>
+              <textarea id="content" cols="30" rows="1" v-model="content"></textarea
+                ><br/>
+                <input type="submit" id="submit" value="코멘트 작성"/>
+              </form>
+            </div>
+            <div class="area__reviews__all-reviews">
+            <h3 class="heading">사용자 코멘트</h3>
             <MovieReview :movieId="this.movieId"/>
           </div>
         </div>
 
         <!-- 하위컴포넌트인 추천 영화를 보여줍니다. -->
-        <div class="area__recommends hidden">
+        <div id="tab_content"  class="area__recommends hidden" data-tab="recommends">
           <div class="recommended-movies">
             <!-- 이후 db 추가 시 아래 코드로 대체해주세요 -->
             <RecommendedMovies :movie_detail="this.movie_detail"/>
@@ -90,13 +90,14 @@ export default {
       movieId: this.$route.params.movieId,
       movie_detail: {},
       content: null,
-      trailer: 'NHA69lCd1ZM', //임시 트레일러 영상 주소
-      backdrop_path: '/sPPsR9f4K0movWVQ99u4uMqFzEL.jpg', // 임시 배경
+      // trailer: 'NHA69lCd1ZM',
+      // backdrop_path: this.movie_detail.backdrop_path,
     };
   },
 
-  created() {
+  mounted() {
     const API_URL = this.$store.state.API_URL;
+    console.log('movieId', this.movieId)
     axios({
       method: "get",
       url: `${API_URL}/api/movies/${this.movieId}/`,
@@ -105,7 +106,6 @@ export default {
       },
     })
       .then((res) => {
-        // console.log(res.data)
         this.movie_detail = res.data;
         console.log(this.movie_detail);
       })
@@ -201,8 +201,28 @@ export default {
     },
 
     // 사용자 코멘트, 추천 영화 보이기
-    showComponents() {
-
+    showComponent(event) {
+      const tabId = event.currentTarget.dataset.tab
+      const tab_contents = document.querySelectorAll('#tab_content')
+      const tab_buttons = document.querySelectorAll('#tab_button')
+      tab_contents.forEach((tab) => {
+        if (tab.dataset.tab === tabId) {
+          tab.classList.remove('hidden')
+        } else {
+          tab.classList.add('hidden')
+        }
+      })
+      tab_buttons.forEach((btn) => {
+        const line = btn.querySelector('div')
+        if (btn.dataset.tab === tabId) {
+          btn.classList.add('active')
+          line.classList.add('active-line')
+        } else {
+          btn.classList.remove('active')
+          line.classList.remove('active-line')
+        }
+      })
+      console.log(tabId)
     },
 
     // 리뷰 작성
@@ -232,6 +252,13 @@ export default {
           console.log(err);
         });
     },
+
+    // textarea 자동 높이 조절
+    resizeTextarea() {
+      const textarea = document.querySelector('textarea')
+      textarea.style.height = 'auto'
+      textarea.style.height = `${textarea.scrollHeight}px`;
+    }
   },
 
   filters: {

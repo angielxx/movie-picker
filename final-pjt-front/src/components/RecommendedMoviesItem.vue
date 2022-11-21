@@ -58,13 +58,7 @@ export default {
       console.log('clicked', this.movieId)
     }
   },
-  // beforeRouteUpdate(to, from, next) {
-  //   console.log(from, next)
-  //   this.movieId = to.params.movieId
-  //   console.log('guard', to.params.movieId)
-  //   // Vue.forceUpdate();
-  //   next()
-  // },
+
   filters: {
     getYear(date) {
       const y = date.slice(0, 4)

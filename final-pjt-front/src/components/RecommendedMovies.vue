@@ -1,6 +1,5 @@
 <template>
   <div>
-    <h1>RecommendedMovies</h1>
 		<!-- ToWatchMovies에 속해있는 개별 영화들을 보여주는 컴포넌트입니다. -->
     <RecommendedMoviesItem v-for="(movieId, key) in this.recommendedMovies" :key="key" :movie-id="movieId"/>
   </div>
@@ -8,6 +7,7 @@
 
 <script>
 import RecommendedMoviesItem from "./RecommendedMoviesItem.vue";
+// import MovieItem from '../components/MovieItem.vue';
 
 export default {
   name: "RecommendedMovies",
@@ -17,6 +17,7 @@ export default {
   },
   components: {
     RecommendedMoviesItem,
+    // MovieItem,
   },
   data() {
     return {

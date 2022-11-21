@@ -51,19 +51,21 @@
                 ><br/>
                 <input type="submit" id="submit" value="코멘트 작성"/>
               </form>
+              <div class="area__reviews__all-reviews">
+              <h3 class="heading">사용자 코멘트</h3>
+              <MovieReviewItem v-for="(review, key) in reviews.slice().reverse()" :key="key" :review="review"/>
+              <!-- <MovieReview :movieId="this.movieId"/> -->
             </div>
-            <div class="area__reviews__all-reviews">
-            <h3 class="heading">사용자 코멘트</h3>
-            <MovieReview :movieId="this.movieId"/>
+          </div>
+          <!-- 하위컴포넌트인 추천 영화를 보여줍니다. -->
+          <div id="tab_content"  class="area__reviews__recommends hidden" data-tab="recommends">
+            <!-- <div class="recommended-movies"> -->
+              <RecommendedMoviesItem v-for="(movieId, key) in this.recommendedMovies" :key="key" :movie-id="movieId"/>
+              <!-- <RecommendedMovies :recommended-movies="this.movie_detail.recommended"/>  -->
+            <!-- </div> -->
           </div>
         </div>
 
-        <!-- 하위컴포넌트인 추천 영화를 보여줍니다. -->
-        <div id="tab_content"  class="area__recommends hidden" data-tab="recommends">
-          <div class="recommended-movies">
-            <RecommendedMovies :recommended-movies="this.movie_detail.recommended"/> 
-          </div>
-        </div>
       </div>
 
     </div>
@@ -72,15 +74,20 @@
 
 <script>
 import axios from "axios";
-import MovieReview from "@/components/MovieReview.vue";
-import RecommendedMovies from "@/components/RecommendedMovies.vue";
+// import MovieReview from "@/components/MovieReview.vue";
+import MovieReviewItem from '@/components/MovieReviewItem.vue';
+import RecommendedMoviesItem from "@/components/RecommendedMoviesItem.vue";
+// import Vue from 'vue';
+// import RecommendedMovies from "@/components/RecommendedMovies.vue";
 // import SearchBar from "@/components/SearchBar.vue";
 
 export default {
   name: "MovieDetail",
   components: {
-    MovieReview,
-    RecommendedMovies,
+    // MovieReview,
+    RecommendedMoviesItem,
+    MovieReviewItem,
+    // RecommendedMovies,
     // SearchBar,
   },
   data() {
@@ -88,35 +95,40 @@ export default {
       movieId: this.$route.params.movieId,
       movie_detail: {},
       content: null,
+      reviews: [],
       // trailer: 'NHA69lCd1ZM',
       // backdrop_path: this.movie_detail.backdrop_path,
     };
   },
 
   mounted() {
-    const API_URL = this.$store.state.API_URL;
-    console.log('movieId', this.movieId)
-    axios({
-      method: "get",
-      url: `${API_URL}/api/movies/${this.movieId}/`,
-      headers: {
-        Authorization: `Token ${this.$store.state.token}`,
-      },
-    })
-      .then((res) => {
-        this.movie_detail = res.data;
-        console.log(this.movie_detail);
-      })
-      .catch((err) => console.log(err));
+    this.getMovie()
+    this.getReviews()
   },
-
+ 
+  beforeRouteUpdate(to, from, next) {
+    console.log(from, next)
+    this.movieId = to.params.movieId
+    console.log('guard', to.params.movieId)
+    // Vue.forceUpdate();
+    next()
+  },
+  // watch: {
+  //   $route() {
+  //     if(to.path !== from.path) this.movieId = this.$route.params.movieId
+  //   }
+  // },
+  
   computed: {
+    // 해당 영화에 대한 추천 영화 리스트 저장
+    recommendedMovies(){
+      return this.movie_detail.recommended
+    },
     // watched 포함 여부
     // 있으면 true 반환
     checkWatched() {
       const movies = this.$store.state.watched_movies
       const flag = movies.some((movie) => movie.id === this.movie_detail.id)
-      console.log('watched', flag)
       return flag
     },
     
@@ -125,19 +137,48 @@ export default {
     checkToWatch() {
       const movies = this.$store.state.to_watch_movies
       const flag = movies.some((movie) => movie.id === this.movie_detail.id)
-      console.log('to watch', flag)
       return flag
-    }
+    },
 
   },
   
   methods: {
-    toCreateReview() {
-      // console.log(this.movieId)
-      this.$router.push({name: 'reviewCreate', params: {movieId: this.movieId}})
+    // 영화 가져오기
+    getMovie() {
+      const API_URL = this.$store.state.API_URL;
+      console.log('movieId', this.movieId)
+      axios({
+        method: "get",
+        url: `${API_URL}/api/movies/${this.movieId}/`,
+        headers: {
+          Authorization: `Token ${this.$store.state.token}`,
+        },
+      })
+      .then((res) => {
+        this.movie_detail = res.data;
+        console.log(this.movie_detail);
+      })
+      .catch((err) => console.log(err));
     },
 
-    // watched toggle
+    // 리뷰들 가져오기
+    getReviews() {
+      const API_URL = this.$store.state.API_URL;
+      axios({
+        method: "get",
+        url: `${API_URL}/api/articles/${this.movieId}/review_movie`,
+        headers: {
+          Authorization: `Token ${this.$store.state.token}`,
+        },
+      })
+        .then((res) => {
+          // console.log(res.data)
+          this.reviews = res.data;
+        })
+        .catch((err) => console.log(err));
+    },
+
+    // watched 추가 혹은 삭제
     toggleWatched() {
       const url = `${this.$store.state.API_URL}/api/accounts/${this.$store.state.user_pk}/${this.movie_detail.id}/watched/`
       // 있을 때 > delete 요청
@@ -167,7 +208,7 @@ export default {
       this.$store.dispatch('getUser')
       
     },
-    // toWatch toggle
+    // toWatch 추가 혹은 삭제
     toggleToWatch() {
       const url = `${this.$store.state.API_URL}/api/accounts/${this.$store.state.user_pk}/${this.movie_detail.id}/to_watch/`
       // 있을 때 > delete 요청
@@ -245,25 +286,26 @@ export default {
       })
         .then(() => {
 					this.$router.push({name: 'movieDetail', params: {movieId: this.movieId}})
+          this.getReviews()
         })
         .catch((err) => {
           console.log(err);
         });
     },
-
-    // textarea 자동 높이 조절
-    resizeTextarea() {
-      const textarea = document.querySelector('textarea')
-      textarea.style.height = 'auto'
-      textarea.style.height = `${textarea.scrollHeight}px`;
-    }
   },
 
   filters: {
+    formatDate(date) {
+      const y = date.slice(0, 4)
+      const m = date.slice(5, 7)
+      const d = date.slice(8, 10)
+      const result = `${y}.${m}.${d}`
+      return result
+    },
     getYear(date) {
       const y = date.slice(0, 4)
       return y
-    }
+    },
   }
 };
 </script>

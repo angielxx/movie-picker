@@ -107,15 +107,20 @@ export default {
   },
  
   beforeRouteUpdate(to, from, next) {
-    console.log(from, next)
     this.movieId = to.params.movieId
-    console.log('guard', to.params.movieId)
-    // Vue.forceUpdate();
     next()
+    this.getMovie()
+    this.getReviews()
+    // 강제 새로고침 하는 방법으로 임시로 해결
+    // this.$router.go()
   },
   // watch: {
-  //   $route() {
-  //     if(to.path !== from.path) this.movieId = this.$route.params.movieId
+  //   $route(to, from) {
+  //     if(to.path !== from.path) {
+  //       this.movieId = this.$route.params.movieId
+  //       this.$router.push({ name: 'movieDetail', params: { movieId: this.movieId}})
+  //       console.log(11)
+  //     }
   //   }
   // },
   

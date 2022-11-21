@@ -17,6 +17,9 @@ urlpatterns = [
 
     path('<int:best_movie_pk>/delete_best/', views.delete_best),
 
+    # path('follow/<int:user_pk>/', views.follow),
+
+
 
     path('testtest/', views.testtest),
 ]

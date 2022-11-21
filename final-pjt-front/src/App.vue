@@ -1,6 +1,6 @@
 <template>
   <div id="app" class="app">
-    <nav class="navbar" v-if="!['login', 'signup', 'first-addMovie', 'game'].includes($route.name)">
+    <nav class="navbar" v-if="!['login', 'signup', 'first-addMovie', 'game', 'NotFound404'].includes($route.name)">
       <router-link to="/">
         <div class="navbar__logo">무비피커</div>
       </router-link>  
@@ -30,7 +30,7 @@
     </nav>
     <div class="app__container">
       <div class="app__container__search-container"  v-if="!['login', 'signup', 'first-addMovie'].includes($route.name)">
-        <!-- <SearchBar/> -->
+        <SearchBar/>
       </div>
       <router-view/>
     </div>
@@ -38,11 +38,11 @@
 </template>
 
 <script>
-// import SearchBar from '@/components/SearchBar'
+import SearchBar from '@/components/SearchBar'
 
 export default {
   components: {
-    // SearchBar,
+    SearchBar,
   },
   methods: {
     logout(){

@@ -27,12 +27,8 @@ export default {
   },
   methods: {
 		reviewCreate() {
-      const title = this.title;
       const content = this.content;
-      if (!title) {
-        alert("제목을 입력해주세요");
-        return;
-      } else if (!content) {
+      if (!content) {
         alert("내용을 입력해주세요");
         return;
       }
@@ -46,7 +42,6 @@ export default {
           Authorization: `Token ${ this.$store.state.token }`
         },
         data: {
-          title,
           content,
         },
       })

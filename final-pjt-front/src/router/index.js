@@ -84,7 +84,7 @@ const router = new VueRouter({
 router.beforeEach((to, from, next) => {
   const isLoggedIn = store.getters.isLoggedIn
 
-  const allowAllPages = ['login']
+  const allowAllPages = ['login', 'signup']
 
   //이동할 페이지(to)가 로그인이 필요한 사이트인지 확인
   const isAuthRequired = !allowAllPages.includes(to.name)

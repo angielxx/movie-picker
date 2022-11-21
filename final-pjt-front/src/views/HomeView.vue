@@ -44,8 +44,14 @@
             <div class="world-cup__game" @click="goGame($event)" data-gameName="all-movie"
             :style="`background-image: url(${allMoviePosterPath})`"
             >모든 영화</div>
-            <div class="world-cup__game">코미디 영화</div>
-            <div class="world-cup__game">액션 영화</div>
+            <div class="world-cup__game"
+            v-if="genreComedyPosterPath"
+            :style="`background-image: url(https://image.tmdb.org/t/p/w400/${genreComedyPosterPath})`"
+            >코미디 영화</div>
+            <div class="world-cup__game"
+            v-if="genreActionPosterPath"
+            :style="`background-image: url(https://image.tmdb.org/t/p/w400/${genreActionPosterPath})`"
+            >액션 영화</div>
             <div class="world-cup__game">미국 영화</div>
             <div class="world-cup__game">한국 영화</div>
             <div class="world-cup__game">직접 설정</div>
@@ -145,7 +151,30 @@ export default {
     // 인생영화 월드컵 배경 사진 고르기
     allMoviePosterPath() {
       return `https://image.tmdb.org/t/p/w400/${_.sample(this.$store.state.watched_movies).poster_path}`
-    }
+    },
+
+    // 장르별 인생영화 월드컵 포스터
+    genreComedyPosterPath() {
+      const movies = this.$store.state.watched_movies.filter((movie) => Object.values(Object.values(movie.genres)).includes("코미디"))
+      if (movies.length) {
+        return _.sample(movies).poster_path
+      } else {
+        return null;
+      }
+    },
+    genreActionPosterPath() {
+      const movies = this.$store.state.watched_movies.filter((movie) => {
+        const genresObj = Object.values(Object.values(movie.genres))
+        console.log(Object.entries(genresObj))
+        // Object.values(Object.values(movie.genres)).filter((genre) => genre.name )
+        Object.values(Object.values(movie.genres)).includes("액션")
+      })
+      if (movies.length) {
+        return _.sample(movies).poster_path
+      } else {
+        return null;
+      }
+    },
   },
   filters: {
     formatDate(date) {

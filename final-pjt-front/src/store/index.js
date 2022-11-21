@@ -44,6 +44,7 @@ const store = new Vuex.Store({
     // auth
     SAVE_TOKEN(state, token) {
       state.token = token
+      router.push({name: 'home'}).catch(() => {})
     },
 
     // best_movie(인생영화), all_best_movies(명에의 전당) 저장
@@ -67,8 +68,6 @@ const store = new Vuex.Store({
 
         const idx = state.all_best_movies.map((best_movie) => best_movie.best_of_best === true).lastIndexOf(true)
         state.best_movie = state.all_best_movies[idx]
-        
-        router.push({name: 'home'}).catch(() => {})
       }
     },
     SAVE_SEARCH_RESULT(state, data) {

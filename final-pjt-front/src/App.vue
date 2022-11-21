@@ -30,7 +30,7 @@
     </nav>
     <div class="app__container">
       <div class="app__container__search-container"  v-if="!['login', 'signup', 'first-addMovie'].includes($route.name)">
-        <!-- <SearchBar/> -->
+        <SearchBar/>
       </div>
       <router-view/>
     </div>
@@ -38,11 +38,11 @@
 </template>
 
 <script>
-// import SearchBar from '@/components/SearchBar'
+import SearchBar from '@/components/SearchBar'
 
 export default {
   components: {
-    // SearchBar,
+    SearchBar,
   },
   methods: {
     logout(){

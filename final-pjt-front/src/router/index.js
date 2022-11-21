@@ -68,9 +68,9 @@ const routes = [
     component: () => import('../views/ReviewCreateView.vue')
   },
   {
-    path: '/feed/:userId',
-    name: 'feed',
-    component: () => import('../views/FeedView.vue')
+    path: '/user/:userId',
+    name: 'userDetail',
+    component: () => import('../views/UserDetailView.vue')
   },
   {
     path: '/404',

@@ -65,7 +65,7 @@
             <h2>{{ this.$store.state.username }}의 인생영화가 아직 없습니다.</h2>
               <h2> '내 인생영화 찾기'를 진행해주세요.</h2>
           </div>
-          <div class="record" v-for="record in best_Movie_records" :key="record.movie.id" @click="goMovieDetail(record.movie.id)">
+          <div class="record" v-for="(record, key) in best_Movie_records" :key="-key" @click="goMovieDetail(record.movie.id)">
             <div class="record__poster">
               <img :src="`https://image.tmdb.org/t/p/w200/${record.movie.poster_path}`" alt="">
             </div>

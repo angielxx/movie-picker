@@ -4,11 +4,11 @@
       <router-link to="/">
         <div class="navbar__logo">무비피커</div>
       </router-link>  
-      <router-link to="/" class="navbar__user">
+      <router-link :to="{ name: 'userDetail', params: { userId: this.$store.state.user_pk }}" class="navbar__user">
         <div class="navbar__user-profile">
 
         </div>
-        Username
+        <h3>{{ this.$store.state.username}}</h3>
       </router-link>
       <div class="navbar__routers">
         <router-link to="/" :class="{ 'active' : $route.name === 'home' }">
@@ -29,7 +29,7 @@
       </div>
     </nav>
     <div class="app__container">
-      <div class="app__container__search-container"  v-if="!['login', 'signup', 'first-addMovie'].includes($route.name)">
+      <div class="app__container__search-container"  v-if="!['login', 'signup', 'first-addMovie', 'userDetail'].includes($route.name)">
         <SearchBar/>
       </div>
       <router-view/>

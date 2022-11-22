@@ -1,6 +1,5 @@
 <template>
-  <div>
-    <h1>FeedView</h1>
+  <div class="FeedView">
     <!-- 자식 컴포넌트에게 각각의 피드 아이템을 내려줍니다. -->
     <FeedItem v-for="(feedItem, key) in feed" :key="key" :feed-item="feedItem"/>
   </div>
@@ -41,5 +40,5 @@ export default {
 </script>
 
 <style>
-
+@import '@/assets/scss/FeedView.scss';
 </style>

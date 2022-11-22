@@ -6,7 +6,8 @@
 
       </div>
       <div class="user-info__text">
-        <h2>{{this.feedItem.created_at | formatDate}}</h2>
+        <h2>{{ this.feedItem.created_at | formatDate}}</h2>
+        <h2><span>{{ this.feedItem.user.username }}</span>님의 인생영화가 새롭게 업데이트되었습니다.</h2>
       </div>
     </div>
   </div>

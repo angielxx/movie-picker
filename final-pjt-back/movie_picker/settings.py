@@ -85,7 +85,7 @@ MIDDLEWARE = [
 
 # 프론트 오리진 허용
 CORS_ALLOWED_ORIGINS = [
-    'http://localhost:8081',
+    'http://localhost:8080',
 ]
 # CORS_ALLOW_ALL_ORIGINS = True
 

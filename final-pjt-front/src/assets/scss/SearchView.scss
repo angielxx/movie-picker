@@ -10,9 +10,11 @@
 }
 
 .search-result {
+  @include custom-scroll-bar
   height: 100%;
   width: 80%;
   display: flex;
   flex-wrap: wrap;
   overflow: scroll;
+  overflow-x: hidden;
 }

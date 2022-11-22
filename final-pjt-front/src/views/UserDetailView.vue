@@ -1,26 +1,33 @@
 <template>
   <div class="UserDetail">
-    <h1>{{ this.$store.state.username}}</h1>
-    <div>
-      <span>541</span>
-      <span>팔로워</span>
-    </div>
-    <div>
-      <span>128</span>
-      <span>팔로잉</span>
-    </div>
-    <div class="movies">
-      <div class="movies__tab">
-        <div class="movies__tab__watched">
-          <h3 @click="swtichTab($event)" data-tab="watched">봤어요</h3>
-          <div class="movies__tab__watched__line"></div>
+    <div class="user-info">
+      <div class="user-info__img">
+
+      </div>
+      <div class="user-info__text">
+        <h1 class="user-info__text">{{ this.$store.state.username}}</h1>
+        <div>
+          <span>541</span>
+          <span>팔로워</span>
         </div>
-        <div class="movies__tab__toWatch" data-tab="toWatch">
-          <h3 @click="swtichTab($event)" data-tab="toWatch">보고싶어요</h3>
-          <div class="movies__tab__watched__line"></div>
+        <div>
+          <span>128</span>
+          <span>팔로잉</span>
         </div>
       </div>
-      <div class="movies__list">
+    </div>
+    <div class="user-movies">
+      <div class="user-movies__tab">
+        <div class="user-movies__tab__watched">
+          <h3 @click="swtichTab($event)" data-tab="watched">봤어요</h3>
+          <div class="user-movies__tab__watched__line"></div>
+        </div>
+        <div class="user-movies__tab__toWatch" data-tab="toWatch">
+          <h3 @click="swtichTab($event)" data-tab="toWatch">보고싶어요</h3>
+          <div class="user-movies__tab__watched__line"></div>
+        </div>
+      </div>
+      <div class="user-movies__list">
         <MovieItem v-for="(movie, key) in movies" :key="key"/>
       </div>
     </div>
@@ -109,4 +116,6 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+@import '@/assets/scss/UserDetailView.scss';
+</style>

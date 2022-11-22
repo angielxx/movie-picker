@@ -1,12 +1,12 @@
 <template>
   <div class="UserDetail">
-    <div class="header" :style="`background-image: linear-gradient(to bottom, rgba(20, 18, 23, 1), rgba(20, 18, 23, 0.8)), url(https://image.tmdb.org/t/p/original/${this.$store.state.best_movie.movie.backdrop_path}`">
+    <div class="header">
       <div class="user-info">
         <div class="user-info__img" :style="`background-image: url(${this.$store.state.API_URL}${this.$store.state.avatar})`">
   
         </div>
         <div class="user-info__text">
-          <h1 class="user-info__text__username">{{ this.$store.state.username}}</h1>
+          <h1 class="user-info__text__username">{{ this.username }}</h1>
           <div class="user-info__text__sub">
             <p>팔로워 <span>541</span></p>
             <p>팔로잉 <span>200</span></p>
@@ -57,22 +57,78 @@ export default {
   data() {
     return {
       user_pk: this.$route.params.userId,
+      username: null,
+
       watched_movies: [],
-      toWatch_movies: [],
+      to_watch_movies: [],
+      best_movie: null,
+
+      // tab에 보여질 영화들
       movies: [],
+
       reviews: [],
     };
   },
+
   created() {
-    this.watched_movies = this.$store.state.watched_movies
-    this.toWatch_movies = this.$store.state.to_watch_movies
-    this.movies = this.watched_movies
+    this.getMovies()
     this.getReviews()
   },
   mounted() {
     
   },
   methods: {
+    setHeaderImg() {
+      if (this.best_movie) {
+        document.querySelector('.header').style.backgroundImage = `linear-gradient(to bottom, rgba(20, 18, 23, 1), rgba(20, 18, 23, 0.8)), url(https://image.tmdb.org/t/p/original/${this.best_movie.movie.backdrop_path}`
+      }
+    },
+    getMovies() {
+      const API_URL = this.$store.state.API_URL;
+      // watched
+      axios({
+        method: "get",
+        url: `${API_URL}/api/accounts/${this.user_pk}/watched/`,
+        headers: {
+          Authorization: `Token ${this.$store.state.token}`,
+        },
+      })
+      .then((res) => {
+        // console.log(res.data)
+        this.watched_movies = res.data.watched_movies
+        this.movies = this.watched_movies
+      })
+      // .catch((err) => console.log(err))
+      
+      // to watch
+      axios({
+        method: "get",
+        url: `${API_URL}/api/accounts/${this.user_pk}/to_watch/`,
+        headers: {
+          Authorization: `Token ${this.$store.state.token}`,
+        },
+      })
+      .then((res) => {
+        console.log(res.data)
+        this.to_watch_movies = res.data.to_watch_movies
+      })
+      // .catch((err) => console.log(err))
+      
+      // best movie
+      axios({
+        method: "get",
+        url: `${API_URL}/api/accounts/${this.user_pk}/best/`,
+        headers: {
+          Authorization: `Token ${this.$store.state.token}`,
+        },
+      })
+      .then((res) => {
+        console.log(res.data)
+        this.best_movie = res.data.best_movie
+      })
+      // .catch((err) => console.log(err))
+    },
+
     // 내가 쓴 리뷰 받아오기
     getReviews() {
       const API_URL = this.$store.state.API_URL;
@@ -116,7 +172,7 @@ export default {
 
       // movies 바꾸기
       if (tabId === 'watched') this.movies = this.watched_movies
-      else this.movies = this.toWatch_movies
+      else this.movies = this.to_watch_movies
     }
   },
 };

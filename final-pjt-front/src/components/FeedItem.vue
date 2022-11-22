@@ -1,7 +1,8 @@
 <template>
   <div class="FeedItem">
     <div class="info">
-      <div class="info__profile" 
+      <div class="info__profile"
+        @click="goUserDetail"
         :style="`background-image: url(${this.$store.state.API_URL}${this.feedItem.user.avatar})`">
 
       </div>
@@ -56,6 +57,13 @@ export default {
     checkFollow() {
       const flag = false
       return flag
+    }
+  },
+
+  methods: {
+    goUserDetail() {
+      const userId = this.feedItem.user.id
+      this.$router.push({ name: 'userDetail', params: { userId: userId}})
     }
   },
  

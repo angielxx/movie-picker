@@ -1,5 +1,5 @@
 <template>
-  <div class="UserSearchView">
+  <div class="searchView">
     <UserSearchBar v-on:getResults="showResult"/>
     <div class="search-result">
       <MovieItem v-for="(movie, key) in movies" :key="key" :movie="movie"/>
@@ -41,5 +41,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '../assets/scss/SearchView.scss';
+@import '../assets/scss/UserSearchView.scss';
 </style>

@@ -67,3 +67,24 @@ class ProfileSerializer(DynamicFieldsModelSerializer):
     class Meta:
         model = User
         fields = '__all__'
+
+
+# 유저 검색용 시리얼라이저       
+
+class UserSearchBestMovieSerializer(DynamicFieldsModelSerializer):
+    movie = MovieSerializer(read_only=True, fields=['id', 'title'])
+
+    class Meta:
+        model = BestMovie
+        fields = '__all__'
+
+
+
+class ProfileSearchSerializer(DynamicFieldsModelSerializer):
+    best_movies = BestMovieSerializer(many=True, fields=['id', 'movie', 'created_at', 'best_of_best'])
+    watched_movies = MovieSerializer(many=True)
+    to_watch_movies = MovieSerializer(many=True)
+
+    class Meta:
+        model = User
+        fields = '__all__'

@@ -141,6 +141,14 @@ def get_feed(request):
     return Response(serializer.data)
 
 
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def search_user(request, query):
+    users = get_list_or_404(get_user_model().objects.filter(username__icontains=query))
+    serializer = ProfileSerializer(users, many=True, fields=['id', 'username', 'avatar', 'best_movies'])
+    return Response(serializer.data)
+
+
 
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])

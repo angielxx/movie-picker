@@ -13,6 +13,7 @@ import SearchBar from '@/components/SearchBar';
 
 export default {
   name: 'searchView',
+  
   components: {
     MovieItem,
     SearchBar,

@@ -1,4 +1,3 @@
-
 $bg-color: #141217;
 $container: #231f2b;
 $bg-color2: #F2F2F2;
@@ -9,6 +8,7 @@ $grad-pink: #ffb0d7;
 $grad-purple: hsl(275, 100%, 69%);
 $gradiant01: linear-gradient(45deg, $grad-pink, $grad-purple);
 
+// gradient style
 @mixin font-gradient() {
   color: transparent;
   background: $gradiant01;
@@ -16,7 +16,7 @@ $gradiant01: linear-gradient(45deg, $grad-pink, $grad-purple);
 }
 
 @mixin border-gradient() {
-  border: 1px solid rgba(0, 0, 0, 0.6);
+  border: 1px solid rgba(0, 0, 0, 0.5);
   background: linear-gradient($container, $container) padding-box, $gradiant01 border-box;
 }
 
@@ -25,33 +25,34 @@ $gradiant01: linear-gradient(45deg, $grad-pink, $grad-purple);
   background: linear-gradient($bg-color, $bg-color) padding-box, $gradiant01 border-box;
 }
 
-@font-face {
-  font-family: 'CWDangamAsac-Bold';
-  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/CWDangamAsac-Bold.woff') format('woff');
-  font-weight: normal;
-  font-style: normal;
-}
+// font
 @font-face {
   font-family: 'NanumSquareNeo-Variable';
   src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.0/NanumSquareNeo-Variable.woff2') format('woff2');
   font-weight: normal;
   font-style: normal;
 }
-@font-face {
-  font-family: 'Cafe24SsurroundAir';
-  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/Cafe24SsurroundAir.woff') format('woff');
-  font-weight: normal;
-  font-style: normal;
-}
-@font-face {
-  font-family: 'GmarketSansMedium';
-  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff') format('woff');
-  font-weight: normal;
-  font-style: normal;
-}
+
 @import url('https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css');
-$title-font: 'Noto Sans KR', sans-serif;
+$title-font: 'NanumSquareNeo-Variable';
 $content-font: 'nanumsquare';
+
+// circle shape
+@mixin circle($width) {
+  width: $width;
+  height: $width;
+  border-radius: $width / 2; 
+}
+
+// poster w, h
+@mixin poster-div($width) {
+  width: $width;
+  height: 0;
+  padding-bottom: $width * 1.5;
+  border-radius: $width * 0.1;
+  background-size: cover;
+  overflow: hidden;
+}
 
 // custom scroll-bar
 @mixin custom-scroll-bar() {
@@ -89,6 +90,36 @@ $content-font: 'nanumsquare';
   }
 }
 
+// button style
+@mixin button()  {
+  height: 40px;
+  padding: 0px 20px;
+  box-sizing: border-box;
+  border: 1px solid rgba(0, 0, 0, 0.4);
+  background: linear-gradient($container, $container) padding-box, $gradiant01 border-box;
+  border-radius: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1rem;
+  font-weight: 400;
+  cursor: pointer;
+  // margin-bottom: 20px;
+
+  &__text {
+    color: transparent;
+    background: $gradiant01;
+    -webkit-background-clip: text;
+    opacity: 1;
+    font-weight: 700;
+  }
+  svg {
+    width: 18px;
+    margin-right: 8px;
+    fill: white;
+    opacity: 0.7;
+  }
+}
 
 body {
   font-family: $content-font;

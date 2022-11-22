@@ -1,15 +1,8 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import store from '../store'
-// import HomeView from '../views/HomeView.vue'
-// import LoginView from '../views/LoginView.vue'
-// import SignupView from '../views/SignupView.vue'
 
 Vue.use(VueRouter)
-
-
-
-// const isLoggedIn = store.getters.isLoggedIn
 
 const routes = [
   {
@@ -51,6 +44,11 @@ const routes = [
     path: '/search',
     name: 'search',
     component: () => import('../views/SearchView.vue')
+  },
+  {
+    path: '/userSearch',
+    name: 'userSearch',
+    component: () => import('../views/UserSearchView.vue')
   },
   {
     path: '/movie/:movieId',

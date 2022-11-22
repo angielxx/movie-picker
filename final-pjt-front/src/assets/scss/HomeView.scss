@@ -1,6 +1,8 @@
 @import './common.scss';
 
 .home {
+  position: absolute;
+  bottom: 0px;
   color: $bg-color;
   width: calc(1440px - 245px);
   display: flex;

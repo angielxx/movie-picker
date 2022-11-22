@@ -1,6 +1,7 @@
 @import './common.scss';
 
 .search-bar {
+  // z-index: 10;
   position: fixed;
   top: calc((15% - 40px) / 2);
   align-items: center;
@@ -10,6 +11,7 @@
   border-radius: 20px;
   border: 1px solid rgba(0, 0, 0, 0.4);
   background: linear-gradient($bg-color, $bg-color) padding-box, $gradiant01 border-box;
+  background-color: white;
   padding: 0px 16px;
   box-sizing: border-box;
 

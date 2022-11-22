@@ -1,11 +1,13 @@
 @import './common.scss';
 
 .movie-detail {
+  position: absolute;
+  bottom: 0px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  width: 100%;
+  width: calc(100% - 245px);
   height: 85%;
   overflow: scroll;
   box-sizing: border-box;

@@ -36,20 +36,23 @@
       </div>
     </nav>
     <div class="app__container">
-      <div class="app__container__search-container"  v-if="!['login', 'signup', 'first-addMovie', 'userDetail', 'addMovie'].includes($route.name)">
-        <SearchBar/>
-      </div>
+      <!-- <div class="app__container__search-container"  v-if="!['login', 'signup', 'first-addMovie', 'userDetail', 'addMovie'].includes($route.name)">
+        <UserSearchBar v-if="['feed', 'userSearch'].includes(this.$route.name)"/>
+        <SearchBar v-else/>
+      </div> -->
       <router-view/>
     </div>
   </div>
 </template>
 
 <script>
-import SearchBar from '@/components/SearchBar'
+// import SearchBar from '@/components/SearchBar'
+// import UserSearchBar from '@/components/UserSearchBar'
 
 export default {
   components: {
-    SearchBar,
+    // SearchBar,
+    // UserSearchBar,
   },
   methods: {
     logout(){

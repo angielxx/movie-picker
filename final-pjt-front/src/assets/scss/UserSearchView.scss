@@ -15,11 +15,13 @@
     bottom: 0px;
     @include custom-scroll-bar;
     height: calc(100% - 140px);
-    width: 85%;
+    width: 80%;
     margin-bottom: 16px;
     box-sizing: border-box;
     display: flex;
     flex-wrap: wrap;
+    align-content: flex-start;
     overflow: scroll;
     overflow-x: hidden;
+    padding-top: 36px;
 }

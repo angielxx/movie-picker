@@ -28,39 +28,12 @@ export default {
         this.$router.push({ name: 'userSearch'})
       }
     },
-    // // UserSearch로 이동
-    // goUserSearch() {
-    //   if (this.$route.name !== 'search') {
-    //     this.$router.push({ name: 'search'})
-    //   }
 
-    // },
     // index로 돌아가기
     goBackHome() {
       this.$router.push({ name: 'home'})
     },
-    // input 이벤트 핸들러 : 영화 검색 api 요청
-    searchMovie(event) {
-      const query = event.target.value
-      const API_URL = this.$store.state.API_URL
-      const SEARCH_URL = `${API_URL}/api/movies/search_movie/${query}/`
-      axios({
-        method: 'get',
-        url: SEARCH_URL,
-        headers: {
-            // Authorization: `Token 6023611848bfca271b0de4cb5db50064289b791d` //임시 토큰
-            Authorization: `Token ${ this.$store.state.token }`
-        }
-      })
-      .then(res => {
-        const movies = res.data
-        this.results = movies
-        console.log(this.results)
-      })
-      .then(() => {
-        this.$emit('getResults', this.results)
-      })
-    },
+
     // 유저를 검색하는 axios 요청입니다.(메서드만 작성, 이후 프론트 작업 시 필요한 컴포넌트에 등록해주세요)
     searchUser(event) {
       const query = event.target.value
@@ -77,7 +50,8 @@ export default {
       // 이하 then() 부분의 변수명 등은 로직에 맞게 수정해주세요
       .then(res => {
         console.log(res.data)
-        const users = res.data
+        let users = res.data
+        users = users.filter((user) => user.id !== this.$store.state.user_pk )
         this.results = users
         console.log(this.results)
       })

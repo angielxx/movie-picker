@@ -2,26 +2,26 @@
   <div class="searchView">
     <UserSearchBar v-on:getResults="showResult"/>
     <div class="search-result">
-      <MovieItem v-for="(movie, key) in movies" :key="key" :movie="movie"/>
+      <UserItem v-for="(user, key) in users" :key="key" :user="user"/>
     </div>
   </div>
 </template>
 
 <script>
-import MovieItem from '@/components/MovieItem.vue';
+import UserItem from '@/components/UserItem.vue';
 import UserSearchBar from '@/components/UserSearchBar';
 
 export default {
-  name: 'searchView',
+  name: 'UserSearchView',
   
   components: {
-    MovieItem,
+    UserItem,
     UserSearchBar,
   },
 
   data() {
     return {
-      movies: [],
+      users: [],
     };
   },
 
@@ -32,9 +32,7 @@ export default {
 
   methods: {
     showResult(data) {
-      console.log('data!') 
-      console.log(data)
-      this.movies = data
+      this.users = data
     }
   },
 };

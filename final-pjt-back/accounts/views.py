@@ -117,9 +117,16 @@ def delete_best(request, best_movie_pk):
 @permission_classes([IsAuthenticated])
 def follow(request, user_pk):
     me = request.user
-    pass
-    
-
+    person = get_object_or_404(get_user_model(), pk=user_pk)
+    if me != person:
+        if me.followings.filter(pk=person.pk).exists():
+            me.followings.remove(person)
+            following = False
+        else:
+            me.followings.add(person)
+            following = True
+        return Response(following)
+    return Response(status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])

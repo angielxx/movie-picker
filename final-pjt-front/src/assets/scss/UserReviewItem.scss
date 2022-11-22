@@ -1,0 +1,31 @@
+@import './common.scss';
+
+.UserReviewItem {
+  width: 100%;
+  height: auto;
+  @include border-gradient
+  margin-bottom: 16px;
+  border-radius: 8px;
+  padding: 24px;
+  box-sizing: border-box;
+}
+
+.info {
+  display: flex;
+  align-items: flex-end;
+  margin-bottom: 16px;
+
+  &__title {
+    width: 80%;
+    @include font-gradient;
+    font-weight: 800;
+    font-size: 1.2rem;
+  }
+
+  &__date {
+    width: 20%;
+    font-size: 0.8rem;
+    font-weight: 300;
+    text-align: end;
+  }
+}

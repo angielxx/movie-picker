@@ -1,6 +1,8 @@
 from rest_framework import serializers
 from .models import Review
 
+from movies.serializers import MovieSerializer
+
 class DynamicFieldsModelSerializer(serializers.ModelSerializer):
     """
     A ModelSerializer that takes an additional `fields` argument that
@@ -27,8 +29,9 @@ class DynamicFieldsModelSerializer(serializers.ModelSerializer):
 
 class ReviewSerializer(DynamicFieldsModelSerializer):
     username = serializers.CharField(source='author.username', read_only=True)
+    movie = MovieSerializer(fields = ['title', 'poster_path', 'backdrop_path'])
 
     class Meta:
         model = Review
         fields = '__all__'
-        read_only_fields = ('movie', 'author',)
+        read_only_fields = ('author',)

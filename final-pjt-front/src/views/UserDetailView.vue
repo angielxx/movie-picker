@@ -1,116 +1,122 @@
 <template>
   <div class="UserDetail">
-    <div class="user-info">
-      <div class="user-info__img">
-
-      </div>
-      <div class="user-info__text">
-        <h1 class="user-info__text">{{ this.$store.state.username}}</h1>
-        <div>
-          <span>541</span>
-          <span>팔로워</span>
+    <div class="header" :style="`background-image: linear-gradient(to bottom, rgba(20, 18, 23, 1), rgba(20, 18, 23, 0.8)), url(https://image.tmdb.org/t/p/original/${this.$store.state.best_movie.movie.backdrop_path}`">
+      <div class="user-info">
+        <div class="user-info__img" :style="`background-image: url(${this.$store.state.API_URL}${this.$store.state.avatar})`">
+  
         </div>
-        <div>
-          <span>128</span>
-          <span>팔로잉</span>
+        <div class="user-info__text">
+          <h1 class="user-info__text__username">{{ this.$store.state.username}}</h1>
+          <div class="user-info__text__sub">
+            <p>팔로워 <span>541</span></p>
+            <p>팔로잉 <span>200</span></p>
+          </div>
         </div>
       </div>
     </div>
-    <div class="user-movies">
-      <div class="user-movies__tab">
-        <div class="user-movies__tab__watched">
-          <h3 @click="swtichTab($event)" data-tab="watched">봤어요</h3>
-          <div class="user-movies__tab__watched__line"></div>
+    <div class="wrapper">
+      <div class="movies">
+        <div class="link">
+          <div @click.prevent="switchTab($event)" id="tab_button" class="link__button active" data-tab="watched">
+            <h3 data-tab="watched">봤어요</h3>
+            <div id="link-active" class="link__button__line active-line"></div>
+          </div>
+          <div @click.prevent="switchTab($event)" id="tab_button" class="link__button" data-tab="toWatch">
+            <h3 data-tab="toWatch">보고싶어요</h3>
+            <div id="link-active" class="link__button__line"></div>
+          </div>
         </div>
-        <div class="user-movies__tab__toWatch" data-tab="toWatch">
-          <h3 @click="swtichTab($event)" data-tab="toWatch">보고싶어요</h3>
-          <div class="user-movies__tab__watched__line"></div>
+        <div class="movies__list">
+          <MovieItem v-for="(movie, key) in movies" :key="key" :movie="movie"/>
         </div>
       </div>
-      <div class="user-movies__list">
-        <MovieItem v-for="(movie, key) in movies" :key="key"/>
+      <div class="records">
+        <div class="records__title">
+          <h3>내가 쓴 코멘트</h3>
+        </div>
+        <div class="records__list">
+          <UserReviewItem v-for="(review, key) in reviews" :key="key" :review="review"/>
+        </div>
       </div>
     </div>
-    <div class="records">
-      <h3>인생영화 기록</h3>
-    </div>
-    <!-- <hr /> -->
-    <!-- 보고 싶은 영화 컴포넌트입니다. 유저 피케이로 접근해서 해당 유저의 보고 싶은 영화를 보여줍니다. -->
-    <!-- <ToWatchMovies :user_pk="this.user_pk" /> -->
-    <!-- <hr /> -->
-    <!-- 본 영화 컴포넌트입니다. 유저 피케이로 접근해서 해당 유저의 본 영화를 보여줍니다. -->
-    <!-- <WatchedMovies :user_pk="this.user_pk" /> -->
     <MovieItem/>
   </div>
 </template>
 
 <script>
-import MovieItem from '@/components/MovieItem.vue';
 import axios from "axios";
-// import ToWatchMovies from "@/components/ToWatchMovies.vue";
-// import WatchedMovies from "@/components/WatchedMovies.vue";
+import MovieItem from '@/components/MovieItem.vue';
+import UserReviewItem from '@/components/UserReviewItem.vue';
 
 export default {
   name: "UserDetailView",
   components: {
     MovieItem,
-    // ToWatchMovies,
-    // WatchedMovies,
-    
+    UserReviewItem,
   },
   data() {
     return {
       user_pk: this.$route.params.userId,
-      watchedMovies: [],
-      toWatchMovies: [],
+      watched_movies: [],
+      toWatch_movies: [],
       movies: [],
+      reviews: [],
     };
   },
   created() {
-    this.getWatchedMovies()
-    this.getToWatchMovies()
+    this.watched_movies = this.$store.state.watched_movies
+    this.toWatch_movies = this.$store.state.to_watch_movies
+    this.movies = this.watched_movies
+    this.getReviews()
   },
   mounted() {
     
   },
   methods: {
-    // watched 받아오기
-    getWatchedMovies() {
+    // 내가 쓴 리뷰 받아오기
+    getReviews() {
       const API_URL = this.$store.state.API_URL;
       axios({
         method: "get",
-        url: `${API_URL}/api/accounts/${this.user_pk}/watched/`,
+        url: `${API_URL}/api/articles/${this.user_pk}/review_user/`,
         headers: {
           Authorization: `Token ${this.$store.state.token}`,
         },
       })
       .then((res) => {
-        this.watchedMovies = res.data.watched_movies;
-        this.movies = this.watchedMovies
-      })
-      .catch((err) => console.log(err))
-    },
-
-    // toWatch 받아오기
-    getToWatchMovies() {
-      const API_URL = this.$store.state.API_URL;
-    axios({
-      method: "get",
-      url: `${API_URL}/api/accounts/${this.user_pk}/to_watch/`,
-      headers: {
-        Authorization: `Token ${this.$store.state.token}`,
-      },
-    })
-      .then((res) => {
-        // console.log(res.data)
-        this.toWatchMovies = res.data.to_watch_movies;
+        this.reviews = res.data;
+        console.log(res.data)
       })
       .catch((err) => console.log(err))
     },
 
     // tab 바꾸기
-    swtichTab() {
+    switchTab(event) {
+      const tabId = event.currentTarget.dataset.tab
+      const tab_contents = document.querySelectorAll('#tab_content')
+      const tab_buttons = document.querySelectorAll('#tab_button')
+      
+      tab_contents.forEach((tab) => {
+        if (tab.dataset.tab === tabId) {
+          tab.classList.remove('hidden')
+        } else {
+          tab.classList.add('hidden')
+        }
+      })
+      tab_buttons.forEach((btn) => {
+        const line = btn.querySelector('div')
+        if (btn.dataset.tab === tabId) {
+          btn.classList.add('active')
+          line.classList.add('active-line')
+        } else {
+          btn.classList.remove('active')
+          line.classList.remove('active-line')
+        }
+      })
 
+      // movies 바꾸기
+      if (tabId === 'watched') this.movies = this.watched_movies
+      else this.movies = this.toWatch_movies
     }
   },
 };

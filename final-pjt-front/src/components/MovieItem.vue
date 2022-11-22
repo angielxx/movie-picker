@@ -31,13 +31,15 @@ export default {
     // 한 영화 클릭 > clicked 클래스 추가
     clickMovie(event) {
       // console.log('clicked!')
-      const target = event.currentTarget.children[0];
-      target.classList.toggle('clicked');
+      if (!['userDetail'].includes(this.$route.name)) {
+        const target = event.currentTarget.children[0];
+        target.classList.toggle('clicked');
+      }
       return
     },
     toDetail() {
       // 영화 디테일 페이지로 이동하면 안되는 라우터
-      if (!['first-addMovie', 'addMovie'].includes(this.$route.name)) {
+      if (!['first-addMovie', 'addMovie', ].includes(this.$route.name)) {
         this.$router.push({name: 'movieDetail', params: {movieId: this.movie.id}})
       }
     }

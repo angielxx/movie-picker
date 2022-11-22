@@ -40,6 +40,7 @@
           <div id="link-active" class="link__button__line"></div>
         </div>
       </div>
+
       <div class="area">
         <div class="area__reviews">
           <!-- 하위컴포넌트인 리뷰를 보여줍니다. -->
@@ -98,12 +99,36 @@ export default {
       reviews: [],
       // trailer: 'NHA69lCd1ZM',
       // backdrop_path: this.movie_detail.backdrop_path,
+
+      // 해당 영화를 인생 영화로 고른 유저들의 정보입니다. (추가한 날짜 역순으로 제공됩니다.)
+      // 리스트 안에 여러 개의 유저 객체가 중첩된(nested) 형태로 제공됩니다.
+      pickedUsers: []
+      // 아래는 예시 데이터입니다. 이후 프론트 작업 시 참고 후 삭제해주세요
+      // [
+      //     {
+      //         "user": {
+      //             "id": 4,
+      //             "username": "test3",
+      //             "avatar": "/images/default_avatar_2.svg"
+      //         },
+      //         "created_at": "2022-11-22T19:19:54.838286"
+      //     },
+      //     {
+      //         "user": {
+      //             "id": 3,
+      //             "username": "test2",
+      //             "avatar": "/images/default_avatar_2.svg"
+      //         },
+      //         "created_at": "2022-11-22T19:13:22.368609"
+      //     }
+      // ]
     };
   },
 
   mounted() {
     this.getMovie()
     this.getReviews()
+    this.getPickedUsers()
   },
  
   beforeRouteUpdate(to, from, next) {
@@ -286,6 +311,29 @@ export default {
           console.log(err);
         });
     },
+
+    // 해당 영화를 인생 영화로 고른 유저들을 API GET 요청으로 불러오는 메서드입니다.(mounted에 실행됩니다.)
+    getPickedUsers() {
+      const API_URL = this.$store.state.API_URL;
+
+      axios({
+        method: "GET",
+        url: `${API_URL}/api/movies/picked_users/${this.movieId}/`,
+        headers: {
+          Authorization: `Token ${ this.$store.state.token }`
+        },
+      })
+        .then((res) => {
+          // 확인용 콘솔로그입니다. 이후 작업 완료 시 지워주세요
+          console.log(res.data)
+          // data의 pickedUsers에 불러온 데이터를 할당합니다.
+          this.pickedUsers = res.data
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    
   },
 
   filters: {

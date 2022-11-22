@@ -76,6 +76,7 @@ export default {
       })
       // 이하 then() 부분의 변수명 등은 로직에 맞게 수정해주세요
       .then(res => {
+        console.log(res.data)
         const users = res.data
         this.results = users
         console.log(this.results)
@@ -83,6 +84,7 @@ export default {
       .then(() => {
         this.$emit('getResults', this.results)
       })
+      .catch(err => console.log('err', err))
     },
   },
 };

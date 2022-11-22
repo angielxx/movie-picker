@@ -10,9 +10,10 @@
       <div class="home__main-container__left">
         <div class="best-movie">
           <h1 class="home-title">내 인생영화</h1>
-          <div class="container" @click="goMovieDetail(best_movie.movie.id)">
+          <BestMovieItem />
+          <!-- <div class="container" @click="goMovieDetail(best_movie.movie.id)">
             <div class="best-movie__poster" v-if="best_movie">
-              <!-- add poster here -->
+              add poster here
               <img :src="bestMovie_imgSrc" alt="">
             </div>
             <div class="best-movie__info" v-if="best_movie">
@@ -36,15 +37,15 @@
               <h2>{{ this.$store.state.username }}의 인생영화가 아직 없습니다.</h2>
               <h2> '내 인생영화 찾기'를 진행해주세요.</h2>
             </div>
-          </div>
+          </div> -->
         </div>
         <div class="world-cup">
           <h1 class="home-title">인생영화 월드컵</h1>
           <div class="container">
             <div class="world-cup__game" @click="goGame($event)" data-gameName="all-movie"
             :style="`background-image: url(${allMoviePosterPath})`"
-            >모든 영화</div>
-            <div class="world-cup__game"
+            >인생영화 월드컵</div>
+            <!-- <div class="world-cup__game"
             v-if="genreComedyPosterPath"
             :style="`background-image: url(https://image.tmdb.org/t/p/w400/${genreComedyPosterPath})`"
             >코미디 영화</div>
@@ -54,7 +55,7 @@
             >액션 영화</div>
             <div class="world-cup__game">미국 영화</div>
             <div class="world-cup__game">한국 영화</div>
-            <div class="world-cup__game">직접 설정</div>
+            <div class="world-cup__game">직접 설정</div> -->
           </div>
         </div>
       </div>
@@ -85,6 +86,7 @@
 
 <script>
 import SearchBar from '@/components/SearchBar';
+import BestMovieItem from '@/components/BestMovieItem';
 import _ from 'lodash';
 import axios from 'axios';
 
@@ -92,6 +94,7 @@ export default {
   name: 'HomeView',
   components: {
     SearchBar,
+    BestMovieItem,
   },
   data() {
     return {

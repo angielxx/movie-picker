@@ -22,14 +22,6 @@
     -webkit-background-clip: text;
     padding-bottom: 1px;
   }
-  // &__search-container {
-  //   height: 10%;
-  //   width: 100%;
-  //   display: flex;
-  //   position: relative;
-  //   justify-content: center;
-  //   align-items: center;
-  // }
 
   &__main-container {
     display: flex;
@@ -148,10 +140,6 @@
     cursor: pointer;
     box-sizing: border-box;
     background-color: rgb(98, 98, 98);
-    // background-color: rgba(0, 0, 0, 0.7);
-    // border: 1px solid rgba(0, 0, 0, 0.4);
-    // background: linear-gradient($container, $container) padding-box, $gradiant01 border-box;
-    // background-blend-mode: multiply;
     background-size: 150%;
     background-position: center;
     background-blend-mode: multiply;
@@ -165,6 +153,9 @@
 // 명에의 전당
 .home__main-container__right .container {
   overflow: scroll;
+  @include custom-scroll-bar;
+  display: flex;
+  flex-direction: column-reverse;
 }
 .record {
   height: 155px;

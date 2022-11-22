@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="BestMovieItem">
     
   </div>
 </template>
@@ -12,6 +12,10 @@ export default {
     return {
       
     };
+  },
+
+  props: {
+    movie: Object,
   },
 
   mounted() {

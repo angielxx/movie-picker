@@ -2,7 +2,7 @@
     <div class="wrapper">
         <div class="greeting">
             <div v-if="this.$route.name === 'first-addMovie'">
-                <h2 class="greeting__line1">안녕하세요, <span><strong>{{ this.$store.state.username }}</strong></span>! </h2>
+                <h2 class="greeting__line1">안녕하세요, <span><strong>{{ this.$store.state.username }}</strong></span>님! </h2>
                 <h2 class="greeting__line2"><span><strong>{{ this.$store.state.username }}</strong></span>님이 본 영화를 선택해주세요</h2>
             </div>
             <div v-if="this.$route.name === 'addMovie'">
@@ -23,7 +23,7 @@
                     </defs>
                     </svg>
                     목록 새로고침</button>
-                <button class="movie-container__btns__save" @click="postUserMovies">
+                <button class="movie-container__btns__save hidden" @click="postUserMovies">
                     <svg width="449" height="321" viewBox="0 0 449 321" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M439.6 9.3999C452.1 21.8999 452.1 42.1999 439.6 54.6999L183.6 310.7C171.1 323.2 150.8 323.2 138.3 310.7L10.2998 182.7C-2.2002 170.2 -2.2002 149.9 10.2998 137.4C22.7998 124.9 43.0998 124.9 55.5998 137.4L161 242.7L394.4 9.3999C406.9 -3.1001 427.2 -3.1001 439.7 9.3999H439.6Z" fill="url(#paint0_radial_205_140)"/>
                     <defs>
@@ -96,6 +96,7 @@ export default {
             .then(res => {
                 console.log(res.data)
                 this.movies = res.data;
+                document.querySelector('.movie-container__list').scrollTop = 0;
             })
             // .catch(err => console.log('err', err))
 

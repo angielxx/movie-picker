@@ -8,6 +8,19 @@ $grey2: rgb(145, 145, 145);
 $grad-pink: #ffb0d7;
 $grad-purple: hsl(275, 100%, 69%);
 $gradiant01: linear-gradient(45deg, $grad-pink, $grad-purple);
+
+@mixin font-gradient() {
+  color: transparent;
+  background: $gradiant01;
+  -webkit-background-clip: text;
+}
+
+@mixin border-gradient() {
+  border: 1px solid transparent;
+  background: linear-gradient($container, $container) padding-box, $gradiant01 border-box;
+}
+
+
 // $font-grad: {
 //   color: transparent;
 //   background: $gradiant01;
@@ -46,6 +59,42 @@ $gradiant01: linear-gradient(45deg, $grad-pink, $grad-purple);
 @import url('https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css');
 $title-font: 'Noto Sans KR', sans-serif;
 $content-font: 'nanumsquare';
+
+// custom scroll-bar
+@mixin custom-scroll-bar() {
+  &::-webkit-scrollbar {
+    border-radius: 10px;
+    height: 10px;
+    width: 8px;
+  }
+  
+  &::-webkit-scrollbar-thumb {
+    background: rgba($color: #ffffff, $alpha: 0.1);
+    border-radius: 10px;
+  }
+  
+  &::-webkit-scrollbar-track {
+    border-radius: 10px;
+  }
+}
+
+// no scroll bar
+@mixin no-scroll-bar() {
+  &::-webkit-scrollbar {
+    height: 0;
+    width: 0;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    height: 0;
+    width: 0;
+  }
+
+  &::-webkit-scrollbar-track {
+    height: 0;
+    width: 0;
+  }
+}
 
 
 body {

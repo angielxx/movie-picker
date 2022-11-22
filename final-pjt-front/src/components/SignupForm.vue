@@ -1,6 +1,6 @@
 <template>
   <div class="form-container">
-      <h2 class="form-container__title">로그인</h2>
+      <h2 class="form-container__title">회원가입</h2>
       <form action="" class="form-container__form" @submit.prevent="signUp">
         <div class="form-container__form__input">
           <label for="username">아이디</label>
@@ -17,7 +17,7 @@
         <input type="submit" value="회원가입" class="form-container__form__submit">
       </form>
       <div>
-        <span class="form-container__comment">이미 회원이 아니신가요?</span>
+        <span class="form-container__comment">이미 회원이신가요?</span>
         <router-link to="/login" class="form-container__link">로그인</router-link>
       </div>
     </div>

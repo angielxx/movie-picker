@@ -9,6 +9,8 @@
   display: flex;
   flex-direction: column;
   border-right: 1px solid transparent;
+  position: relative;
+  // justify-content: space-between;
   // background: linear-gradient($bg-color, $bg-color) padding-box, $gradiant01 border-box;
   &__logo {
     font-family: $title-font;
@@ -33,16 +35,30 @@
       display: flex;
       margin-bottom: 24px;
       align-items: center;
-      svg {
-        fill: white;
+      img {
         width: 24px;
         margin-right: 12px;
       }
     }
   }
+
+  &__logout-container {
+    position: absolute;
+    bottom: 32px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    svg {
+      fill: white;
+      width: 24px;
+      margin-right: 12px;
+    }
+  }
 }
 
 .active {
+  font-weight: 800;
   color: transparent;
   background: $gradiant01;
   -webkit-background-clip: text;

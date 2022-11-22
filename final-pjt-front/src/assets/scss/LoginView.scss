@@ -79,11 +79,13 @@
       height: 50px;
       border-radius: 25px;
       color: white;
-      font-weight: 500;
+      font-weight: 800;
       -webkit-appearance: none !important;
       -moz-appearance: none !important;
       appearance: none;
-      background-color: $gradiant01 !important;
+      // background-color: $gradiant01 !important;
+      background: $gradiant01;
+      cursor: pointer;
     }
   }
   &__comment {

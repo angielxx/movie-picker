@@ -1,6 +1,6 @@
 <template>
   <div class="movie-detail">
-    <!-- <SearchBar/> -->
+    <SearchBar/>
     <div class="movie-detail__container">
       <div class="wrapper" :style="`background-image: linear-gradient(to bottom, rgba(20, 18, 23, 1), rgba(20, 18, 23, 0.8)), url(https://image.tmdb.org/t/p/original/${this.movie_detail.backdrop_path}`">
         <div class="main-info">
@@ -48,11 +48,10 @@
             <h3 class="heading">내 코멘트</h3>
             <form @submit.prevent="reviewCreate" class="review-form">
               <label for="content" class="hidden">내용 : </label>
-              <textarea id="content" cols="30" rows="1" v-model="content"></textarea
-                ><br/>
+              <textarea id="content" cols="30" rows="1" v-model="content"></textarea><br/>
                 <input type="submit" id="submit" value="코멘트 작성"/>
-              </form>
-              <div class="area__reviews__all-reviews">
+            </form>
+            <div class="area__reviews__all-reviews">
               <h3 class="heading">사용자 코멘트</h3>
               <MovieReviewItem v-for="(review, key) in reviews.slice().reverse()" :key="key" :review="review"/>
               <!-- <MovieReview :movieId="this.movieId"/> -->
@@ -80,16 +79,14 @@ import MovieReviewItem from '@/components/MovieReviewItem.vue';
 import RecommendedMoviesItem from "@/components/RecommendedMoviesItem.vue";
 // import Vue from 'vue';
 // import RecommendedMovies from "@/components/RecommendedMovies.vue";
-// import SearchBar from "@/components/SearchBar.vue";
+import SearchBar from "@/components/SearchBar.vue";
 
 export default {
   name: "MovieDetail",
   components: {
-    // MovieReview,
     RecommendedMoviesItem,
     MovieReviewItem,
-    // RecommendedMovies,
-    // SearchBar,
+    SearchBar,
   },
   data() {
     return {

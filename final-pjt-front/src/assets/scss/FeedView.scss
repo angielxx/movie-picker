@@ -1,6 +1,19 @@
 @import './common.scss';
 
 .FeedView {
+    position: absolute;
+    bottom: 0;
+    width: calc(100% - 245px);
+    height: 85%;
+    overflow: scroll;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow-x: hidden;
+    @include custom-scroll-bar;
+}
+
+.wrapper {
     width: 100%;
     display: flex;
     flex-direction: column;

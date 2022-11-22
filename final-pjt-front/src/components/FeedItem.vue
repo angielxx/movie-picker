@@ -1,13 +1,45 @@
 <template>
   <div class="FeedItem">
-    <div class="user-info">
-      <div class="user-info__profile" 
+    <div class="info">
+      <div class="info__profile" 
         :style="`background-image: url(${this.$store.state.API_URL}${this.feedItem.user.avatar})`">
 
       </div>
-      <div class="user-info__text">
-        <h2>{{ this.feedItem.created_at | formatDate}}</h2>
+      <div class="info__text">
         <h2><span>{{ this.feedItem.user.username }}</span>님의 인생영화가 새롭게 업데이트되었습니다.</h2>
+      </div>
+      <div class="button" @click="toggleWatched">
+        <!-- icon check gradient -->
+        <svg v-if="!checkFollow" width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M470.6 105.4C483.1 117.9 483.1 138.2 470.6 150.7L214.6 406.7C202.1 419.2 181.8 419.2 169.3 406.7L41.3 278.7C28.8 266.2 28.8 245.9 41.3 233.4C53.8 220.9 74.1 220.9 86.6 233.4L192 338.7L425.4 105.4C437.9 92.8999 458.2 92.8999 470.7 105.4H470.6Z" fill="url(#paint0_radial_241_126)"/>
+          <defs>
+          <radialGradient id="paint0_radial_241_126" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(163.389 192.807) rotate(37.3311) scale(448.762 433.706)">
+          <stop stop-color="#FFB3F3"/>
+          <stop offset="1" stop-color="#BA63FF"/>
+          </radialGradient>
+          </defs>
+        </svg>
+        <!-- icon plus white -->
+        <svg v-else width="448" height="512" viewBox="0 0 448 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M256 80C256 62.3 241.7 48 224 48C206.3 48 192 62.3 192 80V224H48C30.3 224 16 238.3 16 256C16 273.7 30.3 288 48 288H192V432C192 449.7 206.3 464 224 464C241.7 464 256 449.7 256 432V288H400C417.7 288 432 273.7 432 256C432 238.3 417.7 224 400 224H256V80Z" fill="white"/>
+        </svg>
+        <h3 v-if="!checkFollow" class="button__text">언팔로우</h3>
+        <h3 v-else class="button__text">팔로우</h3>
+      </div>
+    </div>
+    <div class="movie-info">
+      <div class="movie-info__poster"
+      :style="`background-image: url(https://image.tmdb.org/t/p/w400/${this.feedItem.movie.poster_path})`"
+      >
+      
+    </div>
+    <div class="movie-info__text">
+        <h2 class="movie-info__text__date">{{ this.feedItem.created_at | formatDate}}</h2>
+        <h2 class="movie-info__text__title">{{this.feedItem.movie.title}}</h2>
+        <div class="movie-info__text__sub">
+          <span>{{this.feedItem.movie.released_date | formatYear}}・</span><span>{{ this.feedItem.movie.genres[0]["name"] }}・</span><span>{{ this.feedItem.movie.countries[0]["name"] }}</span>
+        </div>
+        <p>{{this.feedItem.movie.overview}}</p>
       </div>
     </div>
   </div>
@@ -19,71 +51,14 @@ export default {
   props: {
     feedItem: Object,
   },
-  // *참고* 개별 feeditem은 다음과 같이 주어집니다. (프론트 작업 이후 지워주세요)
-  // {
-  //    "id": 6,
-  //    "movie": {
-  //        "id": 634649,
-  //        "genres": [
-  //            {
-  //                "id": 12,
-  //                "name": "모험"
-  //            },
-  //            {
-  //                "id": 28,
-  //                "name": "액션"
-  //            },
-  //            {
-  //                "id": 878,
-  //                "name": "SF"
-  //            }
-  //        ],
-  //        "countries": [
-  //            {
-  //                "id": 2,
-  //                "name": "미국"
-  //            }
-  //        ],
-  //        "title": "스파이더맨: 노 웨이 홈",
-  //        "original_title": "Spider-Man: No Way Home",
-  //        "released_date": "2021-12-15",
-  //        "popularity": 812.372,
-  //        "vote_count": 15857,
-  //        "vote_avg": 8.0,
-  //        "overview": "미스테리오의 계략으로 세상에 정체가 탄로난 스파이더맨 피터 파커는 하루 아침에 평범한 일상을 잃게 된다. 문제를 해결하기 위해 닥터 스트레인지를 찾아가 도움을 청하지만 뜻하지 않게 멀티버스가 열리면서 각기 다른 차원의 불청객들이 나타난다. 닥터 옥토퍼스를 비롯해 스파이더맨에게 깊은 원한을 가진 숙적들의 강력한 공격에 피터 파커는 사상 최악의 위기를 맞게 되는데…",
-  //        "poster_path": "/voddFVdjUoAtfoZZp2RUmuZILDI.jpg",
-  //        "backdrop_path": "/14QbnygCuTO0vl7CAFmPf1fgZfV.jpg",
-  //        "trailer_path": "WgU7P6o-GkM",
-  //        "recommended": [
-  //            335787,
-  //            338953,
-  //            414906,
-  //            425909,
-  //            429617,
-  //            453395,
-  //            476669,
-  //            507086,
-  //            508947,
-  //            524434,
-  //            526896,
-  //            566525,
-  //            568124,
-  //            580489,
-  //            616037,
-  //            624860,
-  //            646380,
-  //            675353,
-  //            696806
-  //        ]
-  //    },
-  //    "user": {
-  //        "id": 2,
-  //        "username": "test2",
-  //        "avatar": "/images/default_avatar_2.svg"
-  //    },
-  //    "created_at": "2022-11-22T14:15:16.099660",
-  //    "best_of_best": true
-  // },
+
+  computed: {
+    checkFollow() {
+      const flag = false
+      return flag
+    }
+  },
+ 
   filters: {
     formatDate(date) {
       const y = date.slice(0, 4)
@@ -100,6 +75,6 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss" scoped>
 @import '@/assets/scss/FeedItem.scss';
 </style>

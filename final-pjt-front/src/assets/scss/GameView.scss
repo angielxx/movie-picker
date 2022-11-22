@@ -35,29 +35,52 @@
     display: flex;
     width: 100vw;
     height: 100vh;
-    // background-color: red;
+    position: relative;
+
+    &__info {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        // box-shadow: $box-shadow;
+
+        &__round {
+            font-size: 3rem;
+            margin-bottom: 12px;
+        }
+        &__verse {
+            font-size: 5rem;
+            font-weight: 800;
+        }
+
+    }
+    
     &__left, &__right {
         display: flex;
         justify-content: center;
         align-items: center;
         width: 50vw;
-        background-color: $gradiant01;
         &__poster {
             width: 40%;
             height: 0;
             padding-bottom: 60%;
             border-radius: 20px;
             background-size: cover;
-            &:hover {
-                border: 1px solid white;
-                width: calc(40% * 1.1);
-                padding-bottom: calc(60% * 1.1);
 
-            }
-            transition-property: width, padding-bottom;
+            transition-property: transform;
             transition-duration: 0.3s;
         }
     }
+}
+
+.hover {
+    background: $gradiant01;
+}
+.darken {
+    opacity: 0.4;
 }
 
 .result {
@@ -67,17 +90,19 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+
+    span {
+        font-weight: 800;
+    }
+
     h2 {
         font-size: 2rem;
         color: transparent;
         background: $gradiant01;
         -webkit-background-clip: text;
+        margin-bottom: 32px;
     }
     &__poster {
-        width: 40%;
-        height: 0;
-        padding-bottom: 60%;
-        border-radius: 5%;
-        background-size: cover;
+        @include poster-div(20%);
     }
 }

@@ -14,19 +14,24 @@
             </form>
         </div>
         <div class="round hidden">
-            <div id="background" class="round__left" @click.prevent="change(0)" @mouseover="changeColor($event)">
+            <div class="round__info">
+                <h2 class="round__info__round">{{this.roundNum}}강</h2>
+                <h2 class="round__info__verse">VS</h2>
+            </div>
+            <div id="background" class="round__left" @click.prevent="change(0)" @mouseover="hover($event)">
                 <div id="left" class="round__left__poster">
 
                 </div>
             </div>
-            <div id="background" class="round__right" @click.prevent="change(1)" @mouseover="changeColor($event)">
+            <!-- <h2 class="round__verse">VS</h2> -->
+            <div id="background" class="round__right" @click.prevent="change(1)" @mouseover="hover($event)">
                 <div id="right" class="round__right__poster">
 
                 </div>
             </div>
         </div>
         <div class="result hidden">
-            <h2>{{ this.$store.state.username}}의 인생영화는</h2>
+            <h2><span>{{ this.$store.state.username}}</span>의 인생영화는</h2>
             <div class="result__poster">
 
             </div>
@@ -57,6 +62,9 @@ export default {
             sNum: 0,
             cnt2: 0,
             final_winner: null,
+
+            // 게임 진행 상황 저장할 변수
+            roundNum: null,
         };
     },
 
@@ -82,17 +90,25 @@ export default {
     
     computed: {
         rounds_arr() {
-            // const movieNumbers = this.watched_movies.length;
-            const movieNumbers = 15; // 임시
+            const movieNumbers = this.watched_movies.length;
+            // const movieNumbers = 15; // 임시
             let rounds_arr = [];
             let i = 1;
             let round = 2 ** i;
             while (round <= movieNumbers) {
-                round = 2 ** i;
                 rounds_arr.push(round)
                 i++;
+                round = 2 ** i;
             }
             return rounds_arr
+        },
+    },
+
+    watch: {
+        candidates() {
+            if (this.rounds_arr.includes(this.candidates.length)) {
+                this.roundNum = this.candidates.length
+            }
         }
     },
 
@@ -116,8 +132,8 @@ export default {
             this.showImg(this.num);
         },
         showImg(num) {
-            document.getElementById('left').style.backgroundImage = `url(https://image.tmdb.org/t/p/w400/${this.candidates[num].poster_path})`
-            document.getElementById('right').style.backgroundImage = `url(https://image.tmdb.org/t/p/w400/${this.candidates[num+1].poster_path})`
+            document.getElementById('left').style.backgroundImage = `url(https://image.tmdb.org/t/p/w500/${this.candidates[num].poster_path})`
+            document.getElementById('right').style.backgroundImage = `url(https://image.tmdb.org/t/p/w500/${this.candidates[num+1].poster_path})`
             this.cnt2++
         },
         change(n) {
@@ -128,6 +144,8 @@ export default {
                 } else {
                     this.final_winner = this.candidates[1]
                 }
+                const result = document.querySelector('.result')
+                result.style.backgroundImage = `linear-gradient(to bottom, rgba(20, 18, 23, 1), rgba(20, 18, 23, 0.8)), url(https://image.tmdb.org/t/p/original/${this.final_winner.backdrop_path}`
                 this.showResult();
             } else {
                 // 사용자가 선택한 횟수
@@ -164,6 +182,7 @@ export default {
 
             const result = document.querySelector('.result')
             result.classList.remove('hidden')
+            // result.style.backgroundImage = `linear-gradient(to bottom, rgba(20, 18, 23, 1), rgba(20, 18, 23, 0.8)), url(https://image.tmdb.org/t/p/original/${this.final_winner.backdrop_path}`
 
             const poster = document.querySelector('.result__poster')
             poster.style.backgroundImage = `url(https://image.tmdb.org/t/p/w400/${this.final_winner.poster_path})`
@@ -176,7 +195,7 @@ export default {
                 this.final_winner = null
                 
                 this.$router.push({ name: 'movieDetail', params: { movieId : movieId} }) 
-            }, 3000)
+            }, 2000)
         },
 
         // 게임 결과 post 요청 보내기
@@ -198,42 +217,23 @@ export default {
         },
 
         // hover시 배경 색 바꾸기
-        changeColor(event) {
+        hover(event) {
             const backgrounds = document.querySelectorAll('#background')
             backgrounds.forEach((background) => {
                 if (background === event.currentTarget) {
                     background.classList.add('hover')
+                    background.childNodes[0].style.transform = "scale(1.15)"
+                    background.childNodes[0].classList.remove('darken')
+                    // background.childNodes.style.transform = "scale(1.5)"
+                    // background.querySelector('div').add('poster-hover')
                 } else {
                     background.classList.remove('hover')
+                    background.childNodes[0].style.transform = "scale(1)"
+                    background.childNodes[0].classList.add('darken')
+                    // background.querySelector('div').remove('poster-hover')
                 }
             })
         },
-
-
-
-
-        // // 각 라운드를 화면에 쏴서 유저가 고른 우승자를 리턴
-        // startRound(movies) {
-        //     const left = document.querySelector('.round__left__poster')
-        //     const right = document.querySelector('.round__right__poster')
-
-        //     left.style.backgroundImage = `url(https://image.tmdb.org/t/p/w400/${movies[0].poster_path})`
-        //     right.style.backgroundImage = `url(https://image.tmdb.org/t/p/w400/${movies[1].poster_path})`
-        //     return this.winner
-        // },
-
-        // // 사용자가 클릭한 영화 감지하여 클래스 추가
-        // clickMovie(event) {
-        //     if(event.currentTarget.id === 'left') {
-        //         console.log(this.candidates_for_round[0])
-        //         this.winner = this.candidates_for_round[0]
-        //         return 
-        //     } else {
-        //         console.log(this.candidates_for_round[1])
-        //         this.winner = this.candidates_for_round[1]
-        //         return 
-        //     }
-        // }
     },
 };
 </script>

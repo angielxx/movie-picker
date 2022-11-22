@@ -1,12 +1,14 @@
 <template>
-  <div>
-    <hr>
-    <h2>FeedItem</h2>
-    {{feedItem.movie.title}}
-    <br>
-    {{feedItem.user.username}}
-    <hr>
+  <div class="FeedItem">
+    <div class="user-info">
+      <div class="user-info__profile" 
+        :style="`background-image: url(${this.$store.state.API_URL}${this.feedItem.user.avatar})`">
 
+      </div>
+      <div class="user-info__text">
+        <h2>{{this.feedItem.created_at | formatDate}}</h2>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -15,7 +17,7 @@ export default {
   name: 'FeedItem',
   props: {
     feedItem: Object,
-  }
+  },
   // *참고* 개별 feeditem은 다음과 같이 주어집니다. (프론트 작업 이후 지워주세요)
   // {
   //    "id": 6,
@@ -81,9 +83,22 @@ export default {
   //    "created_at": "2022-11-22T14:15:16.099660",
   //    "best_of_best": true
   // },
+  filters: {
+    formatDate(date) {
+      const y = date.slice(0, 4)
+      const m = date.slice(5, 7)
+      const d = date.slice(8, 10)
+      const result = `${y}.${m}.${d}`
+      return result
+    },
+    formatYear(date) {
+      const y = date.slice(0, 4)
+      return y
+    }
+  }
 }
 </script>
 
 <style>
-
+@import '@/assets/scss/FeedItem.scss';
 </style>

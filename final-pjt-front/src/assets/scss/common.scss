@@ -1,4 +1,4 @@
-// color
+
 $bg-color: #141217;
 $container: #231f2b;
 $bg-color2: #F2F2F2;
@@ -25,18 +25,6 @@ $gradiant01: linear-gradient(45deg, $grad-pink, $grad-purple);
   background: linear-gradient($bg-color, $bg-color) padding-box, $gradiant01 border-box;
 }
 
-
-// $font-grad: {
-//   color: transparent;
-//   background: $gradiant01;
-//   -webkit-background-clip: text;
-// };
-// $grad-border {
-//   border: 1px solid transparent;
-//   background: linear-gradient($container, $container) padding-box, $gradiant01 border-box;
-// }
-
-// font
 @font-face {
   font-family: 'CWDangamAsac-Bold';
   src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/CWDangamAsac-Bold.woff') format('woff');

@@ -49,7 +49,6 @@ export default {
         }
       })
       .then(res => {
-        // console.log(res)
         const movies = res.data
         this.results = movies
         console.log(this.results)

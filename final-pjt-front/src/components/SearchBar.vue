@@ -58,7 +58,28 @@ export default {
       })
     },
     // 유저를 검색하는 axios 요청입니다.(메서드만 작성, 이후 프론트 작업 시 필요한 컴포넌트에 등록해주세요)
-    searchUser() {}
+    searchUser(event) {
+      const query = event.target.value
+      const API_URL = this.$store.state.API_URL
+      const SEARCH_URL = `${API_URL}/api/accounts/search_user/${query}/`
+      axios({
+        method: 'get',
+        url: SEARCH_URL,
+        headers: {
+            // Authorization: `Token 6023611848bfca271b0de4cb5db50064289b791d` //임시 토큰
+            Authorization: `Token ${ this.$store.state.token }`
+        }
+      })
+      // 이하 then() 부분의 변수명 등은 로직에 맞게 수정해주세요
+      .then(res => {
+        const users = res.data
+        this.results = users
+        console.log(this.results)
+      })
+      .then(() => {
+        this.$emit('getResults', this.results)
+      })
+    },
   },
 };
 </script>

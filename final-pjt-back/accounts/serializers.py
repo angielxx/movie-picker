@@ -51,7 +51,7 @@ class CustomUserSerializer(DynamicFieldsModelSerializer):
 
 class BestMovieSerializer(DynamicFieldsModelSerializer):
     movie = MovieSerializer(read_only=True)
-    user = UserSerializer(read_only=True)
+    user = UserSerializer(read_only=True, fields=['id', 'username', 'avatar'])
 
     class Meta:
         model = BestMovie

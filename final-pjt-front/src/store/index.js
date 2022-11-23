@@ -34,11 +34,22 @@ const store = new Vuex.Store({
     watched_movies: [],
     // 보고 싶어요
     to_watch_movies: [],
+
+    // 팔로잉
+    followings: [],
+    // 팔로워
+    followers: [],
   },
   getters: {
     // 로그인 여부 확인
     isLoggedIn(state) {
       return state.token ? true : false
+    },
+    followingsCount(state) {
+      return state.followings.length
+    },
+    followersCount(state) {
+      return state.followers.length
     }
   },
   mutations: {
@@ -60,6 +71,10 @@ const store = new Vuex.Store({
       // 본 영화랑 볼 영화 받아오기
       state.to_watch_movies = data['to_watch_movies'],
       state.watched_movies = data['watched_movies']
+
+      // 팔로잉/팔로우 
+      state.followings = data['followings']
+      state.followers = data['followers']
       
       // watched_movies 없으면 first_adddMovie로 보냄
       if (!state.watched_movies.length) {
@@ -83,6 +98,8 @@ const store = new Vuex.Store({
       state.all_best_movies = [],
       state.watched_movies = [],
       state.to_watch_movies = [],
+      state.followings = [],
+      state.followers = []
 
       localStorage.clear();
 
@@ -173,6 +190,42 @@ const store = new Vuex.Store({
         // console.log(res)
         context.commit('GET_USER', res.data)
       })
+    },
+
+    // 리뷰 삭제 요청
+    deleteReview(context, payload) {
+      const reviewId = payload.reviewId
+      axios({
+        method: 'DELETE',
+        url: `${context.state.API_URL}/api/articles/${reviewId}/`,
+        headers: {
+          Authorization: `Token ${ context.state.token }`
+        }
+      })
+      .then(() => {
+        return
+      })    
+      .catch((err) => console.log(err))
+    },
+    
+    // 리뷰 수정 요청
+    updateReview(context, payload) {
+      const reviewId = payload.reviewId
+      const content = payload.content
+      axios({
+        method: 'PUT',
+        url: `${context.state.API_URL}/api/articles/${reviewId}/`,
+        headers: {
+          Authorization: `Token ${ context.state.token }`
+        },
+        data: {
+          content
+        }
+      })
+      .then(() => {
+        return
+      })    
+      .catch((err) => console.log(err))
     },
   },
   modules: {

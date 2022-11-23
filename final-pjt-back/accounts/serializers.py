@@ -63,6 +63,7 @@ class ProfileSerializer(DynamicFieldsModelSerializer):
     best_movies = BestMovieSerializer(many=True, fields=['id', 'movie', 'created_at', 'best_of_best'])
     watched_movies = MovieSerializer(many=True)
     to_watch_movies = MovieSerializer(many=True)
+    followers = serializers.PrimaryKeyRelatedField(read_only=True, many=True)
 
     class Meta:
         model = User

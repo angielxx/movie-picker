@@ -91,6 +91,7 @@ export default {
       myRecommendations: [],
     }
   },
+  // 컴포넌트 가드
   created() {
     this.$store.dispatch('getUser')
     this.getMyRecommendations()

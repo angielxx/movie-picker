@@ -16,8 +16,9 @@
               </defs>
             </svg>
           </router-link>
-        </div>
-      <div class="header">
+      </div>
+
+      <div class="header" ref="header">
         <div class="best-movie" v-if="this.best_movie">
           <h2 class="best-movie__heading">
             내 인생영화
@@ -97,8 +98,8 @@ export default {
     this.getMyRecommendations()
   },
   mounted() {
-    this.clearSearchBar();
     this.setHeader()
+    this.clearSearchBar();
   },
   methods: {
     clearSearchBar() {
@@ -132,7 +133,7 @@ export default {
     },
     setHeader() {
       if (this.best_movie) {
-        const header = document.querySelector('.header')
+        const header = this.$refs.header
         header.style.backgroundImage = `linear-gradient(to bottom, rgba(20, 18, 23, 1), rgba(20, 18, 23, 0.8)), url(https://image.tmdb.org/t/p/original/${this.best_movie.movie.backdrop_path})`
       } else {
         const home = document.querySelector('.home')

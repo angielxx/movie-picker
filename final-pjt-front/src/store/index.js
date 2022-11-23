@@ -12,7 +12,10 @@ Vue.use(Vuex)
 
 const store = new Vuex.Store({
   plugins: [
-    createPersistedState()
+    createPersistedState({
+      key: 'vuexStore',
+      storage: window.sessionStorage,
+    })
   ],
   state: {
     // API_URL

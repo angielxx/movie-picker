@@ -30,6 +30,10 @@
           </div>
         </div>
       </div>
+      <div class="pickedUser">
+        <h2>이 영화가 인생영화인 사람들</h2>
+        <MovieDetailUserItem v-for="(user, key) in pickedUsers" :key="key" :user="user"/>
+      </div>
       <div class="link">
         <div id="tab_button" class="link__button active" data-tab="comments">
           <h3 @click.prevent="switchTab($event)" data-tab="comments">사용자 코멘트</h3>
@@ -74,12 +78,10 @@
 
 <script>
 import axios from "axios";
-// import MovieReview from "@/components/MovieReview.vue";
 import MovieReviewItem from '@/components/MovieReviewItem.vue';
 import RecommendedMoviesItem from "@/components/RecommendedMoviesItem.vue";
-// import Vue from 'vue';
-// import RecommendedMovies from "@/components/RecommendedMovies.vue";
 import SearchBar from "@/components/SearchBar.vue";
+import MovieDetailUserItem from '@/components/MovieDetailUserItem.vue';
 
 export default {
   name: "MovieDetail",
@@ -87,6 +89,7 @@ export default {
     RecommendedMoviesItem,
     MovieReviewItem,
     SearchBar,
+    MovieDetailUserItem,
   },
   data() {
     return {

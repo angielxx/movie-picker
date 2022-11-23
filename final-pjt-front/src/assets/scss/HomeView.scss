@@ -4,7 +4,7 @@
   position: absolute;
   bottom: 0px;
   color: $bg-color;
-  width: calc(1440px - 245px);
+  width: 100%;
   display: flex;
   flex-direction: column;
   // justify-content: center;
@@ -14,7 +14,7 @@
   .home-title {
     font-family: $title-font;
     font-size: 2rem;
-    margin-bottom: 16px;
+    margin-bottom: 24px;
     font-weight: bold;
     color: transparent;
     background: $gradiant01;
@@ -28,39 +28,130 @@
     justify-content: space-between;
     width: 100%;
     height: 100%;
-    padding: 0px 32px 32px 32px;
+    // padding: 0px 32px 32px 32px;
     box-sizing: border-box;
+  }
+}
 
-    &__left {
-      width: calc(65% - 16px);
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      .best-movie, .world-cup {
-        height: 48%;
-      }
+.home-wrapper {
+  width: 100%;
+  height: 440px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-size: 120%;
+  background-position: top;
+}
+
+.main-info__wrapper {
+  width: fit-content;
+}
+
+.main-info {
+  width: fit-content;
+  height: 330px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  &__poster {
+    width: 220px;
+    height: 0;
+    padding-bottom: calc(220px * 1.5);
+    background-size: cover;
+    border-radius: 10px;
+    margin-right: 40px;
+    cursor: pointer;
+    transition-property: transform;
+    transition-duration: 0.3s;
+
+    &:hover {
+      transform: scale(1.1);
     }
-
-    &__right {
-      width: calc(35% - 16px);
-      .container {
-        padding: 24px;
+  }
+  
+  &__info {
+    width: fit-content;
+    height: 100%;
+    width: 40%;
+    padding: 20px 0px;
+    box-sizing: border-box;
+    position: relative;
+    
+    &__date {
+      margin-bottom: 8px;
+    }
+    &__title {
+      font-size: 2.5rem;
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+    &__subinfo {
+      opacity: 0.7;
+      font-weight: 300;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: flex-start;
+      justify-content: flex-start;
+    }
+    & p {
+      max-height: 55%;
+      overflow: scroll;
+      line-height: 1.4rem;
+      opacity: 0.7;
+      @include custom-scroll-bar;
+      overflow-x: hidden;
+    }
+    &__btns {
+      display: flex;
+      position: absolute;
+      bottom: 0;
+      .addWatched {
+        margin-right: 16px;
+      }
+      .addWatched, .addToWatch {
+        height: 40px;
+        padding: 0px 20px;
+        box-sizing: border-box;
+        border: 1px solid rgba(0, 0, 0, 0.4);
+        background: linear-gradient($container, $container) padding-box, $gradiant01 border-box;
+        border-radius: 24px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 1rem;
+        font-weight: 400;
+        cursor: pointer;
+        margin-bottom: 20px;
+        h3 {
+          color: transparent;
+          background: $gradiant01;
+          -webkit-background-clip: text;
+          opacity: 1;
+        }
+        svg {
+          width: 18px;
+          margin-right: 8px;
+          fill: white;
+          opacity: 0.7;
+        }
       }
     }
   }
 }
 
-.best-movie .container, .home__main-container__right .container {
-  background-color: $container;
-  box-sizing: border-box;
-  border-radius: 20px;
-  height: calc(100% - 48px);
-  overflow: hidden;
-  color: white;;
-  border: 1px solid rgba(0, 0, 0, 0.4);
-  background: linear-gradient($container, $container) padding-box, $gradiant01 border-box;
-  background-blend-mode: multiply;
-}
+// .best-movie .container, .home__main-container__right .container {
+//   background-color: $container;
+//   box-sizing: border-box;
+//   border-radius: 20px;
+//   height: calc(100% - 48px);
+//   overflow: hidden;
+//   color: white;;
+//   border: 1px solid rgba(0, 0, 0, 0.4);
+//   background: linear-gradient($container, $container) padding-box, $gradiant01 border-box;
+//   background-blend-mode: multiply;
+// }
 
 // 내 인생영화
 .best-movie {

@@ -177,11 +177,6 @@ const store = new Vuex.Store({
         .catch(err => console.log(err))
     },
 
-    test() {
-      console.log('hi')
-    },
-
-
     // 유저 정보
     getUser(context) {
 
@@ -234,6 +229,27 @@ const store = new Vuex.Store({
         return
       })    
       .catch((err) => console.log(err))
+    },
+
+    // 팔로우 비동기
+    follow(context, payload) {
+      const userId = payload.userId
+      console.log(userId)
+      const API_URL = context.state.API_URL
+      const FOLLOW_URL = `${API_URL}/api/accounts/follow/${userId}/`
+      
+      // 서버에도 보내고, state도 업데이트
+      axios({
+      method: 'post',
+      url: FOLLOW_URL,
+      headers: {
+          Authorization: `Token ${ context.state.token }`
+      }
+      })
+      // 이하 then() 부분의 변수명 등은 로직에 맞게 수정해주세요
+      .then(() => {
+        context.dispatch('getUser')
+      })
     },
 
     // 상태 메세지 수정 요청

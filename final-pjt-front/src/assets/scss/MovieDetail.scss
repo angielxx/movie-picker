@@ -27,9 +27,6 @@
   align-items: center;
   background-size: 120%;
   background-position: top;
-  // background: linear-gradient($bg-color, white);
-  // background-blend-mode: multiply;
-  // padding-top: 140px;
 }
 
 .main-info {
@@ -37,6 +34,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  color: white;
   &__poster {
     width: 220px;
     height: 0;
@@ -44,14 +42,22 @@
     background-size: cover;
     border-radius: 10px;
     margin-right: 40px;
+    :hover {
+      transform: scale(0);
+      transition: none;
+    }
   }
-
+  
   &__info {
     width: 40vw;
     height: 100%;
     padding: 20px 0px;
     box-sizing: border-box;
     position: relative;
+    
+    &__date {
+      margin-bottom: 8px;
+    }
     &__title {
       font-size: 2.5rem;
       font-weight: 800;

@@ -9,13 +9,13 @@
     position: relative;
     box-sizing: border-box;
     margin-bottom: 24px;
-    cursor: pointer;
 }
 
 .user-profile {
     @include circle(60px);
     background-size: cover;
     margin-right: 16px;
+    cursor: pointer;
 }
 
 .follow {

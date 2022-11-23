@@ -32,13 +32,13 @@ export default {
     const API_URL = this.$store.state.API_URL;
     axios({
       method: "get",
-      url: `${API_URL}/api/accounts/feed`,
+      url: `${API_URL}/api/accounts/feed/`,
       headers: {
         Authorization: `Token ${this.$store.state.token}`,
       },
     })
       .then((res) => {
-        // console.log(res.data) // 프론트 작업 시 확인용 콘솔로그입니다.
+        console.log(res.data) // 프론트 작업 시 확인용 콘솔로그입니다.
         this.feed = res.data;
       })
       .catch((err) => console.log(err));

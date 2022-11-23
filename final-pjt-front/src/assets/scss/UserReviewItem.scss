@@ -3,7 +3,7 @@
 .UserReviewItem {
   width: 100%;
   height: auto;
-  @include border-gradient
+  @include border-gradient;
   margin-bottom: 16px;
   border-radius: 8px;
   padding: 24px;

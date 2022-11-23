@@ -4,8 +4,9 @@
     <div class="movie-detail__container">
       <div class="wrapper" :style="`background-image: linear-gradient(to bottom, rgba(20, 18, 23, 1), rgba(20, 18, 23, 0.8)), url(https://image.tmdb.org/t/p/original/${this.movie_detail.backdrop_path}`">
         <div class="main-info">
-          <div class="main-info__poster"
-            :style="`background-image: url(https://image.tmdb.org/t/p/w400/${movie_detail.poster_path})`">
+          <div
+          class="main-info__poster"
+          :style="`background-image: url(https://image.tmdb.org/t/p/w400/${movie_detail.poster_path})`">
           </div>
           <div class="main-info__info">
             <h3 class="main-info__info__title">{{ movie_detail.title }}</h3>
@@ -30,7 +31,7 @@
           </div>
         </div>
       </div>
-      <div class="pickedUser">
+      <div class="pickedUser" v-if="this.pickedUsers.length">
         <h2>이 영화가 인생영화인 사람들</h2>
         <MovieDetailUserItem v-for="(user, key) in pickedUsers" :key="key" :user="user"/>
       </div>
@@ -50,23 +51,29 @@
           <!-- 하위컴포넌트인 리뷰를 보여줍니다. -->
           <div id="tab_content" class="area__reviews__my-review" data-tab="comments">
             <h3 class="heading">내 코멘트</h3>
-            <form @submit.prevent="reviewCreate" class="review-form">
+            <form
+            class="review-form"
+            v-if="!checkMyReview"
+            @submit.prevent="reviewCreate"
+            >
               <label for="content" class="hidden">내용 : </label>
               <textarea id="content" cols="30" rows="1" v-model="content"></textarea><br/>
                 <input type="submit" id="submit" value="코멘트 작성"/>
             </form>
+            <MovieReviewItem
+            v-else
+            class="my-review"
+            :review="myReview"/>
             <div class="area__reviews__all-reviews">
               <h3 class="heading">사용자 코멘트</h3>
-              <MovieReviewItem v-for="(review, key) in reviews.slice().reverse()" :key="key" :review="review"/>
+              <MovieReviewItem v-for="(review, key) in userReviews.slice().reverse()" :key="key" :review="review"/>
               <!-- <MovieReview :movieId="this.movieId"/> -->
             </div>
           </div>
-          <!-- 하위컴포넌트인 추천 영화를 보여줍니다. -->
-          <div id="tab_content"  class="area__reviews__recommends hidden" data-tab="recommends">
-            <!-- <div class="recommended-movies"> -->
+          <div
+          v-if="this.recommendedMovies.length"
+          id="tab_content"  class="area__reviews__recommends hidden" data-tab="recommends">
               <RecommendedMoviesItem v-for="(movieId, key) in this.recommendedMovies" :key="key" :movie-id="movieId"/>
-              <!-- <RecommendedMovies :recommended-movies="this.movie_detail.recommended"/>  -->
-            <!-- </div> -->
           </div>
         </div>
 
@@ -96,8 +103,9 @@ export default {
       movieId: this.$route.params.movieId,
       movie_detail: {},
       content: null,
-      reviews: [],
       allPickedUsers: [],
+
+      reviews: [],
     };
   },
 
@@ -138,6 +146,21 @@ export default {
       let allPickedUsers = this.allPickedUsers
       allPickedUsers = allPickedUsers.filter((userObj) => userObj.user.id !== this.$store.state.user_pk)
       return allPickedUsers
+    },
+
+    // 해당 영화에 내가 쓴 리뷰가 있는지 확인
+    checkMyReview() {
+      return this.reviews.some((review) => review.username === this.$store.state.username)
+    },
+
+    // 나의 리뷰
+    myReview() {
+      return this.reviews.find((review) => review.username === this.$store.state.username)
+    },
+
+    // 나를 제외한 사용자들 리뷰
+    userReviews() {
+      return this.reviews.filter((review) => review.username !== this.$store.state.username)
     }
   },
   

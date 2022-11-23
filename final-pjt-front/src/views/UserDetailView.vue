@@ -1,5 +1,6 @@
 <template>
   <div class="UserDetail">
+    <!-- <input type="image" @change="onFileChange"> -->
     <div class="header">
       <div class="user-info">
         <div class="user-info__img" :style="`background-image: url(${this.$store.state.API_URL}${this.$store.state.avatar})`">

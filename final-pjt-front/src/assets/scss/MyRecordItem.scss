@@ -1,0 +1,90 @@
+@import './common.scss';
+
+.FeedItem {
+  width: 100%;
+  height: fit-content;
+  margin-bottom: 40px;
+}
+
+.info {
+  display: flex;
+  align-items: center;
+  margin-bottom: 16px;
+  position: relative;
+  
+  &__profile {
+    background-size: cover;
+    @include circle(60px);
+    margin-right: 20px;
+    cursor: pointer;
+  }
+  
+  &__text {
+    height: 60px;
+    padding: 8px 0;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    span {
+      @include font-gradient;
+      font-weight: 800;
+      font-size: 1.2rem;
+      margin-right: 1px;
+    }
+  }
+
+  .button {
+    @include button;
+    position: absolute;
+    right: 0px;
+  }
+}
+
+.movie-info {
+  @include border-gradient;
+  border-radius: 20px;
+  height: fit-content;
+  padding: 32px;
+  box-sizing: border-box;
+  display: flex;
+  // justify-content: center;
+  &__poster {
+    @include poster-div(35%)
+    margin-right: 32px
+  }
+  
+  &__text {
+    padding: 24px 0px;
+    width: 65%;
+    box-sizing: border-box;
+
+    h2 {
+      margin-bottom: 12px;
+    }
+    
+    &__date {
+      font-size: 1.2rem
+    }
+    &__title {
+      @include font-gradient;
+      font-size: 2.4rem;
+      font-weight: 800;
+    }
+    &__sub {
+      font-weight: 300;
+      opacity: 0.7;
+      margin-bottom: 36px;
+    }
+    p {
+      line-height: 1.6rem;
+      opacity: 0.7;
+      font-weight: 300;
+      max-height: 60%;
+      overflow: scroll;
+      overflow-x: hidden;
+      @include custom-scroll-bar;
+    }
+  }
+}

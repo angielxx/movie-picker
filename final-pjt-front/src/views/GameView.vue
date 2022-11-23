@@ -65,19 +65,6 @@ export default {
         };
     },
 
-    created() {
-        const gameName = this.$route.params.gameName
-        // console.log(gameName)
-        switch (gameName) {
-            case 'all-movie':
-                this.watched_movies = this.$store.state.watched_movies
-                this.best_of_best = true
-                break;
-        
-            default:
-                break;
-        }
-    },
     mounted() {
         showRounds(this.rounds_arr)
         // showRounds([4,8,16,32]) // 임시 라운드 갯수

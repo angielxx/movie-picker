@@ -10,273 +10,133 @@
   // justify-content: center;
   align-items: center;
   height: 85%;
-
-  .home-title {
-    font-family: $title-font;
-    font-size: 2rem;
-    margin-bottom: 24px;
-    font-weight: bold;
-    color: transparent;
-    background: $gradiant01;
-    height: fit-content;
-    -webkit-background-clip: text;
-    padding-bottom: 1px;
-  }
+  overflow: scroll;
+  @include custom-scroll-bar
 
   &__main-container {
-    display: flex;
-    justify-content: space-between;
     width: 100%;
-    height: 100%;
-    // padding: 0px 32px 32px 32px;
-    box-sizing: border-box;
   }
 }
 
-.home-wrapper {
+.header {
   width: 100%;
-  height: 440px;
+  height: 480px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.best-movie {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  background-size: 120%;
-  background-position: top;
-}
-
-.main-info__wrapper {
   width: fit-content;
+  &__heading {
+    @include font-gradient;
+    font-size: 2rem;
+    font-family: $title-font;
+    font-weight: 800;
+    margin-bottom: 24px;
+  }
+  
+  &__main-info {
+    display: flex;
+    width: 50vw;
+
+    &__poster {
+      @include poster-div(220px);
+      margin-right: 40px;
+      transition-property: transform;
+      transition-duration: 0.5s;
+      &:hover {
+        transform: scale(1.1);
+      }
+    }
+    
+    &__content {
+      width: 60%;
+      color: white;
+      
+      &__date {
+        font-size: 1.2rem;
+        margin-bottom: 8px;
+      }
+      &__title {
+        font-size: 2rem;
+        @include font-gradient;
+        font-weight: 800;
+        margin-bottom: 8px;
+      }
+      &__subinfo {
+        opacity: 0.7;
+        margin-bottom: 8px;
+      }
+      p {
+        opacity: 0.7;
+        line-height: 1.4rem;
+        max-height: 60%;
+      }
+    }
+  }
 }
 
-.main-info {
-  width: fit-content;
-  height: 330px;
+.gameLink {
+  position: absolute;
+  bottom: 16px;
+  right: 5vw;
+  display: flex;
+  align-items: center;
+  height: 48px;
+  text-decoration: none;
+  &:hover {
+    opacity: 0.7;
+  }
+  h2 {
+    @include font-gradient;
+    font-weight: 800;
+    font-size: 1.5rem;
+    margin-right: 8px;
+  }
+  svg {
+    width: 30px;
+    height: 30px;
+  }
+}
+
+.content-wrapper {
+  width: 100%;
   display: flex;
   justify-content: center;
-  align-items: center;
-  color: white;
-  &__poster {
-    width: 220px;
-    height: 0;
-    padding-bottom: calc(220px * 1.5);
-    background-size: cover;
-    border-radius: 10px;
-    margin-right: 40px;
-    cursor: pointer;
-    transition-property: transform;
-    transition-duration: 0.3s;
 
-    &:hover {
-      transform: scale(1.1);
-    }
-  }
-  
-  &__info {
-    width: fit-content;
-    height: 100%;
-    width: 40%;
-    padding: 20px 0px;
-    box-sizing: border-box;
-    position: relative;
+  .recommends {
+    width: 60%;
+    padding: 32px 16px 32px 32px;
     
-    &__date {
-      margin-bottom: 8px;
-    }
-    &__title {
-      font-size: 2.5rem;
+    h2 {
+      @include font-gradient;
       font-weight: 800;
-      margin-bottom: 8px;
+      font-size: 1.2rem;
+      font-family: $title-font;
+      height: 48px;
     }
-    &__subinfo {
-      opacity: 0.7;
-      font-weight: 300;
-      margin-bottom: 8px;
-      display: flex;
-      align-items: flex-start;
-      justify-content: flex-start;
-    }
-    & p {
-      max-height: 55%;
-      overflow: scroll;
-      line-height: 1.4rem;
-      opacity: 0.7;
-      @include custom-scroll-bar;
-      overflow-x: hidden;
-    }
-    &__btns {
-      display: flex;
-      position: absolute;
-      bottom: 0;
-      .addWatched {
-        margin-right: 16px;
-      }
-      .addWatched, .addToWatch {
-        height: 40px;
-        padding: 0px 20px;
-        box-sizing: border-box;
-        border: 1px solid rgba(0, 0, 0, 0.4);
-        background: linear-gradient($container, $container) padding-box, $gradiant01 border-box;
-        border-radius: 24px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-size: 1rem;
-        font-weight: 400;
-        cursor: pointer;
-        margin-bottom: 20px;
-        h3 {
-          color: transparent;
-          background: $gradiant01;
-          -webkit-background-clip: text;
-          opacity: 1;
-        }
-        svg {
-          width: 18px;
-          margin-right: 8px;
-          fill: white;
-          opacity: 0.7;
-        }
-      }
-    }
-  }
-}
 
-// .best-movie .container, .home__main-container__right .container {
-//   background-color: $container;
-//   box-sizing: border-box;
-//   border-radius: 20px;
-//   height: calc(100% - 48px);
-//   overflow: hidden;
-//   color: white;;
-//   border: 1px solid rgba(0, 0, 0, 0.4);
-//   background: linear-gradient($container, $container) padding-box, $gradiant01 border-box;
-//   background-blend-mode: multiply;
-// }
-
-// 내 인생영화
-.best-movie {
-  .container {
-    padding: 16px;
-    box-sizing: border-box;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
+    &__list {
+      display: flex;
+      flex-wrap: wrap;
+      color: white;
+    }
   }
   
-  &__poster {
-    width: 178px;
-    height: 255px;
-    overflow: hidden;
-    border-radius: 10px;
-    margin-right: 32px;
-    // background-image: url();
-    // background-size: cover;
-    // background-position: center;
-    // background-repeat: no-repeat;
+  .records {
+    width: 35%;
+    padding: 32px 32px 32px 16px;
     
-    img {
-      height: 100%;
-      width: 100%;
-      object-fit: cover;
-    }
-  }
-
-  &__info {
-    width: 50%;
-    &__date {
-      font-size: 1.2rem;
-      font-weight: 600;
-      margin-bottom: 8px;
-    }
-    
-    &__movie-title {
-      font-size: 1.8rem;
+    h2 {
+      @include font-gradient;
       font-weight: 800;
-      margin-bottom: 8px;
-    }
-    
-    &__movie-info {
-      color: rgba($color: #ffffff, $alpha: 0.5);
-      margin-bottom: 32px;
-    }
-    
-    &__comment {
       font-size: 1.2rem;
-      h4 {
-        margin-bottom: 16px;
-      }
-      &__content {
-        line-height: 1.6rem;
-      }
-    }
-  }
-}
-
-// 내 인생영화 찾기
-.world-cup {
-  .container{
-    background-color: transparent;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 2%;
-    height: calc((94% - 48px) / 2);
-    color: white;
-    font-weight: bold;
-  }
-  &__game {
-    width: calc(94% / 4);
-    margin-bottom: 2%;
-    height: 100%;
-    cursor: pointer;
-    box-sizing: border-box;
-    background-color: rgb(98, 98, 98);
-    background-size: 150%;
-    background-position: center;
-    background-blend-mode: multiply;
-    border-radius: 10px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-}
-
-// 명에의 전당
-.home__main-container__right .container {
-  overflow: scroll;
-  @include custom-scroll-bar;
-  display: flex;
-  flex-direction: column-reverse;
-}
-.record {
-  height: 155px;
-  display: flex;
-  margin-bottom: 16px;
-  cursor: pointer;
-  &__poster {
-    width: 105px;
-    height: 100%;
-    border-radius: 5px;
-    overflow: hidden;
-    margin-right: 16px;
-    img {
-      height: 101%;
-      object-fit: cover;
-    }
-  }
-  
-  &__info {
-    padding: 8px 0px;
-    &__date {
-      margin-bottom: 8px;
-    }
-    &__title {
-      font-size: 1.3rem;
-      margin-bottom: 8px;
-    }
-    &__movie-info {
-      font-size: 0.8rem;
-      opacity: 0.7;
+      font-family: $title-font;
+      height: 48px;
     }
   }
 }

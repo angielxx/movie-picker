@@ -58,6 +58,7 @@ const store = new Vuex.Store({
     SAVE_TOKEN(state, token) {
       state.token = token
       router.push({name: 'home'}).catch(() => {})
+      // this.$store.dispatch('getUser')
     },
 
     // best_movie(인생영화), all_best_movies(명에의 전당) 저장

@@ -24,6 +24,7 @@
           </h2>
           <div class="best-movie__main-info">
             <div class="best-movie__main-info__poster"
+            v-if="this.best_movie"
             @click="goMovieDetail(best_movie.movie.id)"
             :style="`background-image: url(https://image.tmdb.org/t/p/w400/${this.best_movie.movie.poster_path})`">
             </div>
@@ -55,15 +56,19 @@
       </div>
       <div class="content-wrapper" v-if="this.best_movie">
         <div class="recommends">
-          <h2>오늘의 추천영화</h2>
+          <h2 class="recommends__title">오늘의 추천영화</h2>
           <div class="recommends__list">
             <MovieItem v-for="(movie, key) in this.myRecommendations" :key="key" :movie="movie"/>
           </div>
         </div>
         <div class="records">
-          <h2>내 인생영화 기록</h2>
-          <div class="records__list">
-            <MyRecordItem v-for="(feedItem, key) in this.best_Movie_records" :key="key" :feedItem="feedItem"/>
+          <h2 class="records__title">내 인생영화 기록</h2>
+          <div class="records__list"
+          v-if="this.best_Movie_records.length">
+            <MyRecordItem
+            v-for="(feedItem, key) in this.best_Movie_records.slice().reverse()"
+            :key="key"
+            :feedItem="feedItem"/>
           </div>
         </div>
       </div>
@@ -75,7 +80,7 @@
 import SearchBar from '@/components/SearchBar';
 import MovieItem from '@/components/MovieItem.vue';
 import MyRecordItem from '@/components/MyRecordItem';
-import _ from 'lodash';
+// import _ from 'lodash';
 import axios from 'axios';
 
 export default {
@@ -92,8 +97,10 @@ export default {
     }
   },
   // 컴포넌트 가드
-  created() {
+  beforeCreate() {
     this.$store.dispatch('getUser')
+  },
+  created() {
     this.getMyRecommendations()
   },
   mounted() {
@@ -115,7 +122,7 @@ export default {
       this.$router.push({ name: 'game', params: { gameName: gameName } })
     },
 
-    // 내 추천 영화(랜덤)을 API GET 요청으로 불러오는 메서드입니다.(mounted에 실행됩니다.)
+    // 내 추천 영화(랜덤)을 API GET 요청
     getMyRecommendations() {
       const API_URL = this.$store.state.API_URL;
       axios({
@@ -130,6 +137,8 @@ export default {
         })
         .catch((err) => console.log('recommendations', err));
     },
+
+    // header 배경 이미지 설정
     setHeader() {
       if (this.best_movie) {
         const header = document.querySelector('.header')
@@ -146,13 +155,6 @@ export default {
       return this.$store.state.best_movie
     },
 
-    // 인생영화 포스터 이미지 url
-    bestMovie_imgSrc() {
-      const IMG_SIZE = 'w200';
-      const poster_path = this.best_movie.movie.poster_path;
-      const img_url = `https://image.tmdb.org/t/p/${IMG_SIZE}/${poster_path}`
-      return img_url
-    },
     // 명예의 전당 리스트
     best_Movie_records() {
       let best_movies = this.$store.state.all_best_movies
@@ -160,9 +162,9 @@ export default {
       return best_movies
     },
     // 인생영화 월드컵 배경 사진 고르기
-    allMoviePosterPath() {
-      return `https://image.tmdb.org/t/p/w400/${_.sample(this.$store.state.watched_movies).poster_path}`
-    },
+    // allMoviePosterPath() {
+    //   return `https://image.tmdb.org/t/p/w400/${_.sample(this.$store.state.watched_movies).poster_path}`
+    // },
 
     
   },

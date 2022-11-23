@@ -55,7 +55,7 @@ export default {
 
   data() {
     return {
-      DoNotShowBtns: ['userDetail', 'home']
+      DoNotShowBtns: ['userDetail', ]
     };
   },
 
@@ -155,20 +155,16 @@ export default {
 
     // 버튼 보이기
     showBtns(event) {
-      // const btns = document.querySelector('.buttons')
-      // const btns = event.currentTarget.parentNode.querySelector('.buttons')
-      // setTimeout(() => {
-      //   btns.classList.remove('hidden')
-      // }, 1000)
+      if (!this.DoNotShowBtns.includes(this.$route.name)) {
         event.currentTarget.parentNode.querySelector('.buttons').style.opacity = '1'
-      },
-      
-      // 버튼 숨기기
-      hideBtns(event) {
-        // const btns = document.querySelector('.buttons')
-        // const btns = event.currentTarget.parentNode.querySelector('.buttons')
-        // btns.classList.add('hidden')
+      }
+    },
+    
+    // 버튼 숨기기
+    hideBtns(event) {
+      if (!this.DoNotShowBtns.includes(this.$route.name)) {
         event.currentTarget.parentNode.querySelector('.buttons').style.opacity = '0'
+      }
     }
   },
   filters: {

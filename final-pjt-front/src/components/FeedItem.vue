@@ -9,7 +9,7 @@
       <div class="info__text">
         <h2><span>{{ this.feedItem.user.username }}</span>님의 인생영화가 새롭게 업데이트되었습니다.</h2>
       </div>
-      <div class="button" @click="follow">
+      <div class="button hidden" @click="follow">
         <!-- icon check gradient -->
         <svg v-if="checkFollow" width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M470.6 105.4C483.1 117.9 483.1 138.2 470.6 150.7L214.6 406.7C202.1 419.2 181.8 419.2 169.3 406.7L41.3 278.7C28.8 266.2 28.8 245.9 41.3 233.4C53.8 220.9 74.1 220.9 86.6 233.4L192 338.7L425.4 105.4C437.9 92.8999 458.2 92.8999 470.7 105.4H470.6Z" fill="url(#paint0_radial_241_126)"/>
@@ -30,6 +30,7 @@
     </div>
     <div class="movie-info">
       <div class="movie-info__poster"
+      @click="goMovieDetail"
       :style="`background-image: url(https://image.tmdb.org/t/p/w400/${this.feedItem.movie.poster_path})`"
       >
       
@@ -63,15 +64,21 @@ export default {
   },
 
   methods: {
+    // 유저 디테일 페이지로 이동
     goUserDetail() {
       const userId = this.feedItem.user.id
       this.$router.push({ name: 'userDetail', params: { userId: userId}})
     },
     // follow 요청
     follow() {
-      const payload = { userId: this.user.id}
+      const payload = { userId: this.feedItem.user.id}
       this.$store.dispatch('follow', payload);
-    }
+    },
+    // 영화 디테일 페이지로 이동
+    goMovieDetail() {
+      const movieId = this.feedItem.movie.id
+      this.$router.push({ name: 'movieDetail', params: { movieId: movieId }})
+    },
   },
  
   filters: {

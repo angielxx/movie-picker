@@ -33,8 +33,16 @@ $gradiant01: linear-gradient(45deg, $grad-pink, $grad-purple);
   font-style: normal;
 }
 
+@font-face {
+  font-family: 'RixInooAriDuriR';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2207-01@1.0/RixInooAriDuriR.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
 @import url('https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css');
-$title-font: 'NanumSquareNeo-Variable';
+$logo-font: 'RixInooAriDuriR';
+$title-font: 'nanumsquare';
 $content-font: 'nanumsquare';
 
 // circle shape

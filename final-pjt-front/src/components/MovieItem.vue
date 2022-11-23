@@ -1,6 +1,6 @@
 <template>
   <div class="movie-item"  @click="toDetail()" :data-moviePK="movie.id">
-    <div class="movie-item__poster" @mouseenter="showBtns" @mouseout="hideBtns" :style="`background-image: url(https://image.tmdb.org/t/p/w400/${movie.poster_path})`">
+    <div class="movie-item__poster" @mouseover="showBtns" @mouseout="hideBtns" :style="`background-image: url(https://image.tmdb.org/t/p/w400/${movie.poster_path})`">
     </div>
     <div class="movie-item__info">
       <h3 class="movie-item__info__title">{{ movie.title }}</h3>
@@ -8,7 +8,7 @@
         <span>{{ movie.released_date | getYear }}・</span><span>{{ movie.genres[0]["name"] }}・</span><span>{{ movie.countries[0]["name"] }}</span>
       </div>
     </div>
-    <div class="buttons hidden" v-if="!this.DoNotShowBtns.includes(this.$route.name)">
+    <div class="buttons" @mouseover="showBtns" v-if="!this.DoNotShowBtns.includes(this.$route.name)">
       <div class="buttons__watched" @click="toggleWatched">
         
         <svg v-if="checkWatched" width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -160,7 +160,7 @@ export default {
       // setTimeout(() => {
       //   btns.classList.remove('hidden')
       // }, 1000)
-        event.currentTarget.parentNode.querySelector('.buttons').classList.remove('hidden')
+        event.currentTarget.parentNode.querySelector('.buttons').style.opacity = '1'
       },
       
       // 버튼 숨기기
@@ -168,7 +168,7 @@ export default {
         // const btns = document.querySelector('.buttons')
         // const btns = event.currentTarget.parentNode.querySelector('.buttons')
         // btns.classList.add('hidden')
-        event.currentTarget.parentNode.querySelector('.buttons').classList.add('hidden')
+        event.currentTarget.parentNode.querySelector('.buttons').style.opacity = '0'
     }
   },
   filters: {

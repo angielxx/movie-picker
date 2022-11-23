@@ -74,12 +74,16 @@ export default {
     this.getMovies()
     this.getReviews()
   },
+  
   mounted() {
-    
+    // this.setHeaderImg()
   },
+
   methods: {
     setHeaderImg() {
+      
       if (this.best_movie) {
+        console.log('here')
         document.querySelector('.header').style.backgroundImage = `linear-gradient(to bottom, rgba(20, 18, 23, 1), rgba(20, 18, 23, 0.8)), url(https://image.tmdb.org/t/p/original/${this.best_movie.movie.backdrop_path}`
       }
     },
@@ -123,10 +127,12 @@ export default {
         },
       })
       .then((res) => {
-        console.log(res.data)
-        this.best_movie = res.data.best_movie
+        console.log('best_movie', res.data)
+        const all_best_movies = res.data
+        this.best_movie = all_best_movies[all_best_movies.length - 1]
+        this.setHeaderImg()
       })
-      // .catch((err) => console.log(err))
+      .catch((err) => console.log('best movie',err))
     },
 
     // 내가 쓴 리뷰 받아오기

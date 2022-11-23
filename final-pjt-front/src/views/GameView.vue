@@ -47,7 +47,7 @@ export default {
 
     data() {
         return {
-            watched_movies: [],
+            watched_movies: this.$store.state.watched_movies,
             candidates: [],
             round: null,
             best_of_best: false,
@@ -183,7 +183,7 @@ export default {
         },
 
         // 게임 결과 post 요청 보내기
-        sendGameResult(movieId, best_of_best) {
+        sendGameResult(movieId) {
             console.log('api', this.$store.state.API_URL)
             axios({
                 method: 'post',
@@ -192,7 +192,7 @@ export default {
                     Authorization: `Token ${ this.$store.state.token }`
                 },
                 data: {
-                    best_of_best: best_of_best
+                    best_of_best: true
                 }
 
             })

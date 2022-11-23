@@ -45,19 +45,22 @@
 .movie-info {
   @include border-gradient;
   border-radius: 20px;
-  height: fit-content;
+  // height: 400px;
   padding: 32px;
   box-sizing: border-box;
   display: flex;
   // justify-content: center;
   &__poster {
-    @include poster-div(35%)
-    margin-right: 32px
+    @include poster-div(35%);
+    margin-right: 32px;
+    cursor: pointer;
   }
   
   &__text {
+    // height: auto;
     padding: 24px 0px;
     width: 65%;
+    height: fit-content;
     box-sizing: border-box;
 
     h2 {
@@ -81,7 +84,7 @@
       line-height: 1.6rem;
       opacity: 0.7;
       font-weight: 300;
-      max-height: 60%;
+      max-height: 40%;
       overflow: scroll;
       overflow-x: hidden;
       @include custom-scroll-bar;

@@ -1,9 +1,24 @@
 <template>
   <div class="home">
     <SearchBar/>
-    <div class="home__main-container">
-      <div class="header" :style="`background-image: linear-gradient(to bottom, rgba(20, 18, 23, 1), rgba(20, 18, 23, 0.8)), url(https://image.tmdb.org/t/p/original/${this.best_movie.movie.backdrop_path}`">
-        <div class="best-movie">
+    <div class="home__main-container" >
+      <div class="alert" v-if="!this.best_movie">
+          <h2 class="alert__heading">인생영화가 아직 없습니다.</h2>
+          <router-link to="/game" class="gameLink-alert">
+            <h2>인생영화 찾으러 가기</h2>
+            <svg width="96" height="110" viewBox="0 0 96 110" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M93.9857 59.8555C96.6643 57.1699 96.6643 52.8086 93.9857 50.123L59.7 15.748C57.0214 13.0625 52.6714 13.0625 49.9929 15.748C47.3143 18.4336 47.3143 22.7949 49.9929 25.4805L72.6 48.125H6.85714C3.06429 48.125 0 51.1973 0 55C0 58.8027 3.06429 61.875 6.85714 61.875H72.5786L50.0143 84.5195C47.3357 87.2051 47.3357 91.5664 50.0143 94.252C52.6929 96.9375 57.0429 96.9375 59.7214 94.252L94.0071 59.877L93.9857 59.8555Z" fill="url(#paint0_radial_252_146)"/>
+              <defs>
+              <radialGradient id="paint0_radial_252_146" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(28.1661 38.6912) rotate(42.55) scale(103.776 103.619)">
+              <stop stop-color="#FFB3F3"/>
+              <stop offset="1" stop-color="#BA63FF"/>
+              </radialGradient>
+              </defs>
+            </svg>
+          </router-link>
+        </div>
+      <div class="header">
+        <div class="best-movie" v-if="this.best_movie">
           <h2 class="best-movie__heading">
             내 인생영화
           </h2>
@@ -24,7 +39,8 @@
             </div>
           </div>
         </div>
-        <router-link to="/game" class="gameLink">
+        
+        <router-link to="/game" class="gameLink" v-if="this.best_movie">
           <h2>인생영화 월드컵</h2>
           <svg width="96" height="110" viewBox="0 0 96 110" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M93.9857 59.8555C96.6643 57.1699 96.6643 52.8086 93.9857 50.123L59.7 15.748C57.0214 13.0625 52.6714 13.0625 49.9929 15.748C47.3143 18.4336 47.3143 22.7949 49.9929 25.4805L72.6 48.125H6.85714C3.06429 48.125 0 51.1973 0 55C0 58.8027 3.06429 61.875 6.85714 61.875H72.5786L50.0143 84.5195C47.3357 87.2051 47.3357 91.5664 50.0143 94.252C52.6929 96.9375 57.0429 96.9375 59.7214 94.252L94.0071 59.877L93.9857 59.8555Z" fill="url(#paint0_radial_252_146)"/>
@@ -37,7 +53,7 @@
           </svg>
         </router-link>
       </div>
-      <div class="content-wrapper">
+      <div class="content-wrapper" v-if="this.best_movie">
         <div class="recommends">
           <h2>오늘의 추천영화</h2>
           <div class="recommends__list">
@@ -81,6 +97,7 @@ export default {
   },
   mounted() {
     this.clearSearchBar();
+    this.setHeader()
   },
   methods: {
     clearSearchBar() {
@@ -110,8 +127,17 @@ export default {
         .then((res) => {
           this.myRecommendations = res.data;
         })
-        .catch((err) => console.log(err));
+        .catch((err) => console.log('recommendations', err));
     },
+    setHeader() {
+      if (this.best_movie) {
+        const header = document.querySelector('.header')
+        header.style.backgroundImage = `linear-gradient(to bottom, rgba(20, 18, 23, 1), rgba(20, 18, 23, 0.8)), url(https://image.tmdb.org/t/p/original/${this.best_movie.movie.backdrop_path})`
+      } else {
+        const home = document.querySelector('.home')
+        home.style.backgroundImage = `linear-gradient(to bottom, rgba(20, 18, 23, 1), rgba(20, 18, 23, 0.8)), url(https://www.themoviedb.org/t/p/original/nyuzfjAbuSel6dVKY4zFo95ugUf.jpg)`
+      }
+    }
   },
   computed: {
     // 인생영화

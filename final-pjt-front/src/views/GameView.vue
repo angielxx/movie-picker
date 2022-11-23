@@ -7,8 +7,6 @@
                 <select
                     name="round" id="round" 
                     class=" modal__form__select" required>
-                    <!-- add options here -->
-                    <!-- <option value="라운드 숫자">라운드 숫자</option> -->
                 </select>
                 <input type="submit" value="월드컵 시작">
             </form>
@@ -53,7 +51,6 @@ export default {
             candidates: [],
             round: null,
             best_of_best: false,
-            // candidates_for_round: [],
 
             // 라운드 진행시 사용할 변수
             winners: [],

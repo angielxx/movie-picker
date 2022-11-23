@@ -1,5 +1,5 @@
 <template>
-  <div class="movie-item"  @click="toDetail()" :data-moviePK="movie.id">
+  <div class="movie-item"  @click="goDetail()" :data-moviePK="movie.id">
     <div class="movie-item__poster" @mouseover="showBtns" @mouseout="hideBtns" :style="`background-image: url(https://image.tmdb.org/t/p/w400/${movie.poster_path})`">
     </div>
     <div class="movie-item__info">
@@ -84,7 +84,7 @@ export default {
     // },
 
     // 영화 디테일 페이지로 이동
-    toDetail() {
+    goDetail() {
       // 영화 디테일 페이지로 이동하면 안되는 라우터
       if (!['first-addMovie', 'addMovie', ].includes(this.$route.name)) {
         this.$router.push({name: 'movieDetail', params: {movieId: this.movie.id}})

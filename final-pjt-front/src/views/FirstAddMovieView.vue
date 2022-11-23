@@ -3,10 +3,10 @@
         <div class="greeting">
             <div v-if="this.$route.name === 'first-addMovie'">
                 <h2 class="greeting__line1">안녕하세요, <span><strong>{{ this.$store.state.username }}</strong></span>님! </h2>
-                <h2 class="greeting__line2"><span><strong>{{ this.$store.state.username }}</strong></span>님이 본 영화를 선택해주세요</h2>
+                <h2 class="greeting__line2"><span><strong>{{ this.$store.state.username }}</strong></span>님의 영화를 선택해주세요</h2>
             </div>
             <div v-if="this.$route.name === 'addMovie'">
-                <h2 class="greeting__line1"><span><strong>{{ this.$store.state.username }}</strong></span>님이 본 영화를</h2>
+                <h2 class="greeting__line1"><span><strong>{{ this.$store.state.username }}</strong></span>님의 영화를</h2>
                 <h2 class="greeting__line2">새롭게 발견해보세요!</h2>
             </div>
         </div>

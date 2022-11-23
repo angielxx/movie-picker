@@ -48,6 +48,7 @@ import axios from "axios";
 import MovieItem from '@/components/MovieItem.vue';
 import UserReviewItem from '@/components/UserReviewItem.vue';
 
+
 export default {
   name: "UserDetailView",
   components: {
@@ -84,7 +85,10 @@ export default {
       
       if (this.best_movie) {
         console.log('here')
-        document.querySelector('.header').style.backgroundImage = `linear-gradient(to bottom, rgba(20, 18, 23, 1), rgba(20, 18, 23, 0.8)), url(https://image.tmdb.org/t/p/original/${this.best_movie.movie.backdrop_path}`
+        document.querySelector('.header').style.backgroundImage = `linear-gradient(to bottom, rgba(20, 18, 23, 1), rgba(20, 18, 23, 0.8)), url(https://image.tmdb.org/t/p/original/${this.best_movie.movie.backdrop_path})`
+      } else {
+        document.querySelector('.header').style.backgroundImage = `linear-gradient(to bottom, rgba(20, 18, 23, 1), rgba(20, 18, 23, 0.8)), url(${'@/assets/img/default_user_backdrop.jpg'})`
+
       }
     },
     getMovies() {

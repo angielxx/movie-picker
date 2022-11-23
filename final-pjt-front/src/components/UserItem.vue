@@ -1,5 +1,5 @@
 <template>
-    <div class="UserItem">
+    <div class="UserItem" @click="goUserDetail">
         <div class="user-profile"
         :style="`background-image: url(${this.$store.state.API_URL}${this.user.avatar})`">
 
@@ -70,6 +70,9 @@ export default {
             .then(res => {
                 this.following = res.data
             })
+        },
+        goUserDetail() {
+            this.$router.push({ name: 'userDetail', params: { userId: this.user.id }})
         }
     },
 };

@@ -24,11 +24,9 @@ class DynamicFieldsModelSerializer(serializers.ModelSerializer):
                 self.fields.pop(field_name)
 
 
-
-
-
 class ReviewSerializer(DynamicFieldsModelSerializer):
     username = serializers.CharField(source='author.username', read_only=True)
+    avatar = serializers.ImageField(source='author.avatar', read_only=True)
     movie = MovieSerializer(fields = ['title', 'poster_path', 'backdrop_path'])
 
     class Meta:

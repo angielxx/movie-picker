@@ -2,7 +2,7 @@
   <div id="app" class="app">
     <nav class="navbar" v-if="!['login', 'signup', 'first-addMovie', 'game', 'NotFound404'].includes($route.name)">
       <router-link to="/">
-        <div class="navbar__logo">무비피커</div>
+        <div class="navbar__logo">moviepicker</div>
       </router-link>  
       <router-link :to="{ name: 'userDetail', params: { userId: this.$store.state.user_pk }}" class="navbar__user">
         <!-- 프로필 이미지 임시로 추가(스타일링 필요) -->

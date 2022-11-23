@@ -63,10 +63,11 @@
   opacity: 0;
   transition-property: opacity;
   transition-duration: 0.3s;
-
+  width: 150px;
+  
   &__watched, &__toWatch {
     @include button2;
-    width: fit-content;
+    width: 100%;
     margin-bottom: 5%;
   }
 }

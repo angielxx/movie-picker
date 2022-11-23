@@ -23,7 +23,7 @@
                     </defs>
                     </svg>
                     목록 새로고침</button>
-                <button class="movie-container__btns__save hidden" @click="postUserMovies">
+                <button class="movie-container__btns__save" @click="goHome">
                     <svg width="449" height="321" viewBox="0 0 449 321" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M439.6 9.3999C452.1 21.8999 452.1 42.1999 439.6 54.6999L183.6 310.7C171.1 323.2 150.8 323.2 138.3 310.7L10.2998 182.7C-2.2002 170.2 -2.2002 149.9 10.2998 137.4C22.7998 124.9 43.0998 124.9 55.5998 137.4L161 242.7L394.4 9.3999C406.9 -3.1001 427.2 -3.1001 439.7 9.3999H439.6Z" fill="url(#paint0_radial_205_140)"/>
                     <defs>
@@ -33,7 +33,7 @@
                     </radialGradient>
                     </defs>
                     </svg>
-                    선택 완료</button>
+                    홈 화면으로</button>
             </div>
             <div class="movie-container__list">
                 <MovieItem v-on:addMovie="addMovie" v-for="(movie, key) in movies" :key="key" :movie="movie"/>
@@ -121,25 +121,9 @@ export default {
             clickedMovies.forEach((movie) => movie.classList.remove('clicked'));
         },
         
-        // 유저의 watched_movie POST 요청 보내기
-        postUserMovies() {
-            const API_URL = this.$store.state.API_URL;
-            const user_pk = this.$store.state.user_pk; 
-            this.clickedMoviesPk.forEach((movie_pk) => {
-                axios({
-                    method: 'post',
-                    url: `${API_URL}/api/accounts/${user_pk}/${movie_pk}/watched/`,
-                    headers: {
-                    // Authorization: `Token 6023611848bfca271b0de4cb5db50064289b791d` //임시 토큰
-                    Authorization: `Token ${ this.$store.state.token }`
-                    }
-                })
-                .then(() => {
-                    this.refreshWatchedMovies()
-                    this.$router.push({ name: 'home' })
-                })
-                .catch(err => console.log(err))
-            })
+        // 홈으로
+        goHome() {
+            this.$router.push({ name: 'home' })
         },
 
         // watchedmovies를 state에 반영해주는 메서드

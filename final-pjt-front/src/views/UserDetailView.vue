@@ -220,7 +220,7 @@ export default {
         this.watched_movies = res.data.watched_movies
         this.movies = this.watched_movies
       })
-      // .catch((err) => console.log(err))
+      .catch((err) => console.log(err))
       
       // to watch
       axios({
@@ -233,7 +233,7 @@ export default {
       .then((res) => {
         this.to_watch_movies = res.data.to_watch_movies
       })
-      // .catch((err) => console.log(err))
+      .catch((err) => console.log(err))
       
       // best movie
       axios({
@@ -323,7 +323,6 @@ export default {
     // 프사 업로드
     uploadAvatar() {
       this.selectedFile = this.$refs.avatarImage.files
-      // console.log(this.selectedFile)
     },
 
     // 서버에 전송
@@ -332,7 +331,6 @@ export default {
       const formdata = new FormData()
 
       formdata.append('avatar', this.selectedFile[0])
-      // console.log(formdata)
 
       axios({
         method: "PATCH",
@@ -409,7 +407,6 @@ export default {
         currentLength.innerText = '0'
         modal.classList.add('hidden')
       }
-      // console.log('close')
     },
 
     // follow 요청

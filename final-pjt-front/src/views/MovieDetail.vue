@@ -209,7 +209,6 @@ export default {
         },
       })
         .then((res) => {
-          // console.log(res.data)
           this.reviews = res.data;
         })
         .catch((err) => console.log(err));
@@ -227,8 +226,8 @@ export default {
             Authorization: `Token ${ this.$store.state.token }`
         }
         })
-        .then((res) => console.log('watched delete', res))
-        .catch((err) => console.log('watched', err))
+        // .then((res) => console.log(res))
+        .catch((err) => console.log(err))
       } 
       // 없을 때 post 요청 
       else {
@@ -239,8 +238,8 @@ export default {
             Authorization: `Token ${ this.$store.state.token }`
         }
         })
-        .then((res) => console.log('watched post', res))
-        .catch((err) => console.log('watched', err))
+        // .then((res) => console.log(res))
+        .catch((err) => console.log(err))
       }
       this.$store.dispatch('getUser')
       
@@ -257,8 +256,8 @@ export default {
             Authorization: `Token ${ this.$store.state.token }`
         }
         })
-        .then((res) => console.log('watched delete', res))
-        .catch((err) => console.log('watched', err))
+        // .then((res) => console.log(res))
+        .catch((err) => console.log(err))
       } 
       // 없을 때 post 요청 
       else {
@@ -269,8 +268,8 @@ export default {
             Authorization: `Token ${ this.$store.state.token }`
         }
         })
-        .then((res) => console.log('watched post', res))
-        .catch((err) => console.log('watched', err))
+        // .then((res) => console.log(res))
+        .catch((err) => console.log(err))
       }
       this.$store.dispatch('getUser')
 

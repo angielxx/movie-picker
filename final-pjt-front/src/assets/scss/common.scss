@@ -25,6 +25,18 @@ $gradiant01: linear-gradient(45deg, $grad-pink, $grad-purple);
   background: linear-gradient($bg-color, $bg-color) padding-box, $gradiant01 border-box;
 }
 
+// form button
+@mixin form-button() {
+  background: $gradiant01;
+  border-radius: 18px;
+  padding: 8px 32px;
+  // height: 36px;
+  color: $bg-color;
+  font-weight: 600;
+  font-size: 0.8rem;
+  font-family: inherit;
+}
+
 // font
 @font-face {
   font-family: 'NanumSquareNeo-Variable';

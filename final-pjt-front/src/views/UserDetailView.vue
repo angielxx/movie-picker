@@ -217,7 +217,6 @@ export default {
         },
       })
       .then((res) => {
-        // console.log(res.data)
         this.watched_movies = res.data.watched_movies
         this.movies = this.watched_movies
       })
@@ -232,7 +231,6 @@ export default {
         },
       })
       .then((res) => {
-        // console.log(res.data)
         this.to_watch_movies = res.data.to_watch_movies
       })
       // .catch((err) => console.log(err))
@@ -246,7 +244,6 @@ export default {
         },
       })
       .then((res) => {
-        // console.log('best_movie', res.data)
         const all_best_movies = res.data
         this.best_movie = all_best_movies[all_best_movies.length - 1]
         this.setHeaderImg()
@@ -266,7 +263,6 @@ export default {
       })
       .then((res) => {
         this.reviews = res.data;
-        // console.log(res.data)
       })
       .catch((err) => console.log(err))
     },
@@ -320,7 +316,6 @@ export default {
         this.messageInput = data.message
         this.username = data.username
         this.avatar = data.avatar
-        console.log('getUserInfo')
       })
       .catch((err) => console.log(err))
     },

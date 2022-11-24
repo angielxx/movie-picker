@@ -34,7 +34,6 @@ export default {
       }
 
 			const API_URL = this.$store.state.API_URL;
-      console.log(API_URL)
 
       axios({
         method: "POST",

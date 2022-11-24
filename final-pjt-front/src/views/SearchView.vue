@@ -32,8 +32,6 @@ export default {
 
   methods: {
     showResult(data) {
-      console.log('data!') 
-      console.log(data)
       this.movies = data
     }
   },

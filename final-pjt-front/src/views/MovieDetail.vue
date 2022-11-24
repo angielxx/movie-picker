@@ -184,7 +184,6 @@ export default {
     // 영화 가져오기
     getMovie() {
       const API_URL = this.$store.state.API_URL;
-      console.log('movieId', this.movieId)
       axios({
         method: "get",
         url: `${API_URL}/api/movies/${this.movieId}/`,
@@ -194,7 +193,7 @@ export default {
       })
       .then((res) => {
         this.movie_detail = res.data;
-        console.log(this.movie_detail);
+
       })
       .catch((err) => console.log(err));
     },
@@ -299,7 +298,6 @@ export default {
           line.classList.remove('active-line')
         }
       })
-      console.log(tabId)
     },
 
     // 리뷰 작성
@@ -343,8 +341,6 @@ export default {
         },
       })
         .then((res) => {
-          // 확인용 콘솔로그입니다. 이후 작업 완료 시 지워주세요
-          console.log(res.data)
           // data의 pickedUsers에 불러온 데이터를 할당합니다.
           this.allPickedUsers = res.data
         })

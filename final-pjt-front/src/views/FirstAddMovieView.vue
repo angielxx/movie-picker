@@ -94,7 +94,6 @@ export default {
                 }
             })
             .then(res => {
-                console.log(res.data)
                 this.movies = res.data;
                 document.querySelector('.movie-container__list').scrollTop = 0;
             })

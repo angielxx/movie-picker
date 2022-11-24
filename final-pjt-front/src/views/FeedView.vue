@@ -38,7 +38,6 @@ export default {
       },
     })
       .then((res) => {
-        console.log(res.data) // 프론트 작업 시 확인용 콘솔로그입니다.
         this.feed = res.data;
       })
       .catch((err) => console.log(err));

@@ -108,7 +108,6 @@ export default {
             
             // 선택한 총 라운드 갯수 저장
             this.round = getRound();
-            console.log(this.round)
 
             // 라운드에 맞는 후보군 저장
             this.candidates = getCandidates(this.watched_movies, this.round);
@@ -121,7 +120,6 @@ export default {
             this.cnt2++
         },
         change(n) {
-            console.log('clicked!', n)
             if (this.candidates.length == 2) {
                 if (n == 0) {
                     this.final_winner = this.candidates[0]
@@ -142,7 +140,6 @@ export default {
                 this.num += 2
 
                 if (this.cnt == this.candidates.length / 2 ){
-                    console.log('round done')
                     this.candidates = this.winners
                     this.winners = []
                     
@@ -160,7 +157,6 @@ export default {
 
         // 게임 결과
         showResult() {
-            console.log('the winner is', this.final_winner)
             const roundPage = document.querySelector('.round')
             roundPage.classList.add('hidden')
 
@@ -184,7 +180,6 @@ export default {
 
         // 게임 결과 post 요청 보내기
         sendGameResult(movieId) {
-            console.log('api', this.$store.state.API_URL)
             axios({
                 method: 'post',
                 url: `${this.$store.state.API_URL}/api/accounts/${this.$store.state.user_pk}/${movieId}/add_best/`,

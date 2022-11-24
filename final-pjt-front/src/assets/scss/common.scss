@@ -1,3 +1,4 @@
+// color
 $bg-color: #141217;
 $container: #231f2b;
 $bg-color2: #F2F2F2;
@@ -8,18 +9,20 @@ $grad-pink: #ffb0d7;
 $grad-purple: hsl(275, 100%, 69%);
 $gradiant01: linear-gradient(45deg, $grad-pink, $grad-purple);
 
-// gradient style
+// font with gradient color
 @mixin font-gradient() {
   color: transparent;
   background: $gradiant01;
   -webkit-background-clip: text;
 }
 
+// box with gradient border
 @mixin border-gradient() {
   border: 1px solid rgba(0, 0, 0, 0.5);
   background: linear-gradient($container, $container) padding-box, $gradiant01 border-box;
 }
 
+// box with gradient border-right
 @mixin border-right-gradient() {
   border-right: 1px solid rgba(0, 0, 0, 0.8);
   background: linear-gradient($bg-color, $bg-color) padding-box, $gradiant01 border-box;
@@ -44,16 +47,13 @@ $gradiant01: linear-gradient(45deg, $grad-pink, $grad-purple);
   font-weight: normal;
   font-style: normal;
 }
-
 @font-face {
   font-family: 'RixInooAriDuriR';
   src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2207-01@1.0/RixInooAriDuriR.woff2') format('woff2');
   font-weight: normal;
   font-style: normal;
 }
-
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;500;600;700;800&display=swap');
-
 @import url('https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css');
 $logo-font: 'Montserrat', sans-serif;
 $title-font: 'nanumsquare';
@@ -66,7 +66,7 @@ $content-font: 'nanumsquare';
   border-radius: $width / 2; 
 }
 
-// poster w, h
+// poster widht, height ratio
 @mixin poster-div($width) {
   width: $width;
   height: 0;
@@ -94,24 +94,6 @@ $content-font: 'nanumsquare';
   }
 }
 
-// no scroll bar
-@mixin no-scroll-bar() {
-  &::-webkit-scrollbar {
-    height: 0;
-    width: 0;
-  }
-
-  &::-webkit-scrollbar-thumb {
-    height: 0;
-    width: 0;
-  }
-
-  &::-webkit-scrollbar-track {
-    height: 0;
-    width: 0;
-  }
-}
-
 // button style
 @mixin button()  {
   height: 40px;
@@ -126,7 +108,6 @@ $content-font: 'nanumsquare';
   font-size: 1rem;
   font-weight: 400;
   cursor: pointer;
-  // margin-bottom: 20px;
   
   &__text {
     color: transparent;
@@ -173,9 +154,6 @@ $content-font: 'nanumsquare';
     opacity: 0.7;
   }
 }
-
-// box shadow
-$box-shadow: 2px 2px 10px 10px rgba(0, 0, 0, 0.2);
 
 body {
   font-family: $content-font;

@@ -31,52 +31,63 @@
           </div>
         </div>
       </div>
-      <div class="pickedUser" v-if="this.pickedUsers.length">
-        <h2>이 영화가 인생영화인 사람들</h2>
-        <MovieDetailUserItem v-for="(user, key) in pickedUsers" :key="key" :user="user"/>
-      </div>
-      <div class="link">
-        <div id="tab_button" class="link__button active" data-tab="comments">
-          <h3 @click.prevent="switchTab($event)" data-tab="comments">사용자 코멘트</h3>
-          <div id="link-active" class="link__button__line active-line"></div>
-        </div>
-        <div id="tab_button" class="link__button" data-tab="recommends">
-          <h3 @click.prevent="switchTab($event)" data-tab="recommends">관련 추천 영화</h3>
-          <div id="link-active" class="link__button__line"></div>
-        </div>
-      </div>
-
-      <div class="area">
-        <div class="area__reviews">
-          <!-- 하위컴포넌트인 리뷰를 보여줍니다. -->
-          <div id="tab_content" class="area__reviews__my-review" data-tab="comments">
-            <h3 class="heading">내 코멘트</h3>
-            <form
-            class="review-form"
-            v-if="!checkMyReview"
-            @submit.prevent="reviewCreate"
-            >
-              <label for="content" class="hidden">내용 : </label>
-              <textarea id="content" cols="30" rows="1" v-model="content"></textarea><br/>
-                <input type="submit" id="submit" value="코멘트 작성"/>
-            </form>
-            <MovieReviewItem
-            v-else
-            class="my-review"
-            :review="myReview"/>
-            <div class="area__reviews__all-reviews">
-              <h3 class="heading">사용자 코멘트</h3>
-              <MovieReviewItem v-for="(review, key) in userReviews.slice().reverse()" :key="key" :review="review"/>
-              <!-- <MovieReview :movieId="this.movieId"/> -->
+      <div class="bottom-wrapper">
+        
+        <div class="left">
+          <div class="link">
+            <div id="tab_button" class="link__button active" data-tab="comments">
+              <h3 @click.prevent="switchTab($event)" data-tab="comments">사용자 코멘트</h3>
+              <div id="link-active" class="link__button__line active-line"></div>
+            </div>
+            <div id="tab_button" class="link__button" data-tab="recommends">
+              <h3 @click.prevent="switchTab($event)" data-tab="recommends">관련 추천 영화</h3>
+              <div id="link-active" class="link__button__line"></div>
             </div>
           </div>
-          <div
-          v-if="this.recommendedMovies.length"
-          id="tab_content"  class="area__reviews__recommends hidden" data-tab="recommends">
-              <RecommendedMoviesItem v-for="(movieId, key) in this.recommendedMovies" :key="key" :movie-id="movieId"/>
+    
+          <div class="area">
+            <div class="area__reviews">
+              <!-- 하위컴포넌트인 리뷰를 보여줍니다. -->
+              <div id="tab_content" class="area__reviews__my-review" data-tab="comments">
+                <h3 class="heading">내 코멘트</h3>
+                <form
+                class="review-form"
+                v-if="!checkMyReview"
+                @submit.prevent="reviewCreate"
+                >
+                  <label for="content" class="hidden">내용 : </label>
+                  <textarea id="content" cols="30" rows="1" v-model="content"></textarea><br/>
+                    <input type="submit" id="submit" value="코멘트 작성"/>
+                </form>
+                <MovieReviewItem
+                v-else
+                class="my-review"
+                :review="myReview"/>
+                <div class="area__reviews__all-reviews">
+                  <h3 class="heading">사용자 코멘트</h3>
+                  <MovieReviewItem v-for="(review, key) in userReviews.slice().reverse()" :key="key" :review="review"/>
+                  <!-- <MovieReview :movieId="this.movieId"/> -->
+                </div>
+              </div>
+              <div
+              v-if="this.recommendedMovies.length"
+              id="tab_content"  class="area__reviews__recommends hidden" data-tab="recommends">
+                  <RecommendedMoviesItem v-for="(movieId, key) in this.recommendedMovies" :key="key" :movie-id="movieId"/>
+              </div>
+            </div>
           </div>
         </div>
-
+        <div class="pickedUser" v-if="this.pickedUsers.length">
+          <div class="pickedUser__title">
+            <h2>이 영화가 인생영화인 사람들</h2>
+            <span>{{ this.pickedUsersNumber }}</span>
+          </div>
+          <div class="pickedUser__window">
+            <!-- <div class="pickedUser__window__list"> -->
+              <MovieDetailUserItem v-for="(user, key) in pickedUsers" :key="key" :user="user"/>
+            <!-- </div> -->
+          </div>
+        </div>
       </div>
 
     </div>
@@ -114,7 +125,7 @@ export default {
     this.getReviews()
     this.getPickedUsers()
   },
- 
+
   beforeRouteUpdate(to, from, next) {
     this.movieId = to.params.movieId
     next()
@@ -161,6 +172,11 @@ export default {
     // 나를 제외한 사용자들 리뷰
     userReviews() {
       return this.reviews.filter((review) => review.username !== this.$store.state.username)
+    },
+
+    // 이 영화가 인생영화인 사람들 수
+    pickedUsersNumber() {
+      return this.pickedUsers.length
     }
   },
   

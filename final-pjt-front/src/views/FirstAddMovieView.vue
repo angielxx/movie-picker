@@ -94,14 +94,11 @@ export default {
                 }
             })
             .then(res => {
-                console.log(res.data)
+                // console.log(res.data)
                 this.movies = res.data;
                 document.querySelector('.movie-container__list').scrollTop = 0;
             })
-            // .catch(err => console.log('err', err))
-
-            // 임시 데이터 가져오기
-            // this.movies = movies;
+            .catch(err => console.log('err', err))
         },
 
         // 클릭한 영화 data에 추가

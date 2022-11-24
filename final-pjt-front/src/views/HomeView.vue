@@ -108,6 +108,11 @@ export default {
     this.setHeader()
     this.clearSearchBar();
   },
+  watch: {
+    best_movie: function() {
+      this.setHeader()
+    }
+  },
   methods: {
     clearSearchBar() {
       const searchInput = document.querySelector('.search-bar__form input[type="text"]')
@@ -144,6 +149,8 @@ export default {
       if (this.best_movie) {
         const header = this.$refs.header
         header.style.backgroundImage = `linear-gradient(to bottom, rgba(20, 18, 23, 1), rgba(20, 18, 23, 0.8)), url(https://image.tmdb.org/t/p/original/${this.best_movie.movie.backdrop_path})`
+        const home = document.querySelector('.home')
+        home.style.backgroundImage = ""
       } else {
         const home = document.querySelector('.home')
         home.style.backgroundImage = `linear-gradient(to bottom, rgba(20, 18, 23, 1), rgba(20, 18, 23, 0.8)), url(https://www.themoviedb.org/t/p/original/nyuzfjAbuSel6dVKY4zFo95ugUf.jpg)`

@@ -59,7 +59,10 @@ def get_my_recommendations(request):
             recommended_pk_list.append(movie_pk)
     
     # 랜덤 20개 추출
-    random_recommendation_pk_list = random.sample(recommended_pk_list, 20)
+    if len(recommended_pk_list) >= 20:
+        random_recommendation_pk_list = random.sample(recommended_pk_list, 20)
+    else:
+        random_recommendation_pk_list = recommended_pk_list
     # 영화 정보
     random_recommendations = get_list_or_404(Movie.objects.filter(pk__in=random_recommendation_pk_list))
     

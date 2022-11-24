@@ -8,8 +8,7 @@
   width: 20%;
   box-sizing: border-box;
   position: relative;
-  cursor: pointer;
-
+  
   &__poster {
     border: 1px solid $bg-color;
     width: 100%;
@@ -20,6 +19,7 @@
     margin-bottom: 12px;
     box-sizing: content-box;
     background-size: cover;
+    cursor: pointer;
   }
 
   &__info {

@@ -282,6 +282,7 @@ const store = new Vuex.Store({
       })
         .then((res) => {
           // state에 저장되어있는 상태메세지를 변경합니다. 
+          console.log(res.data)
           context.commit('UPDATE_MESSAGE', res.data)
         })    
         .catch((err) => console.log(err))

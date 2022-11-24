@@ -120,7 +120,9 @@
       p {
         opacity: 0.7;
         line-height: 1.4rem;
-        max-height: 60%;
+        max-height: 240px;
+        overflow: scroll;
+        @include custom-scroll-bar
       }
     }
   }

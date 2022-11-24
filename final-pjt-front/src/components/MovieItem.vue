@@ -55,7 +55,7 @@ export default {
 
   data() {
     return {
-      DoNotShowBtns: ['userDetail', ]
+      DoNotShowBtns: ['userDetail', 'home']
     };
   },
 

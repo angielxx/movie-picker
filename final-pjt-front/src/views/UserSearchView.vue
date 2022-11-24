@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import UserItem from '@/components/UserItem.vue';
+import UserItem from '@/components/SearchUserItem.vue';
 import UserSearchBar from '@/components/UserSearchBar';
 
 export default {

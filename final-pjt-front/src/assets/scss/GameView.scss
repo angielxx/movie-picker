@@ -1,0 +1,109 @@
+@import './common.scss';
+
+.app__container__search-container {
+    display: none;
+}
+.GameView {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal {
+    z-index: 2;
+    position: absolute;
+    border: 1px solid transparent;
+    border-radius: 20px;
+    background: linear-gradient($container, $container) padding-box, $gradiant01 border-box;
+    background-size: cover;
+    width: 30vw;
+    height: 30vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    h2 {
+        font-size: 2rem;
+        margin-bottom: 32px;
+    }
+}
+
+.round {
+    z-index: 1;
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+    position: relative;
+
+    &__info {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        // box-shadow: $box-shadow;
+
+        &__round {
+            font-size: 3rem;
+            margin-bottom: 12px;
+        }
+        &__verse {
+            font-size: 5rem;
+            font-weight: 800;
+        }
+
+    }
+    
+    &__left, &__right {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 50vw;
+        &__poster {
+            width: 40%;
+            height: 0;
+            padding-bottom: 60%;
+            border-radius: 20px;
+            background-size: cover;
+
+            transition-property: transform;
+            transition-duration: 0.3s;
+        }
+    }
+}
+
+.hover {
+    background: $gradiant01;
+}
+.darken {
+    opacity: 0.4;
+}
+
+.result {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    span {
+        font-weight: 800;
+    }
+
+    h2 {
+        font-size: 2rem;
+        color: transparent;
+        background: $gradiant01;
+        -webkit-background-clip: text;
+        margin-bottom: 32px;
+    }
+    &__poster {
+        @include poster-div(20%);
+    }
+}

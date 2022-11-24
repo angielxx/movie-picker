@@ -1,0 +1,25 @@
+@import './common.scss';
+
+.UserItem {
+    width: 33%;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    padding: 24px;
+    position: relative;
+    box-sizing: border-box;
+    margin-bottom: 24px;
+}
+
+.user-profile {
+    @include circle(60px);
+    background-size: cover;
+    margin-right: 16px;
+    cursor: pointer;
+}
+
+.follow {
+    @include button;
+    position: absolute;
+    right: 24px;
+}

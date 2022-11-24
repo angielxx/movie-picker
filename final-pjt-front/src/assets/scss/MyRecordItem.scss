@@ -1,0 +1,60 @@
+@import './common.scss';
+
+.RecordItem {
+  width: 100%;
+  // height: fit-content;
+  margin-bottom: 40px;
+}
+
+.feed-info {
+  @include border-gradient;
+  border-radius: 20px;
+  // height: fit-content;
+  padding: 32px;
+  box-sizing: border-box;
+  display: flex;
+  // justify-content: center;
+
+  h2 {
+    margin-bottom: 8px;
+  }
+  &__poster {
+    @include poster-div(35%)
+    margin-right: 32px
+  }
+  
+  &__text {
+    padding: 12px 0px;
+    width: 65%;
+    box-sizing: border-box;
+    // height: fit-content;
+
+    &__date {
+      font-size: 1.5rem;
+      color: white
+    }
+    &__title {
+      @include font-gradient;
+      font-size: 2.4rem;
+      font-weight: 800;
+    }
+    &__sub {
+      font-weight: 300;
+      opacity: 0.7;
+      margin-bottom: 36px;
+      color: white;
+
+    }
+    p {
+      line-height: 1.6rem;
+      opacity: 0.7;
+      font-weight: 300;
+      // max-height: 30%;
+      overflow: scroll;
+      overflow-x: hidden;
+      @include custom-scroll-bar;
+      color: white;
+
+    }
+  }
+}

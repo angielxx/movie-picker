@@ -1,0 +1,76 @@
+@import './common.scss';
+
+.navbar {
+  height: 100%;
+  width: 245px;
+  box-sizing: border-box;
+  background-color: $bg-color;
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid transparent;
+  position: relative;
+  
+  @include border-right-gradient;
+
+  &__logo {
+    font-family: $logo-font;
+    // font-weight: 800;
+    font-size: 1.8rem;
+    height: 72px;
+    @include font-gradient;
+    font-weight: 500;
+  }
+  &__user {
+    height: 48px;
+    display: flex;
+    align-items: center;
+    margin-bottom: 36px;
+
+    &__profile {
+      width: 48px;
+      height: 48px;
+      border-radius: 24px;
+      background-size: cover;
+      margin-right: 16px;
+    }
+  }
+  a {
+    text-decoration: none;
+    color: white;
+  }
+  &__routers {
+    display: flex;
+    flex-direction: column;
+    a {
+      display: flex;
+      margin-bottom: 24px;
+      align-items: center;
+      img {
+        width: 24px;
+        margin-right: 12px;
+      }
+    }
+  }
+
+  &__logout-container {
+    position: absolute;
+    bottom: 32px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    svg {
+      fill: white;
+      width: 24px;
+      margin-right: 12px;
+    }
+  }
+}
+
+.active {
+  font-weight: 800;
+  color: transparent;
+  background: $gradiant01;
+  -webkit-background-clip: text;
+}

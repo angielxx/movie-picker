@@ -1,0 +1,25 @@
+@import './common.scss';
+
+.searchView {
+  position: relative;
+  width: calc(100% - 245px);
+  height: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.search-result {
+  position: absolute;
+  bottom: 0px;
+  @include custom-scroll-bar;
+  height: 85%;
+  width: 85%;
+  margin-bottom: 16px;
+  box-sizing: border-box;
+  display: flex;
+  flex-wrap: wrap;
+  overflow: scroll;
+  overflow-x: hidden;
+}

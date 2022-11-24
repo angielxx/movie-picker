@@ -1,0 +1,294 @@
+@import './common.scss';
+
+.movie-detail {
+  position: absolute;
+  bottom: 0px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+  height: 85%;
+  overflow: scroll;
+  box-sizing: border-box;
+  @include custom-scroll-bar
+
+  &__container {
+    height: fit-content;
+    width: 100%;
+  }
+}
+
+.wrapper {
+  width: 100%;
+  height: 400px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-size: 120%;
+  background-position: top;
+}
+
+.main-info {
+  height: 330px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  &__poster {
+    @include poster-div(220px);
+    margin-right: 40px;
+    :hover {
+      transform: scale(0);
+      transition: none;
+    }
+  }
+  
+  &__info {
+    width: 40vw;
+    height: 100%;
+    padding: 20px 0px;
+    box-sizing: border-box;
+    position: relative;
+    
+    &__date {
+      margin-bottom: 8px;
+    }
+    &__title {
+      font-size: 2.5rem;
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+    &__subinfo {
+      opacity: 0.7;
+      font-weight: 300;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: flex-start;
+      justify-content: flex-start;
+    }
+    & p {
+      max-height: 55%;
+      overflow: scroll;
+      line-height: 1.4rem;
+      opacity: 0.7;
+      @include custom-scroll-bar;
+      overflow-x: hidden;
+    }
+    &__btns {
+      display: flex;
+      position: absolute;
+      bottom: 0;
+      .addWatched {
+        margin-right: 16px;
+      }
+      .addWatched, .addToWatch {
+        height: 40px;
+        padding: 0px 20px;
+        box-sizing: border-box;
+        border: 1px solid rgba(0, 0, 0, 0.4);
+        background: linear-gradient($container, $container) padding-box, $gradiant01 border-box;
+        border-radius: 24px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 1rem;
+        font-weight: 400;
+        cursor: pointer;
+        margin-bottom: 20px;
+        h3 {
+          color: transparent;
+          background: $gradiant01;
+          -webkit-background-clip: text;
+          opacity: 1;
+        }
+        svg {
+          width: 18px;
+          margin-right: 8px;
+          fill: white;
+          opacity: 0.7;
+        }
+      }
+    }
+  }
+}
+
+.bottom-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+
+  .left {
+    width: 40%;
+    margin-right: 32px;
+  }
+}
+
+.pickedUser {
+  width: 15%;
+  box-sizing: border-box;
+  // padding: 32px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-left: 32px;
+  
+  &__title {
+    height: 80px;
+    width: 100%;
+    display: flex;
+    // justify-content: center;
+    align-items: center;
+    
+    h2 {
+      @include font-gradient;
+      font-weight: 800;
+      margin-bottom: 32px 0;
+      margin-right: 4px;
+      font-size: 1rem
+    }
+    
+    span {
+      @include font-gradient;
+      font-weight: 500;
+      font-size: 1rem;
+      position: relative;
+      bottom: -1px;
+    }
+  }
+  
+  &__window {
+    width: 100%;
+    height: calc(74px * 10);
+    display: flex;
+    flex-direction: column;
+    overflow: scroll;
+    overflow-x: hidden;
+    @include custom-scroll-bar;
+    // padding: 16px;
+
+    &__list {
+    }
+  }
+}
+
+.link {
+  display: flex;
+  height: 80px;
+  justify-content: center;
+  align-items: center;
+  &__button {
+    cursor: pointer;
+    width: auto;
+    height: 36px;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    justify-content: center;
+    align-items: center;
+    padding: 0px 4px;
+    font-weight: 700;
+    opacity: 0.7;
+    position: relative;
+    &:nth-of-type(1) {
+      margin-right: 16px;
+    } 
+    &__line {
+      position: absolute;
+      bottom: 0px;
+      height: 2px;
+      width: 100%;
+      background-color: transparent;
+    }
+  }
+}
+
+.active {
+  opacity: 1;
+  font-weight: 700;
+  color: transparent;
+  background: $gradiant01;
+  -webkit-background-clip: text;
+  // border-bottom: 2px solid transparent;
+  // background: linear-gradient($bg-color, $bg-color) padding-box, $gradiant01 border-box;
+} 
+
+.active-line {
+  background: $gradiant01 !important;
+}
+
+.area {
+  width: 100%;
+  // margin: 0px auto;
+  display: flex;
+  justify-content: center;
+  padding-top: 24px;
+
+  &__reviews {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+
+    &__my-review {
+      margin-bottom: 32px;
+      width: 100%;
+      
+      .my-review {
+        margin-bottom: 36px;
+      }
+      .review-form {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        width: 100%;
+        height: fit-content;
+        border-radius: 10px;
+        margin-bottom: 36px;
+        textarea {
+          color: white;
+          width: 100%;
+          min-height: 120px;
+          box-sizing: border-box;
+          border-radius: 20px;
+          font-size: 1rem;
+          resize: none;
+          padding: 0;
+          padding: 16px;
+          border: 1px solid rgba(0, 0, 0, 0.4);
+          background: linear-gradient($bg-color, $bg-color) padding-box, $gradiant01 border-box;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          &::placeholder {
+            font-family: $content-font;
+          }
+        }
+        input[type="submit"] {
+          width: 20%;
+          height: 36px;
+          border: 1px solid rgba(0, 0, 0, 0.4);
+          background: linear-gradient($container, $container) padding-box, $gradiant01 border-box;
+          border-radius: 20px;
+          color: white;
+        }
+      }
+    }
+    
+    &__recommends {
+      width: 100%;
+      display: flex;
+      flex-wrap: wrap;
+    }
+  }
+
+}
+
+.heading {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: transparent;
+  background: $gradiant01;
+  -webkit-background-clip: text;
+  margin-bottom: 28px;
+}

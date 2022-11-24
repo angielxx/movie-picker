@@ -1,0 +1,116 @@
+import Vue from 'vue'
+import VueRouter from 'vue-router'
+import store from '../store'
+
+Vue.use(VueRouter)
+
+const routes = [
+  {
+    path: '/',
+    name: 'home',
+    component: () => import('../views/HomeView.vue'),
+  },
+  {
+    path: '/login',
+    name: 'login',
+    component: () => import('../views/LoginView.vue'),
+    beforeEnter: (to, from, next) => {
+      const isLoggedIn = store.getters.isLoggedIn
+
+      if (isLoggedIn === true) {
+        // console.log('이미 로그인')
+        next({ name: 'home' })
+      } else {
+        next()
+      }
+    }
+  },
+  {
+    path: '/signup',
+    name: 'signup',
+    component: () => import('../views/SignupView.vue')
+  },
+  {
+    path: '/first-addMovie',
+    name: 'first-addMovie',
+    component: () => import('../views/FirstAddMovieView.vue')
+  },
+  {
+    path: '/addMovie',
+    name: 'addMovie',
+    component: () => import('../views/AddMovieView.vue')
+  },
+  {
+    path: '/search',
+    name: 'search',
+    component: () => import('../views/SearchView.vue')
+  },
+  {
+    path: '/userSearch',
+    name: 'userSearch',
+    component: () => import('../views/UserSearchView.vue')
+  },
+  {
+    path: '/movie/:movieId',
+    name: 'movieDetail',
+    component: () => import('../views/MovieDetail.vue')
+  },
+  {
+    path: '/game',
+    name: 'game',
+    component: () => import('../views/GameView.vue')
+  },
+  {
+    path: '/reviewCreate/:movieId',
+    name: 'reviewCreate',
+    component: () => import('../views/ReviewCreateView.vue')
+  },
+  {
+    path: '/user/:userId',
+    name: 'userDetail',
+    component: () => import('../views/UserDetailView.vue')
+  },
+  {
+    path: '/feed/',
+    name: 'feed',
+    component: () => import('../views/FeedView.vue')
+  },
+  {
+    path: '/404',
+    name: 'NotFound404',
+    component: () => import('../views/NotFound404.vue')
+  },
+  {
+    path: '*',
+    redirect: '/404'
+  },
+  // {
+  //   path: '/browse',
+  //   name: 'browse',
+  //   component: () => import('../views/BrowseView.vue')
+  // },
+
+]
+
+const router = new VueRouter({
+  mode: 'history',
+  base: process.env.BASE_URL,
+  routes
+})
+
+router.beforeEach((to, from, next) => {
+  const isLoggedIn = store.getters.isLoggedIn
+
+  const allowAllPages = ['login', 'signup', 'NotFound404']
+
+  //이동할 페이지(to)가 로그인이 필요한 사이트인지 확인
+  const isAuthRequired = !allowAllPages.includes(to.name)
+
+  if (isAuthRequired && !isLoggedIn) {
+    next({ name: 'login' })
+  } else {
+    next()
+  }
+})
+
+export default router

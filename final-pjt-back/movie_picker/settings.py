@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 from pathlib import Path
+import accounts
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -39,6 +40,9 @@ INSTALLED_APPS = [
     # drf
     'rest_framework',
 
+    # drf-spectacular
+    'drf_spectacular',
+
     # CORS policy
     "corsheaders",
 
@@ -59,17 +63,78 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    # other third party apps
+    'django_extensions'
 ]
 
 MIDDLEWARE = [
+    # cors headers
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+        "corsheaders.middleware.CorsMiddleware",
+
+
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+
+# 프론트 오리진 허용
+CORS_ALLOWED_ORIGINS = [
+    'http://localhost:8080',
+    'http://localhost:8081',
+    'http://192.168.0.10:8080',
+]
+# CORS_ALLOW_ALL_ORIGINS = True
+
+# 사이트 아이디 등록
+SITE_ID = 1
+
+# 이메일 미사용
+ACCOUNT_EMAIL_VERIFICATION = 'none'
+
+REST_FRAMEWORK = {
+    # 토큰 인증방식 사용
+    # Authentication
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+    ],
+
+    # 모든 요청 허용
+    # permission
+    'DEFAULT_PERMISSION_CLASSES': [
+    # 'rest_framework.permissions.IsAuthenticated',
+    'rest_framework.permissions.AllowAny',
+    ],
+
+    # spectacular Settings
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+}
+
+# 프로필 수정을 위한 dj-rest-auth의 userdetail 시리얼라이저 별도 설정
+REST_AUTH_SERIALIZERS = {
+    'USER_DETAILS_SERIALIZER': 'accounts.serializers.CustomUserSerializer'
+}
+
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'SSAFY Final PJT API',
+    'DESCRIPTION': '유선준 & 이은지 SSAFY 최종 PJT(Movie Picker)의 API문서입니다.' ,
+    'VERSION': '1.0.0',
+    'SERVE_INCLUDE_SCHEMA': False,
+
+    # OTHER SETTINGS
+    "SWAGGER_UI_SETTINGS": {
+        "deepLinking": True,  
+        "persistAuthorization": True,  
+        "displayOperationId": True, 
+        "filter": True,  
+        "docExpansion": "none",  
+    },
+}
 
 ROOT_URLCONF = 'movie_picker.urls'
 
@@ -140,6 +205,13 @@ USE_TZ = False
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
+MEDIA_URL = '/images/'
+
+STATICFILES_DIRS = [
+    BASE_DIR / "static",
+]
+
+MEDIA_ROOT = BASE_DIR / "static/images"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
@@ -147,3 +219,4 @@ STATIC_URL = '/static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'accounts.User'
+

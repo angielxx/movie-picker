@@ -9,7 +9,7 @@
         </div>
         <div class="modal__box__content">
           <input type="file" ref="avatarImage" @change="uploadAvatar">
-          <button type="submit" @click.prevent="closeModal('avatar'), submitAvatar">제출</button>
+          <button type="submit" @click.prevent="submitAvatar">제출</button>
         </div>
       </div>
     </div>
@@ -37,7 +37,7 @@
       </div>
     </div>
     <!-- end : modal -->
-    
+
     <div class="header">
       <div class="user-info">
         <div class="user-info__img" :style="`background-image: url(${this.$store.state.API_URL}${this.avatar})`">
@@ -53,17 +53,18 @@
         </div>
           <div class="user-info__main">
             <div class="user-info__main__top">
-              <h1 class="user-info__main__top__username">{{ this.username }}</h1>
-              <svg v-if="this.user_pk == this.$store.state.user_pk" @click="showModal('message')" width="266" height="266" viewBox="0 0 266 266" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M188.636 9.75106L163.463 34.9218L231.075 102.529L256.248 77.3584C269.251 64.357 269.251 43.2947 256.248 30.2933L235.756 9.75106C222.754 -3.25035 201.69 -3.25035 188.688 9.75106H188.636ZM151.709 46.6751L30.4741 167.952C25.0651 173.361 21.1123 180.07 18.9279 187.402L0.516492 249.965C-0.78375 254.386 0.412473 259.118 3.63707 262.343C6.86168 265.567 11.5946 266.763 15.9634 265.515L78.531 247.105C85.8644 244.921 92.5737 240.968 97.9827 235.56L219.321 114.282L151.709 46.6751Z" fill="url(#paint0_radial_263_144)"/>
-                <defs>
-                <radialGradient id="paint0_radial_263_144" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(78.0479 80.4371) rotate(46.8745) scale(309.896)">
-                <stop stop-color="#FFB3F3"/>
-                <stop offset="1" stop-color="#BA63FF"/>
-                </radialGradient>
-                </defs>
-              </svg>
-              <div v-else class="follow" @click="follow">
+              <h1 class="user-info__main__top__username">{{ this.username }}
+                <svg v-if="this.user_pk == this.$store.state.user_pk" @click="showModal('message')" width="266" height="266" viewBox="0 0 266 266" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M188.636 9.75106L163.463 34.9218L231.075 102.529L256.248 77.3584C269.251 64.357 269.251 43.2947 256.248 30.2933L235.756 9.75106C222.754 -3.25035 201.69 -3.25035 188.688 9.75106H188.636ZM151.709 46.6751L30.4741 167.952C25.0651 173.361 21.1123 180.07 18.9279 187.402L0.516492 249.965C-0.78375 254.386 0.412473 259.118 3.63707 262.343C6.86168 265.567 11.5946 266.763 15.9634 265.515L78.531 247.105C85.8644 244.921 92.5737 240.968 97.9827 235.56L219.321 114.282L151.709 46.6751Z" fill="url(#paint0_radial_263_144)"/>
+                  <defs>
+                  <radialGradient id="paint0_radial_263_144" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(78.0479 80.4371) rotate(46.8745) scale(309.896)">
+                  <stop stop-color="#FFB3F3"/>
+                  <stop offset="1" stop-color="#BA63FF"/>
+                  </radialGradient>
+                  </defs>
+                </svg>
+              </h1>
+              <div v-if="this.user_pk !== this.$store.state.user_pk" class="follow" @click="follow($event)">
                 <!-- icon check gradient -->
                 <svg  v-if="checkFollow" width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M470.6 105.4C483.1 117.9 483.1 138.2 470.6 150.7L214.6 406.7C202.1 419.2 181.8 419.2 169.3 406.7L41.3 278.7C28.8 266.2 28.8 245.9 41.3 233.4C53.8 220.9 74.1 220.9 86.6 233.4L192 338.7L425.4 105.4C437.9 92.8999 458.2 92.8999 470.7 105.4H470.6Z" fill="url(#paint0_radial_241_126)"/>
@@ -78,8 +79,8 @@
                 <svg v-else width="448" height="512" viewBox="0 0 448 512" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M256 80C256 62.3 241.7 48 224 48C206.3 48 192 62.3 192 80V224H48C30.3 224 16 238.3 16 256C16 273.7 30.3 288 48 288H192V432C192 449.7 206.3 464 224 464C241.7 464 256 449.7 256 432V288H400C417.7 288 432 273.7 432 256C432 238.3 417.7 224 400 224H256V80Z" fill="white"/>
                 </svg>
-                <h2 v-if="checkFollow" class="follow__text">언팔로우</h2>
-                <h2 v-else class="follow__text">팔로우</h2>
+                <h2 v-if="checkFollow" data-follow="unfollow" class="follow__text">언팔로우</h2>
+                <h2 v-else data-follow="follow" class="follow__text">팔로우</h2>
               </div>
             </div>
             <h1 v-if="this.message" class="user-info__main__message" id="message">{{ this.message }}</h1>
@@ -177,6 +178,13 @@ export default {
       if (this.$store.state.followings.includes(Number(this.user_pk))) return true
       return false
     },
+  },
+
+  beforeRouteUpdate(to, from, next) {
+    this.user_pk = to.params.userId
+    next()
+    // 강제 새로고침 하는 방법으로 임시로 해결
+    this.$router.go()
   },
 
   created() {
@@ -343,6 +351,7 @@ export default {
         .then(() => {
           this.$store.dispatch('getUser')
         })
+        .then(() => this.closeModal('avatar'))
         .catch((err) => console.log(err))
     },
 
@@ -407,9 +416,14 @@ export default {
     },
 
     // follow 요청
-    follow() {
+    follow(event) {
       const payload = { userId: this.user_pk}
       this.$store.dispatch('follow', payload);
+      if (event.currentTarget.querySelector('h2').dataset.follow === 'follow') {
+        this.followers++;
+      } else {
+        this.followers--;
+      }
     },
   },
 };

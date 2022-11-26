@@ -60,7 +60,7 @@ export default {
 
   methods: {
     goUserDetail() {
-      this.$router.push({ name: 'userDetail', params: { userId: this.review.id }})
+      this.$router.push({ name: 'userDetail', params: { userId: this.review.author }})
     },
     showBtns() {
       document.querySelector('#btns').classList.toggle('hidden')
